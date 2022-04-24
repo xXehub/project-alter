@@ -6,7 +6,7 @@ const ms = require("ms");
 var {
     MessageEmbed, Permissions
 } = require(`discord.js`);
-const { databasing, delay } = require(`./functions`)
+const { databasing, delay } = require(`${process.cwd()}/handlers/functions`)
 const countermap = new Map()
 const messagesmap = new Map()
 module.exports = client => {
@@ -223,7 +223,7 @@ module.exports = client => {
                               .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
                               .setFooter(client.getFooter(es))
                               .setTitle(`Could not kick ${member.user.tag} using a Selfbot`)
-                              .setDescription(`\`\`\`${String(e.message ? e.message : e).substring(0, 2000)}\`\`\``)
+                              .setDescription(`\`\`\`${String(e.message ? e.message : e).substr(0, 2000)}\`\`\``)
                             ]}).catch(() => {});
                           })
                         } else {
@@ -248,7 +248,7 @@ module.exports = client => {
                               .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
                               .setFooter(client.getFooter(es))
                               .setTitle(`Could not ban ${member.user.tag} using a Selfbot`)
-                              .setDescription(`\`\`\`${String(e.message ? e.message : e).substring(0, 2000)}\`\`\``)
+                              .setDescription(`\`\`\`${String(e.message ? e.message : e).substr(0, 2000)}\`\`\``)
                             ]}).catch(() => {});
                           })
                         } else {

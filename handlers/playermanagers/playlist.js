@@ -69,12 +69,12 @@ async function playlist(client, message, args, type, slashCommand = false) {
       if(slashCommand)
         return slashCommand.reply({ephemeral: true, embeds: [new MessageEmbed()
           .setColor(ee.wrongcolor)
-          .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+          .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
           .setDescription(eval(client.la[ls]["handlers"]["playermanagers"]["playlist"]["variable3"]))
         ]}).catch(() => {})
       return message.reply({embeds: [new MessageEmbed()
         .setColor(ee.wrongcolor)
-        .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+        .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
         .setDescription(eval(client.la[ls]["handlers"]["playermanagers"]["playlist"]["variable3"]))
       ]}).catch(() => {}).then(msg => {
         setTimeout(()=>{
@@ -136,11 +136,11 @@ async function playlist(client, message, args, type, slashCommand = false) {
     if(slashCommand)
     return slashCommand.reply({ephemeral: true, embeds: [new MessageEmbed()
       .setColor(ee.wrongcolor)
-      .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+      .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
     ]}).catch(() => {})
     message.reply({embeds: [new MessageEmbed()
       .setColor(ee.wrongcolor)
-      .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+      .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
     ]}).catch(() => {}).then(msg => {
       setTimeout(()=>{
         msg.delete().catch(() => {})

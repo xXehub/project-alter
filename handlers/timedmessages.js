@@ -53,10 +53,10 @@ module.exports = client => {
                             .setColor(es.color)
                             .setFooter(client.getFooter(es))
                             .setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
-                            .setDescription(msg.content.substring(0, 2000))
+                            .setDescription(msg.content.substr(0, 2000))
                         ]}).catch((e) => { console.log(e) })
                     } else {
-                        channel.send({content : msg.content.substring(0, 2000)}).catch(() => {})
+                        channel.send({content : msg.content.substr(0, 2000)}).catch(() => {})
                     }
                 }
             }

@@ -69,10 +69,10 @@ async function similar(client, message, args, type, slashCommand) {
 
       var results = res.tracks
         .slice(0, max)
-        .map((track, index) => `**${++index})** [\`${String(track.title).substring(0, 60).split("[").join("{").split("]").join("}")}\`](${track.uri}) - \`${format(track.duration).split(" | ")[0]}\``)
+        .map((track, index) => `**${++index})** [\`${String(track.title).substr(0, 60).split("[").join("{").split("]").join("}")}\`](${track.uri}) - \`${format(track.duration).split(" | ")[0]}\``)
         .join('\n');
       var searchembed = new MessageEmbed()
-        .setTitle(`Search result for: 🔎 **\`${player.queue.current.title}`.substring(0, 256 - 3) + "`**")
+        .setTitle(`Search result for: 🔎 **\`${player.queue.current.title}`.substr(0, 256 - 3) + "`**")
         .setColor(ee.color)
         .setDescription(results)
         .setFooter(client.getFooter(`Search-Request by: ${track.requester.tag}`, track.requester.displayAvatarURL({
@@ -114,7 +114,7 @@ async function similar(client, message, args, type, slashCommand) {
       if (!track)
         return message.reply({embeds: [new MessageEmbed()
           .setColor(ee.wrongcolor)
-          .setTitle(String("❌ Error | Found nothing for: **`" + player.queue.current.title).substring(0, 256 - 3) + "`**")
+          .setTitle(String("❌ Error | Found nothing for: **`" + player.queue.current.title).substr(0, 256 - 3) + "`**")
           .setDescription(eval(client.la[ls]["handlers"]["playermanagers"]["similar"]["variable7"]))
         ]}).then(msg => {
           setTimeout(()=>{
@@ -164,7 +164,7 @@ async function similar(client, message, args, type, slashCommand) {
     console.log(e.stack ? String(e.stack).grey : String(e).grey)
     return message.reply({embeds: [new MessageEmbed()
       .setColor(ee.wrongcolor)
-      .setTitle(String("❌ Error | Found nothing for: **`" + player.queue.current.title).substring(0, 256 - 3) + "`**")
+      .setTitle(String("❌ Error | Found nothing for: **`" + player.queue.current.title).substr(0, 256 - 3) + "`**")
     ]}).then(msg => {
       setTimeout(()=>{
         msg.delete().catch(() => {})

@@ -77,12 +77,12 @@ async function skiptrack(client, message, args, type, slashCommand) {
       if(slashCommand)
         return slashCommand.reply({ephemeral: true, embeds: [new MessageEmbed()
           .setColor(ee.wrongcolor)
-          .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+          .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
           .setDescription(eval(client.la[ls]["handlers"]["playermanagers"]["skiptrack"]["variable3"]))
         ]})
       return message.reply({embeds: [new MessageEmbed()
         .setColor(ee.wrongcolor)
-        .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+        .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
         .setDescription(eval(client.la[ls]["handlers"]["playermanagers"]["skiptrack"]["variable3"]))
       ]}).then(msg => {
         setTimeout(()=>{
@@ -142,11 +142,11 @@ async function skiptrack(client, message, args, type, slashCommand) {
     if(slashCommand)
       return slashCommand.reply({ephemeral: true, embeds: [new MessageEmbed()
         .setColor(ee.wrongcolor)
-        .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+        .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
       ]})
     return message.reply({embeds: [new MessageEmbed()
       .setColor(ee.wrongcolor)
-      .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+      .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
     ]}).then(msg => {
       setTimeout(()=>{
         msg.delete().catch(() => {})

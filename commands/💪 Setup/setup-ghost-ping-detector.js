@@ -55,9 +55,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -151,7 +151,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admincmdlog"]["variable7"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
             })
@@ -175,7 +175,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle("Settings of the Ghost-Ping-Detector-Log")
                 .setColor(es.color)
-                .setDescription(`**Channel:** ${ghost_ping_detector == false ? "Not Setupped" : `<#${ghost_ping_detector}> | \`${ghost_ping_detector}\``}\n\n**Max-Time-For-Detection:** \`${Math.floor(ghost_ping_detector_max_time / 1000)} Seconds\``.substring(0, 2048))
+                .setDescription(`**Channel:** ${ghost_ping_detector == false ? "Not Setupped" : `<#${ghost_ping_detector}> | \`${ghost_ping_detector}\``}\n\n**Max-Time-For-Detection:** \`${Math.floor(ghost_ping_detector_max_time / 1000)} Seconds\``.substr(0, 2048))
                 .setFooter(client.getFooter(es))
               ]});
             }

@@ -179,7 +179,7 @@ module.exports = async client => {
             channel.send({embeds: [
                 new MessageEmbed()
                 .setFooter(client.getFooter("ID:" + message.author.id, message.member.displayAvatarURL({dynamic: true})))
-                .setColor("ORANGE").setTitle("GHOST-PING-DETECTED").setDescription(`**Message-Author:**\n> ${message.author} | ${message.author.tag} (\`${message.author.id}\`)\n**Channel:**\n> ${message.channel} | ${message.channel.name} (\`${message.channel.id}\`)\n**Time-for-Deletion:**\n> \`${Math.floor((Date.now() - messageIds.get(message.id)) / 1000)} Seconds\`\n\n**[${message.mentions.users.size}] Ping${message.mentions.users.size == 1 ? "" : "s"}:**\n> ${message.mentions.users.map(p => `${p}`).join(", ")}`.substring(0, 2048)).setTimestamp()
+                .setColor("ORANGE").setTitle("GHOST-PING-DETECTED").setDescription(`**Message-Author:**\n> ${message.author} | ${message.author.tag} (\`${message.author.id}\`)\n**Channel:**\n> ${message.channel} | ${message.channel.name} (\`${message.channel.id}\`)\n**Time-for-Deletion:**\n> \`${Math.floor((Date.now() - messageIds.get(message.id)) / 1000)} Seconds\`\n\n**[${message.mentions.users.size}] Ping${message.mentions.users.size == 1 ? "" : "s"}:**\n> ${message.mentions.users.map(p => `${p}`).join(", ")}`.substr(0, 2048)).setTimestamp()
             ]}).catch(console.log);
             if(messageIds.has(message.id)){
                 messageIds.delete(message.id);

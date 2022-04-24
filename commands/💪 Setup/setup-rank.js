@@ -68,9 +68,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -149,7 +149,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-rank"]["variable10"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]});
               })
@@ -267,7 +267,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-rank"]["variable10"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))
               ]});
             })
@@ -290,7 +290,7 @@ module.exports = {
               .setTitle("Settings of the Ranking System")
               .setColor(es.color)
               .addField("**Levelup-Message**", `> Disabled: ${!disabled ? "NO (ACTIVE)" : "Yes (DISABLED)"}\n> **Reply in ${channel ? `<#${channel}>`: "the same Channel"}**`)
-              .setDescription(`**Level up Roles:**\n>>> ${rankroles.length > 0 ? rankroles.join("\n") : "\`NONE\`"}`.substring(0, 2000))
+              .setDescription(`**Level up Roles:**\n>>> ${rankroles.length > 0 ? rankroles.join("\n") : "\`NONE\`"}`.substr(0, 2000))
               .setFooter(client.getFooter(es))
             ]});
           }break;

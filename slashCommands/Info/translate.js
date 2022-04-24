@@ -31,7 +31,7 @@ module.exports = {
           let embed = new MessageEmbed()
           .setColor(RED)
           .setTitle(client.la[ls].common.erroroccur)
-          .setDescription(String("```"+err.stack+"```").substring(0, 2000))
+          .setDescription(String("```"+err.stack+"```").substr(0, 2000))
           interaction?.reply({ephemeral: true, embeds: [embed]})
             console.log(err);
       });

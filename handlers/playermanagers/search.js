@@ -70,12 +70,12 @@ async function search(client, message, args, type, slashCommand) {
     track = res.tracks[0]
     var theresults = res.tracks
       .slice(0, max)
-    var results = theresults.map((track, index) => `**${++index})** [\`${String(track.title).substring(0, 60).split("[").join("{").split("]").join("}")}\`](${track.uri}) - \`${format(track.duration).split(" | ")[0]}\``)
+    var results = theresults.map((track, index) => `**${++index})** [\`${String(track.title).substr(0, 60).split("[").join("{").split("]").join("}")}\`](${track.uri}) - \`${format(track.duration).split(" | ")[0]}\``)
       .join('\n');
     let toreact;
     if(slashCommand)
       toreact = await message.channel.send({embeds: [new MessageEmbed()
-        .setTitle(`Search-Result for: 🔎 **\`${search}`.substring(0, 256 - 3) + "`**")
+        .setTitle(`Search-Result for: 🔎 **\`${search}`.substr(0, 256 - 3) + "`**")
         .setColor(ee.color)
         .setDescription(results)
         .setFooter(client.getFooter(`Search-Request by: ${track.requester.tag}`, track.requester.displayAvatarURL({
@@ -83,7 +83,7 @@ async function search(client, message, args, type, slashCommand) {
         })))
       ]}).catch(() => {});
     else toreact = await message.reply({embeds: [new MessageEmbed()
-      .setTitle(`Search-Result for: 🔎 **\`${search}`.substring(0, 256 - 3) + "`**")
+      .setTitle(`Search-Result for: 🔎 **\`${search}`.substr(0, 256 - 3) + "`**")
       .setColor(ee.color)
       .setDescription(results)
       .setFooter(client.getFooter((`Search-Request by: ${track.requester.tag}`, track.requester.displayAvatarURL({
@@ -136,12 +136,12 @@ async function search(client, message, args, type, slashCommand) {
 
     var index = emojiarray.findIndex(emoji => emoji == first) - 1;
 
-    var pickedresults = theresults.map((track, ii) => `${index == ii ? "" : "~~"}**${++ii})** [\`${String(track.title).substring(0, 60).split("[").join("{").split("]").join("}")}\`](${track.uri}) - \`${format(track.duration).split(" | ")[0]}\`${index == ii ? "" : "~~"}`)
+    var pickedresults = theresults.map((track, ii) => `${index == ii ? "" : "~~"}**${++ii})** [\`${String(track.title).substr(0, 60).split("[").join("{").split("]").join("}")}\`](${track.uri}) - \`${format(track.duration).split(" | ")[0]}\`${index == ii ? "" : "~~"}`)
       .join('\n');
 
     toreact.edit({
       embeds: [new MessageEmbed()
-        .setTitle(`Search-Result-PICKED for: 🔎 **\`${search}`.substring(0, 256 - 3) + "`**")
+        .setTitle(`Search-Result-PICKED for: 🔎 **\`${search}`.substr(0, 256 - 3) + "`**")
         .setColor(ee.color)
         .setDescription(pickedresults)
         .setFooter(client.getFooter(`Search-Request by: ${track.requester.tag}`, track.requester.displayAvatarURL({
@@ -205,11 +205,11 @@ async function search(client, message, args, type, slashCommand) {
     if(slashCommand)
     return slashCommand.reply({ephemeral: true,embeds: [new MessageEmbed()
       .setColor(ee.wrongcolor)
-      .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+      .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
     ]}).catch(() => {});
     message.reply({embeds: [new MessageEmbed()
       .setColor(ee.wrongcolor)
-      .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+      .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
     ]}).catch(() => {}).then(msg => {
       setTimeout(()=>{
         msg.delete().catch(() => {})

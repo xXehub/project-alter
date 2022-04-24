@@ -10,13 +10,11 @@ const {
   check_voice_channels,
   check_created_voice_channels,
   create_join_to_create_Channel
-} = require(`./functions`);
+} = require(`${process.cwd()}/handlers/functions`);
 var CronJob = require('cron').CronJob;
 
 
 module.exports = function (client) {
-
-  const maxJoinToCreate = 100;
 
   client.JobJointocreate = new CronJob('0 * * * * *', function() {
     check_voice_channels(client)
@@ -35,22 +33,38 @@ module.exports = function (client) {
   client.on("voiceStateUpdate", (oldState, newState) => {
     // JOINED A CHANNEL
     if (!oldState.channelId && newState.channelId) {
-      let index = false;
-      if (!index) {
-        for (let i = 1; i <= maxJoinToCreate; i++) {
-          const d = client.jtcsettings
-          var pre = `jtcsettings${i}`;
-          if (d?.has(newState.guild.id) && d?.has(newState.guild.id, pre) && d?.get(newState.guild.id, pre+".channel").includes(newState.channelId)) index = i;
+      let channels = [];
+      for(let i = 1; i <= 25; i++){
+        client[`jtcsettings${i && i != 1 ? i : ""}`].ensure(newState.guild.id, {
+          channel: "",
+          channelname: "{user}' Lounge",
+          guild: newState.guild.id,
+        });
+        let thechannel = client[`jtcsettings${i && i != 1 ? i : ""}`].get(newState.guild.id)
+        channels.push(thechannel.channel)
+      }
+      for (let i = 0; i < channels.length; i++) {
+        if (channels[i].length > 0 && channels[i] == newState.channelId) {
+          create_join_to_create_Channel(client, newState, i + 1);
+          break;
         }
       }
-      if (!index) {
-        return // console.log("No valid database for this jtc channel found...");
-      }
-      return create_join_to_create_Channel(client, newState, index);
+      return;
     }
     // LEFT A CHANNEL
     if (oldState.channelId && !newState.channelId) {
-      if (client.jointocreatemap.has(`tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`) && oldState.guild.channels.cache.has(client.jointocreatemap.get(`tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`))) {
+      let channels = [];
+      for(let i = 1; i <= 25; i++){
+        let thedb = client[`jtcsettings${i && i != 1 ? i : ""}`];
+        thedb?.ensure(oldState.guild.id, {
+          channel: "",
+          channelname: "{user}' Lounge",
+          guild: oldState.guild.id,
+        });
+        channels.push(thedb?.get(oldState.guild.id, `channel`))
+      }
+      client.jointocreatemap.ensure(`tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`, false)
+      if (client.jointocreatemap.get(`tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`)) {
         //CHANNEL DELETE CHECK
         var vc = oldState.guild.channels.cache.get(client.jointocreatemap.get(`tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`));
         if (vc.members.size < 1) {
@@ -96,20 +110,26 @@ module.exports = function (client) {
     // Switch A CHANNEL
     if (oldState.channelId && newState.channelId) {
       if (oldState.channelId !== newState.channelId) {
-        let index = false;
-        if (!index) {
-          for (let i = 1; i <= maxJoinToCreate; i++) {
-            const d = client.jtcsettings
-            var pre = `jtcsettings${i}`;
-            if (d?.has(newState.guild.id) && d?.has(newState.guild.id, pre) && d?.get(newState.guild.id, pre+".channel").includes(newState.channelId)) index = i;
+        let channels = [];
+        for(let i = 1; i <= 25; i++){
+          let thedb = client[`jtcsettings${i && i != 1 ? i : ""}`];
+          thedb?.ensure(newState.guild.id, {
+            channel: "",
+            channelname: "{user}' Lounge",
+            guild: newState.guild.id,
+          });
+          channels.push(thedb?.get(newState.guild.id, `channel`))
+        }
+        for (let i = 0; i < channels.length; i++) {
+          if (channels[i].length > 2 && channels[i] == newState.channelId) {
+            create_join_to_create_Channel(client, newState, i + 1);
+            break;
           }
         }
-        if (index) {
-          create_join_to_create_Channel(client, newState, index);
-        }
-        
+        //ENSURE THE DB
+        client.jointocreatemap.ensure(`tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`, false)
         //IF STATEMENT
-        if (client.jointocreatemap.has(`tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`) && oldState.guild.channels.cache.has(client.jointocreatemap.get(`tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`))) {
+        if (client.jointocreatemap.get(`tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`)) {
           var vc = oldState.guild.channels.cache.get(client.jointocreatemap.get(`tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`));
           if (vc.members.size < 1) {
             client.jointocreatemap.delete(`tempvoicechannel_${oldState.guild.id}_${oldState.channelId}`);
@@ -130,7 +150,7 @@ module.exports = function (client) {
                 MANAGE_ROLES: true
               }).catch(() => {})
             }
-            //delete the old owner perms
+            //delete the old owner
             vc.permissionOverwrites.delete(oldState.id).catch(() => {})
             try {
               let es = client.settings.get(vc.guild.id, "embed")
@@ -150,6 +170,10 @@ module.exports = function (client) {
       }
     }
   })
+
+
+
+
 }
 
 /**

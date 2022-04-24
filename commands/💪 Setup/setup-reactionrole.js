@@ -191,7 +191,7 @@ module.exports = {
               time: 120000,
               errors: ["TIME"]
             }).then(collected => {
-              var title = String(collected.first().content).substring(0, 256);
+              var title = String(collected.first().content).substr(0, 256);
 
               message.reply({embeds: [new MessageEmbed()
                 .setColor(es.color)
@@ -208,7 +208,7 @@ module.exports = {
                   if (collected.first().mentions.channels.filter(ch=>ch.guild.id==message.guild.id).first()) {
 
                     var channel = collected.first().mentions.channels.filter(ch=>ch.guild.id==message.guild.id).first();
-                    var embed = new MessageEmbed().setColor(es.color).setTitle(title.substring(0, 256)).setFooter(message.guild.name, message.guild.iconURL({
+                    var embed = new MessageEmbed().setColor(es.color).setTitle(title.substr(0, 256)).setFooter(message.guild.name, message.guild.iconURL({
                       dynamic: true
                     }))
                     var buffer = "";

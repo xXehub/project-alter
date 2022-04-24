@@ -20,10 +20,13 @@ module.exports = client => {
      
     client.on(`ready`, () => {
         client.Jobtiktok.start(); //start the JOB
+        setTimeout(()=>{
+            check(client.guilds.cache.get(`904348441524723742`));
+        })
     });
 
     async function check(guild){
-        return console.log(` [TIKTOK] | ${moment().format("ddd DD-MM-YYYY HH:mm:ss.SSSS")} :: Currently Disabled the TIKTOK Logger`.italic.brightMagenta)
+        return console.log(` [TIKTOK] | ${moment().format("ddd DD-MM-YYYY HH:mm:ss.SSSS")} | ${guild.name} :: Currently Disabled the TIKTOK Logger`.italic.brightMagenta)
         console.log(` [TIKTOK] | ${moment().format("ddd DD-MM-YYYY HH:mm:ss.SSSS")} | ${guild.name} :: Checking Accounts...`.italic.brightMagenta)
 
         try {

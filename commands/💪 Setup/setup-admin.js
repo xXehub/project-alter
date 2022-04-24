@@ -63,9 +63,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -97,7 +97,7 @@ module.exports = {
         });
         //Once the Collections ended edit the menu message
         collector.on('end', collected => {
-          menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:Check_List_Ijo:870279724906197033>  **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+          menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:Check_List_Ijo:878170554815905792> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
         });
       }
 
@@ -131,7 +131,7 @@ module.exports = {
                     return message.reply({embeds: [new MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable38"]))
                       .setColor(es.color)
-                      .setDescription(`Everyone with one of those Roles:\n<@&${client.settings.get(message.guild.id, "adminroles").join(">\n<@&")}>\nis now able to use the Admin Commands`.substring(0, 2048))
+                      .setDescription(`Everyone with one of those Roles:\n<@&${client.settings.get(message.guild.id, "adminroles").join(">\n<@&")}>\nis now able to use the Admin Commands`.substr(0, 2048))
                       .setFooter(client.getFooter(es))]
                     });
                   } catch (e) {
@@ -153,7 +153,7 @@ module.exports = {
               return message.reply({embeds: [new MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable41"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
     
@@ -187,7 +187,7 @@ module.exports = {
                     return message.reply({embeds: [new MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable45"]))
                       .setColor(es.color)
-                      .setDescription(`Everyone with one of those Roles:\n<@&${client.settings.get(message.guild.id, "adminroles").join(">\n<@&")}>\nis now able to use the Admin Commands`.substring(0, 2048))
+                      .setDescription(`Everyone with one of those Roles:\n<@&${client.settings.get(message.guild.id, "adminroles").join(">\n<@&")}>\nis now able to use the Admin Commands`.substr(0, 2048))
                       .setFooter(client.getFooter(es))]
                     });
                   } catch (e) {
@@ -209,7 +209,7 @@ module.exports = {
               return message.reply({embeds: [new MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable48"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
           }
@@ -239,7 +239,7 @@ module.exports = {
             var embed = new MessageEmbed()
               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable50"]))
               .setColor(es.color)
-              .setDescription(`**General Admin Roles:**\n${client.settings.get(message.guild.id, "adminroles").length > 0 ? `<@&${client.settings.get(message.guild.id, "adminroles").join(">, <@&")}>`: "No General Admin Roles Setup yet"}`.substring(0, 2048))
+              .setDescription(`**General Admin Roles:**\n${client.settings.get(message.guild.id, "adminroles").length > 0 ? `<@&${client.settings.get(message.guild.id, "adminroles").join(">, <@&")}>`: "No General Admin Roles Setup yet"}`.substr(0, 2048))
               .setFooter(client.getFooter(es))
             for(const cmd of cmdrole){
               embed.addField(cmd.name, cmd.info.join(", "))
@@ -295,12 +295,12 @@ module.exports = {
                   let menuoptions = [
                     {
                       value: "Add Role",
-                      description: `Add Role/User to ${thecmd.toUpperCase()} ADMIN ROLES`.substring(0, 50),
+                      description: `Add Role/User to ${thecmd.toUpperCase()} ADMIN ROLES`.substr(0, 50),
                       emoji: "🔧"
                     },
                     {
                       value: "Remove Role",
-                      description: `Rempove Role/User from ${thecmd.toUpperCase()} ADMIN ROLES`.substring(0, 50),
+                      description: `Rempove Role/User from ${thecmd.toUpperCase()} ADMIN ROLES`.substr(0, 50),
                       emoji: "🗑"
                     },
                     {
@@ -323,9 +323,9 @@ module.exports = {
                     .addOptions(
                     menuoptions.map(option => {
                       let Obj = {
-                        label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                        value: option.value.substring(0, 50),
-                        description: option.description.substring(0, 50),
+                        label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                        value: option.value.substr(0, 50),
+                        description: option.description.substr(0, 50),
                       }
                     if(option.emoji) Obj.emoji = option.emoji;
                     return Obj;
@@ -357,7 +357,7 @@ module.exports = {
                   });
                   //Once the Collections ended edit the menu message
                   collector.on('end', collected => {
-                    menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:Check_List_Ijo:870279724906197033>  **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+                    menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:Check_List_Ijo:878170554815905792> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
                   });
                 }
                 async function handle_the_picks2(optionhandletype, SetupNumber, menuoptiondata) {
@@ -408,7 +408,7 @@ module.exports = {
                               return message.reply({embeds: [new MessageEmbed()
                                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable13"]))
                                 .setColor(es.color)
-                                .setDescription(`Everyone with one of those Roles/Users:\n${cmdrole.join("\n")}\nis now able to use the ${thecmd} Admin Commands`.substring(0, 2048))
+                                .setDescription(`Everyone with one of those Roles/Users:\n${cmdrole.join("\n")}\nis now able to use the ${thecmd} Admin Commands`.substr(0, 2048))
                                 .setFooter(client.getFooter(es))]
                               });
                             } catch (e) {
@@ -448,7 +448,7 @@ module.exports = {
                               return message.reply({embeds: [new MessageEmbed()
                                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable17"]))
                                 .setColor(es.color)
-                                .setDescription(`Everyone with one of those Roles/Users:\n${cmdrole.join("\n")}\nis now able to use the ${thecmd} Admin Commands`.substring(0, 2048))
+                                .setDescription(`Everyone with one of those Roles/Users:\n${cmdrole.join("\n")}\nis now able to use the ${thecmd} Admin Commands`.substr(0, 2048))
                                 .setFooter(client.getFooter(es))]
                               });
                             } catch (e) {
@@ -470,7 +470,7 @@ module.exports = {
                         return message.reply({embeds: [new MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable20"]))
                           .setColor(es.wrongcolor)
-                          .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                          .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                           .setFooter(client.getFooter(es))]
                         });
                     }
@@ -521,7 +521,7 @@ module.exports = {
                               return message.reply({embeds: [new MessageEmbed()
                                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable23"]))
                                 .setColor(es.color)
-                                .setDescription(`Everyone with one of those Roles/Users:\n${cmdrole.join("\n")}\nis now able to use the ${thecmd} Admin Commands`.substring(0, 2048))
+                                .setDescription(`Everyone with one of those Roles/Users:\n${cmdrole.join("\n")}\nis now able to use the ${thecmd} Admin Commands`.substr(0, 2048))
                                 .setFooter(client.getFooter(es))]
                               });
                             } catch (e) {
@@ -561,7 +561,7 @@ module.exports = {
                               return message.reply({embeds: [new MessageEmbed()
                                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable27"]))
                                 .setColor(es.color)
-                                .setDescription(`Everyone with one of those Roles/Users:\n${cmdrole.join("\n")}\nis now able to use the ${thecmd} Admin Commands`.substring(0, 2048))
+                                .setDescription(`Everyone with one of those Roles/Users:\n${cmdrole.join("\n")}\nis now able to use the ${thecmd} Admin Commands`.substr(0, 2048))
                                 .setFooter(client.getFooter(es))]
                               });
                             } catch (e) {
@@ -583,7 +583,7 @@ module.exports = {
                         return message.reply({embeds: [new MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable30"]))
                           .setColor(es.wrongcolor)
-                          .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                          .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                           .setFooter(client.getFooter(es))]
                         });
                     }
@@ -613,7 +613,7 @@ module.exports = {
                 var embed = new MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable33"]))
                 .setColor(es.color)
-                .setDescription(`**General Admin Roles:**\n${client.settings.get(message.guild.id, "adminroles").length > 0 ? `<@&${client.settings.get(message.guild.id, "adminroles").join(">, <@&")}>`: "No General Admin Roles Setup yet"}`.substring(0, 2048))
+                .setDescription(`**General Admin Roles:**\n${client.settings.get(message.guild.id, "adminroles").length > 0 ? `<@&${client.settings.get(message.guild.id, "adminroles").join(">, <@&")}>`: "No General Admin Roles Setup yet"}`.substr(0, 2048))
                 .setFooter(client.getFooter(es))
         
                 for(const cmd of cmdrole){
@@ -632,7 +632,7 @@ module.exports = {
               return message.reply({embeds: [new MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admin"]["variable10"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
           }
@@ -644,7 +644,7 @@ module.exports = {
       return message.reply({embeds: [new MessageEmbed()
         .setColor(es.wrongcolor).setFooter(client.getFooter(es))
         .setTitle(client.la[ls].common.erroroccur)
-        .setDescription(`\`\`\`${String(JSON.stringify(e)).substring(0, 2000)}\`\`\``)
+        .setDescription(`\`\`\`${String(JSON.stringify(e)).substr(0, 2000)}\`\`\``)
       ]});
     }
   },

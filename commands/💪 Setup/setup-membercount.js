@@ -49,9 +49,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -119,7 +119,7 @@ module.exports = {
               message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-membercount"]["variable8"]))
                 .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
-                .setDescription(`Current Name: \`${curmessage}\``.substring(0, 2048))
+                .setDescription(`Current Name: \`${curmessage}\``.substr(0, 2048))
                 .setFooter(client.getFooter(es))
               ]});
               
@@ -272,7 +272,7 @@ module.exports = {
                         
 **Checking all Channels every 60 Minutes:**
 > **Delay between each channel:** \`5.1 Minutes\` (Only if a Change is needed)
-> **Optimal Member-Count Channels:** \`6 or less\``.substring(0, 2048))
+> **Optimal Member-Count Channels:** \`6 or less\``.substr(0, 2048))
                       .setFooter(client.getFooter(es))
                     ]});
                   }
@@ -285,7 +285,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-membercount"]["variable11"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]});
                 })
@@ -299,7 +299,7 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-membercount"]["variable12"]))
               .setColor(es.wrongcolor)
-              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
               .setFooter(client.getFooter(es))
             ]});
           })
@@ -309,7 +309,7 @@ module.exports = {
       return message.reply({embeds: [new MessageEmbed()
         .setColor(es.wrongcolor).setFooter(client.getFooter(es))
         .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-membercount"]["variable15"]))
-        .setDescription(`\`\`\`${String(JSON.stringify(e)).substring(0, 2000)}\`\`\``)
+        .setDescription(`\`\`\`${String(JSON.stringify(e)).substr(0, 2000)}\`\`\``)
       ]});
     }
   },

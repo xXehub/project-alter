@@ -10,7 +10,7 @@ let countermap = new Map();
 module.exports = client => {
     const {
         isValidURL, delay
-    } = require(`./functions`);
+    } = require(`${process.cwd()}/handlers/functions`);
 
     client.on("messageUpdate", (oldMessage, newMessage) => {
         checkAntiLinks(newMessage)
@@ -154,7 +154,7 @@ module.exports = client => {
                             if (antisettings.whitelistedchannels.some(r => message.channel.parentId == r || message.channel.id == r)) return;
                             if (message.content.includes("```")) {
                                 try {
-                                    message.author.send(message.content.substring(0, 2000)).catch((e) => {
+                                    message.author.send(message.content.substr(0, 2000)).catch((e) => {
                                         console.log(String(e))
                                     })
                                     message.author.send(`It seems like you sent a code in ${message.channel} **${message.guild.name}**, but it contains a Link, which isn't allowed!`).catch((e) => {

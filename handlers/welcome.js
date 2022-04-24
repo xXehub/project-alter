@@ -3,24 +3,24 @@ const Discord = require("discord.js");
 const Canvas = require("canvas");
 const canvacord = require("canvacord");
 //Load fonts
-// Canvas.registerFont( "./assets/fonts/DMSans-Bold.ttf" , { family: "DM Sans", weight: "bold" } );
-// Canvas.registerFont( "./assets/fonts/DMSans-Regular.ttf" , { family: "DM Sans", weight: "regular" } );
-// Canvas.registerFont( "./assets/fonts/STIXGeneral.ttf" , { family: "STIXGeneral" } );
-// Canvas.registerFont( "./assets/fonts/AppleSymbol.ttf" , { family: "AppleSymbol" } );
-// Canvas.registerFont( "./assets/fonts/Arial.ttf"       , { family: "Arial" } );
-// Canvas.registerFont( "./assets/fonts/ArialUnicode.ttf", { family: "ArielUnicode" } );
-// Canvas.registerFont(`./assets/fonts/Genta.ttf`, { family: `Genta` } );
-// Canvas.registerFont("./assets/fonts/UbuntuMono.ttf", { family: "UbuntuMono" } );
-// require functions from files
+//Canvas.registerFont( "./assets/fonts/DMSans-Bold.ttf" , { family: "DM Sans", weight: "bold" } );
+//Canvas.registerFont( "./assets/fonts/DMSans-Regular.ttf" , { family: "DM Sans", weight: "regular" } );
+//Canvas.registerFont( "./assets/fonts/STIXGeneral.ttf" , { family: "STIXGeneral" } );
+//Canvas.registerFont( "./assets/fonts/AppleSymbol.ttf" , { family: "AppleSymbol" } );
+//Canvas.registerFont( "./assets/fonts/Arial.ttf"       , { family: "Arial" } );
+//Canvas.registerFont( "./assets/fonts/ArialUnicode.ttf", { family: "ArielUnicode" } );
+//Canvas.registerFont(`./assets/fonts/Genta.ttf`, { family: `Genta` } );
+//Canvas.registerFont("./assets/fonts/UbuntuMono.ttf", { family: "UbuntuMono" } );
+//require functions from files
 const config = require(`${process.cwd()}/botconfig/config.json`);
 const ee = require(`${process.cwd()}/botconfig/embed.json`);
 const {
   delay,
   duration,
   simple_databasing
-} = require(`./functions`);
+} = require(`${process.cwd()}/handlers/functions`);
 const {
-  Captcha
+  CaptchaGenerator
 } = require(`captcha-canvas`); //require package here
 const ms = require("ms");
 //Create Variables
@@ -301,12 +301,12 @@ module.exports = client => {
         invitemessage = "\u200b"
       }
       if (client.settings.get(member.guild.id, "welcome.captcha") && !member.user.bot) {
-       const captcha = new Captcha();
-        captcha.async = false //Sync
-        captcha.addDecoy(); //Add decoy text on captcha canvas.
-        captcha.drawTrace(); //draw trace lines on captcha canvas.
-        captcha.drawCaptcha(); //draw captcha text on captcha canvas
-        const buffer = captcha.png; //returns buffer of the captcha image
+        const captcha = new CaptchaGenerator({
+          height: 200,
+          width: 600
+        });
+
+        const buffer = await captcha.generate(); //returns buffer of the captcha image
         const attachment = new Discord.MessageAttachment(buffer, `${captcha.text}_Captcha.png`)
         //fin a muted role
         let mutedrole = member.guild.roles.cache.find(r => r.name.toLowerCase().includes("captcha")) || false;
@@ -432,7 +432,7 @@ module.exports = client => {
             }
           })
         }).catch(e => {
-          member.guild.channels.create(`verify-${member.user.username}`.substring(0, 32), {
+          member.guild.channels.create(`verify-${member.user.username}`.substr(0, 32), {
             type: "GUILD_TEXT",
             topic: "PLEASE SEND THE CAPTCHA CODE IN THE CHAT!",
             permissionOverwrites: [{
@@ -548,7 +548,7 @@ module.exports = client => {
                   })
                 } else {
                   ch.send({
-                    content: `<@${member.user.id}>\n${captchaembed.description}`.substring(0, 2000), files: [attachment]
+                    content: `<@${member.user.id}>\n${captchaembed.description}`.substr(0, 2000), files: [attachment]
                   }).then(msg => {
                     msg.channel.awaitMessages({filter: m => m.author.id === member.user.id, 
                       max: 1,
@@ -725,7 +725,7 @@ module.exports = client => {
               }).catch(() => {});
             } else {
               channel.send({
-                content: `<@${member.user.id}>\n${welcomeembed.description}`.substring(0, 2000),
+                content: `<@${member.user.id}>\n${welcomeembed.description}`.substr(0, 2000),
               }).catch(() => {});
             }
           }
@@ -788,7 +788,7 @@ module.exports = client => {
             }).catch(() => {});
           } else {
             channel.send({
-              content: `<@${member.user.id}>\n${welcomeembed.description}`.substring(0, 2000),
+              content: `<@${member.user.id}>\n${welcomeembed.description}`.substr(0, 2000),
             }).catch(() => {});
           }
         }
@@ -1028,12 +1028,12 @@ module.exports = client => {
                 }).catch(() => {});
               } else if(channel.permissionsFor(channel.guild.me).has(Discord.Permissions.FLAGS.ATTACH_FILES)){
                 channel.send({
-                  content: `<@${member.user.id}>\n${welcomeembed.description}`.substring(0, 2000),
+                  content: `<@${member.user.id}>\n${welcomeembed.description}`.substr(0, 2000),
                   files: [attachment]
                 }).catch(() => {});
               } else {
                 channel.send({
-                  content: `<@${member.user.id}>\n${welcomeembed.description}`.substring(0, 2000),
+                  content: `<@${member.user.id}>\n${welcomeembed.description}`.substr(0, 2000),
                   files: [attachment]
                 }).catch(() => {});
               }
@@ -1091,7 +1091,7 @@ module.exports = client => {
           .setThumbnail(member.guild.iconURL({dynamic: true}))
           .setFooter({text: `${member.guild.name} | ${member.guild.id}`, iconURL: `${member.guild.iconURL({dynamic: true})}`})
           .setDescription(`This is because your Account was Created ${duration(Date.now() - createdAccount).map(a => `\`${a}\``).join(", ")} ago, and the minimum Amount of Account-Age should be: ${duration(newaccount_delay).map(a => `\`${a}\``).join(", ")}`)
-          .addField(`**Guild-Message:**`, `${extramessage && extramessage.length > 1 ? extramessage : "No Extra Message provided"}`.substring(0, 1024))
+          .addField(`**Guild-Message:**`, `${extramessage && extramessage.length > 1 ? extramessage : "No Extra Message provided"}`.substr(0, 1024))
         ]
       }).catch(() => {});
       member.ban({reason: `Alt Account Detection | Account created ${duration(Date.now() - createdAccount).join(", ")} ago`})
@@ -1103,7 +1103,7 @@ module.exports = client => {
           .setThumbnail(member.guild.iconURL({dynamic: true}))
           .setFooter({text: `${member.guild.name} | ${member.guild.id}`, iconURL: `${member.guild.iconURL({dynamic: true})}`})
           .setDescription(`This is because your Account was Created ${duration(Date.now() - createdAccount).map(a => `\`${a}\``).join(", ")} ago, and the minimum Amount of Account-Age should be: ${duration(newaccount_delay).map(a => `\`${a}\``).join(", ")}`)
-          .addField(`**Guild-Message:**`, `${extramessage && extramessage.length > 1 ? extramessage : "No Extra Message provided"}`.substring(0, 1024))
+          .addField(`**Guild-Message:**`, `${extramessage && extramessage.length > 1 ? extramessage : "No Extra Message provided"}`.substr(0, 1024))
         ]
       }).catch(() => {});
       member.kick({reason: `Alt Account Detection | Account created ${duration(Date.now() - createdAccount).join(", ")} ago`})

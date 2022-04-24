@@ -21,13 +21,9 @@ module.exports = {
   run: async (client, message, args, cmduser, text, prefix) => {
     
     let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    client.settings.ensure(message.guild.id, {
-      style: "timeout",
-      roleId: "",
-      defaultTime: 60000, // in ms  
-    }, "mute")
-    const menusettings = client.settings.get(message.guild.id, "mute");
     try {
+
+
 
 
       /*
@@ -75,9 +71,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -116,15 +112,17 @@ module.exports = {
       async function handle_the_picks(optionhandletype, SetupNumber, menuoptiondata) {
         switch (optionhandletype) {
           case "Toggle Style": {
-            const newStyle = menusettings.style == "timeout" ? "role" : "timeout";
-            client.settings.set(message.guild.id, newStyle, "mute.style");
-            return message.reply(`Successfully changed the Style from ${menusettings.style} to ${newStyle}`);
+
           }break;
           case "Set Mute-Role": {
-            var tempmsg = await message.reply({embeds: [new Discord.MessageEmbed()
-              .setTitle("Which Role should I add when someone gets muted and the mute style == \"role\"")
+
+          }break;
+          case "Set Defaulttime":
+            {
+              var tempmsg = await message.reply({embeds: [new Discord.MessageEmbed()
+              .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-aichat"]["variable5"]))
               .setColor(es.color)
-              .setDescription("Ping the Role now, or send the id of it!").setFooter(client.getFooter(es))]
+              .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-aichat"]["variable6"])).setFooter(client.getFooter(es))]
             })
             await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author.id, 
                 max: 1,
@@ -134,13 +132,13 @@ module.exports = {
               .then(async collected => {
                 var message = collected.first();
                 if(!message) return message.reply("NO MESSAGE SENT");
-                let role = message.mentions.roles.filter(ch=>ch.guild.id==message.guild.id).first() || message.guild.roles.cache.get(message.content.trim().split(" ")[0]);
-                if(role){
-                  client.settings.set(message.guild.id, role.id, `mute.roleId`)
+                let channel = message.mentions.channels.filter(ch=>ch.guild.id==message.guild.id).first() || message.guild.channels.cache.get(message.content.trim().split(" ")[0]);
+                if(channel){
+                  client.settings.set(message.guild.id, channel.id, `aichat`)
                   return message.reply({embeds: [new Discord.MessageEmbed()
-                    .setTitle("Set the MUTE ROLE")
+                    .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-aichat"]["variable7"]))
                     .setColor(es.color)
-                    .setDescription(`I will now use the Role <@&${role.id}> if the mute style is set the "role"`.substring(0, 2048))
+                    .setDescription(`You can now chat with me in <#${channel.id}>`.substr(0, 2048))
                     .setFooter(client.getFooter(es))
                   ]});
                 }
@@ -152,60 +150,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-aichat"]["variable8"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
-                  .setFooter(client.getFooter(es))
-                ]});
-              })
-          }break;
-          case "Set Defaulttime":
-            {
-            var tempmsg = await message.reply({embeds: [new Discord.MessageEmbed()
-              .setTitle("What should be the new default mute time, when no time is added?")
-              .setColor(es.color)
-              .setDescription("Recommneded is: `10min`, but you can send anything you want, as long as it's less than `1Week`!\nTo send multiple do this: `1hour+5min`").setFooter(client.getFooter(es))]
-            })
-            await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author.id, 
-                max: 1,
-                time: 90000,
-                errors: ["time"]
-              })
-              .then(async collected => {
-                var message = collected.first();
-                if(!message) return message.reply("NO MESSAGE SENT");
-                const ms = require("ms");
-
-                let time = 0;
-                if(message.includes("+")) {
-                  for(const m of message.split("+")){
-                    try {
-                      time+= ms(m)
-                    }catch{
-                      time = null;
-                    }
-                  }
-                } else {
-                  try {
-                    time = ms(message)
-                  }catch{
-                    time = null;
-                  }
-                }
-                if(!time || time < 0 || time > ms("1 Week")) {
-                  return message.reply("Invalid time added! Must be more than 0 and less than 1 week")
-                }
-                client.settings.set(message.guild.id, time, `mute.defaultTime`)
-                return message.reply({embeds: [new Discord.MessageEmbed()
-                  .setTitle("Set the new DEFAULT MUTE TIME")
-                  .setColor(es.color)
-                  .setDescription(`When someone get's muted and no time get's added this will be used!`.substring(0, 2048))
-                  .setFooter(client.getFooter(es))
-                ]});
-              })
-              .catch(e => {
-                return message.reply({embeds: [new Discord.MessageEmbed()
-                  .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-aichat"]["variable8"]))
-                  .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]});
               })
@@ -217,7 +162,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-aichat"]["variable10"]))
                 .setColor(es.color)
-                .setDescription(`**Channel:** ${thesettings == "no" ? "Not Setupped" : `<#${thesettings}> | \`${thesettings}\``}`.substring(0, 2048))
+                .setDescription(`**Channel:** ${thesettings == "no" ? "Not Setupped" : `<#${thesettings}> | \`${thesettings}\``}`.substr(0, 2048))
                 .setFooter(client.getFooter(es))
               ]});
             }
@@ -233,7 +178,7 @@ module.exports = {
       return message.reply({embeds: [new MessageEmbed()
         .setColor(es.wrongcolor).setFooter(client.getFooter(es))
         .setTitle(client.la[ls].common.erroroccur)
-        .setDescription(`\`\`\`${String(e.message ? e.message : e).substring(0, 2000)}\`\`\``)
+        .setDescription(`\`\`\`${String(e.message ? e.message : e).substr(0, 2000)}\`\`\``)
       ]});
     }
   },

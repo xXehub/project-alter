@@ -77,9 +77,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -124,7 +124,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(`${thesettings ? `Enabled New Account Detection` : `Disabled New Account Detection`}`)
                 .setColor(es.color)
-                .setDescription(`${thesettings ? `I will now kick New Accounts if they were created before ${duration(thesettings.delay).map(i => `\`${i}\``).join(", ")} ago!` : `I will now no longer kick new Accounts!`}`.substring(0, 2048))
+                .setDescription(`${thesettings ? `I will now kick New Accounts if they were created before ${duration(thesettings.delay).map(i => `\`${i}\``).join(", ")} ago!` : `I will now no longer kick new Accounts!`}`.substr(0, 2048))
                 .setFooter(client.getFooter(es))
               ]});
           }
@@ -135,7 +135,7 @@ module.exports = {
               var tempmsg = await message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(`What should be the new Extra Message?`)
                 .setColor(es.color)
-                .addField(`**Current Extra-Message:**`, `${extramessage && extramessage.length > 1 ? extramessage : "No Extra Message provided"}`.substring(0, 1024))
+                .addField(`**Current Extra-Message:**`, `${extramessage && extramessage.length > 1 ? extramessage : "No Extra Message provided"}`.substr(0, 1024))
                 .setDescription(`Send it now!`).setFooter(client.getFooter(es))]
               })
               await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author.id, 
@@ -152,7 +152,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(`Defined the New Extra Message!`)
                       .setColor(es.color)
-                      .addField(`**New Extra-Message:**`, `${extramessage && extramessage.length > 1 ? extramessage : "No Extra Message provided"}`.substring(0, 1024))
+                      .addField(`**New Extra-Message:**`, `${extramessage && extramessage.length > 1 ? extramessage : "No Extra Message provided"}`.substr(0, 1024))
                       .setFooter(client.getFooter(es))
                     ]});
                   }
@@ -164,7 +164,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(`Something went wrong`)
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]});
                 })
@@ -177,8 +177,8 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(`Settings of the New Account Detection Setup`)
                 .setColor(es.color)
-                .setDescription(`**Enabled:**\n> ${thesettings.enabled ? "✅" : "❌"}\n\n**Minimum Account Age:**\n> ${duration(thesettings.delay).map(i => `\`${i}\``).join(", ")}\n\n**Action:**\n> ${thesettings.action}`.substring(0, 2048))
-                .addField(`**Current Extra-Message:**`, `${extramessage && extramessage.length > 1 ? extramessage : "No Extra Message provided"}`.substring(0, 1024))
+                .setDescription(`**Enabled:**\n> ${thesettings.enabled ? "✅" : "❌"}\n\n**Minimum Account Age:**\n> ${duration(thesettings.delay).map(i => `\`${i}\``).join(", ")}\n\n**Action:**\n> ${thesettings.action}`.substr(0, 2048))
+                .addField(`**Current Extra-Message:**`, `${extramessage && extramessage.length > 1 ? extramessage : "No Extra Message provided"}`.substr(0, 1024))
                 .setFooter(client.getFooter(es))
               ]});
             }
@@ -211,9 +211,9 @@ module.exports = {
               .addOptions(
               menuoptions.map(option => {
                 let Obj = {
-                  label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                  value: option.value.substring(0, 50),
-                  description: option.description.substring(0, 50),
+                  label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                  value: option.value.substr(0, 50),
+                  description: option.description.substr(0, 50),
                 }
               if(option.emoji) Obj.emoji = option.emoji;
               return Obj;
@@ -242,7 +242,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(`Successfully set the new Action to: ${menu?.values[0]}`)
                   .setColor(es.color)
-                  .setDescription(`I will now ${menu?.values[0]} new Members, which Account are too young!`.substring(0, 2048))
+                  .setDescription(`I will now ${menu?.values[0]} new Members, which Account are too young!`.substr(0, 2048))
                   .setFooter(client.getFooter(es))
                 ]});
               }
@@ -258,7 +258,7 @@ module.exports = {
               var tempmsg = await message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(`What should be the new Minimum Account Age?`)
                 .setColor(es.color)
-                .addField(`**Current Minimum Account Age:**`, `${duration(settings.delay).map(i => `\`${i}\``).join(", ")}`.substring(0, 1024))
+                .addField(`**Current Minimum Account Age:**`, `${duration(settings.delay).map(i => `\`${i}\``).join(", ")}`.substr(0, 1024))
                 .setDescription(`Send it now!\nExample: \`2 Days\`, \`6 hours + 2 Days\``).setFooter(client.getFooter(es))]
               })
               await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author.id, 
@@ -281,7 +281,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(`Defined the New Minimum Account Duration!`)
                       .setColor(es.color)
-                      .addField(`**New Minimum Account Age:**`, `${duration(time).map(i => `\`${i}\``).join(", ")}`.substring(0, 1024))
+                      .addField(`**New Minimum Account Age:**`, `${duration(time).map(i => `\`${i}\``).join(", ")}`.substr(0, 1024))
                       .setFooter(client.getFooter(es))
                     ]});
                   }
@@ -293,7 +293,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(`Something went wrong`)
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]});
                 })
@@ -305,7 +305,7 @@ module.exports = {
       return message.reply({embeds: [new MessageEmbed()
         .setColor(es.wrongcolor).setFooter(client.getFooter(es))
         .setTitle(client.la[ls].common.erroroccur)
-        .setDescription(`\`\`\`${String(e.message ? e.message : e).substring(0, 2000)}\`\`\``)
+        .setDescription(`\`\`\`${String(e.message ? e.message : e).substr(0, 2000)}\`\`\``)
       ]});
     }
   },

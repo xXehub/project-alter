@@ -55,9 +55,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -116,7 +116,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admincmdlog"]["variable6"]))
                   .setColor(es.color)
-                  .setDescription(`If someone executes an Admin Command, an Information will be sent in that Channel`.substring(0, 2048))
+                  .setDescription(`If someone executes an Admin Command, an Information will be sent in that Channel`.substr(0, 2048))
                   .setFooter(client.getFooter(es))]
                 });
               }
@@ -129,7 +129,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admincmdlog"]["variable7"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
             })
@@ -141,7 +141,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admincmdlog"]["variable8"]))
                 .setColor(es.color)
-                .setDescription(`If someone executes an Admin Command, **no** Information will be sent`.substring(0, 2048))
+                .setDescription(`If someone executes an Admin Command, **no** Information will be sent`.substr(0, 2048))
                 .setFooter(client.getFooter(es))]
               });
             }
@@ -152,7 +152,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-admincmdlog"]["variable9"]))
                 .setColor(es.color)
-                .setDescription(`**Channel:** ${thesettings == "no" ? "Not Setupped" : `<#${thesettings}> | \`${thesettings}\``}`.substring(0, 2048))
+                .setDescription(`**Channel:** ${thesettings == "no" ? "Not Setupped" : `<#${thesettings}> | \`${thesettings}\``}`.substr(0, 2048))
                 .setFooter(client.getFooter(es))
               ]});
             }

@@ -1,5 +1,5 @@
 var CronJob = require('cron').CronJob;
-const { delay } = require(`./functions`)
+const { delay } = require(`${process.cwd()}/handlers/functions`)
 module.exports = function (client, options) {
 
 

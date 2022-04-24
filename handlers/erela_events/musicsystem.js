@@ -3,7 +3,7 @@ const { check_if_dj, autoplay, escapeRegex, format, duration, createBar } = requ
 const config = require(`${process.cwd()}/botconfig/config.json`);
 const ee = require(`${process.cwd()}/botconfig/embed.json`);
 const emoji = require(`${process.cwd()}/botconfig/emojis.json`);
-const playermanager = require(`../playermanager`);
+const playermanager = require(`../../handlers/playermanager`);
 //we need to create the music system, somewhere...
 module.exports = client => {
     client.on("interactionCreate", async (interaction) => {
@@ -92,7 +92,7 @@ module.exports = client => {
                   .setColor(ee.color)
                   .setTimestamp()
                   .setTitle(`:wave: **Left the Channel**`)
-                  .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                  .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 }) 
                 if(player){
                     await player.destroy();
@@ -119,7 +119,7 @@ module.exports = client => {
                         .setColor(ee.color)
                         .setTimestamp()
                         .setTitle(`⏹ **Stopped playing and left the Channel**`)
-                        .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                        .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                     })
                     await player.destroy()
                     //edit the message so that it's right!
@@ -136,7 +136,7 @@ module.exports = client => {
                   .setColor(ee.color)
                   .setTimestamp()
                   .setTitle(`⏭ **Skipped to the next Song!**`)
-                  .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                  .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
                 //edit the message so that it's right!
                 var data = generateQueueEmbed(client, guild.id)
@@ -151,7 +151,7 @@ module.exports = client => {
                   .setColor(ee.color)
                   .setTimestamp()
                   .setTitle(`⏹ **Stopped playing and left the Channel**`)
-                  .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                  .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 }) 
                 await player.destroy()
                 //edit the message so that it's right!
@@ -168,7 +168,7 @@ module.exports = client => {
                       .setColor(ee.color)
                       .setTimestamp()
                       .setTitle(`▶️ **Resumed!**`)
-                      .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                      .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                     })
                   } else{
                     //pause the player
@@ -179,7 +179,7 @@ module.exports = client => {
                       .setColor(ee.color)
                       .setTimestamp()
                       .setTitle(`⏸ **Paused!**`)
-                      .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                      .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                     })
                   }
                   //edit the message so that it's right!
@@ -195,8 +195,8 @@ module.exports = client => {
                   embeds: [new MessageEmbed()
                   .setColor(ee.color)
                   .setTimestamp()
-                  .setTitle(`${player.get(`autoplay`) ? `<a:Check_List_Ijo:870279724906197033> **Enabled Autoplay**`: `<:no:939372664559132723> **Disabled Autoplay**`}`)
-                  .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                  .setTitle(`${player.get(`autoplay`) ? `<a:Check_List_Ijo:878170554815905792> **Enabled Autoplay**`: `<:no:939372664559132723> **Disabled Autoplay**`}`)
+                  .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
                 //edit the message so that it's right!
                 var data = generateQueueEmbed(client, guild.id)
@@ -215,7 +215,7 @@ module.exports = client => {
                     .setColor(ee.color)
                     .setTimestamp()
                     .setTitle(`🔀 **Shuffled ${player.queue.length} Songs!**`)
-                    .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                    .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
                 //edit the message so that it's right!
                 var data = generateQueueEmbed(client, guild.id)
@@ -234,8 +234,8 @@ module.exports = client => {
                   embeds: [new MessageEmbed()
                   .setColor(ee.color)
                   .setTimestamp()
-                  .setTitle(`${player.trackRepeat ? `<a:Check_List_Ijo:870279724906197033> **Enabled Song Loop**`: `<:no:939372664559132723> **Disabled Song Loop**`}`)
-                  .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                  .setTitle(`${player.trackRepeat ? `<a:Check_List_Ijo:878170554815905792> **Enabled Song Loop**`: `<:no:939372664559132723> **Disabled Song Loop**`}`)
+                  .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
                 //edit the message so that it's right!
                 var data = generateQueueEmbed(client, guild.id)
@@ -254,8 +254,8 @@ module.exports = client => {
                   embeds: [new MessageEmbed()
                   .setColor(ee.color)
                   .setTimestamp()
-                  .setTitle(`${player.queueRepeat ? `<a:Check_List_Ijo:870279724906197033> **Enabled Queue Loop**`: `<:no:939372664559132723> **Disabled Queue Loop**`}`)
-                  .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                  .setTitle(`${player.queueRepeat ? `<a:Check_List_Ijo:878170554815905792> **Enabled Queue Loop**`: `<:no:939372664559132723> **Disabled Queue Loop**`}`)
+                  .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
                 //edit the message so that it's right!
                 var data = generateQueueEmbed(client, guild.id)
@@ -277,7 +277,7 @@ module.exports = client => {
                     .setColor(ee.color)
                     .setTimestamp()
                     .setTitle(`⏩ **Forwarded the song for \`10 Seconds\`!**`)
-                    .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                    .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
                 //edit the message so that it's right!
                 var data = generateQueueEmbed(client, guild.id)
@@ -297,7 +297,7 @@ module.exports = client => {
                     .setColor(ee.color)
                     .setTimestamp()
                     .setTitle(`⏪ **Rewinded the song for \`10 Seconds\`!**`)
-                    .setFooter(client.getFooter(`👥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                    .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
                 //edit the message so that it's right!
                 var data = generateQueueEmbed(client, guild.id)
@@ -389,8 +389,8 @@ function generateQueueEmbed(client, guildId, leave){
       new MessageEmbed()
         .setColor(es.color)
         .setFooter(client.getFooter(es))
-        .setImage(guild.banner ? guild.bannerURL({size: 4096}) : "https://cdn.discordapp.com/attachments/755272082387894323/938356786413592626/standard_17.gif")
-        .setTitle(`Start Listening to Music, by connecting to a Voice Channel and sending either the **SONG LINK** or **SONG NAME** in this Channel!`)
+        .setImage(guild.banner ? guild.bannerURL({size: 4096}) : "https://imgur.com/jLvYdb4.png")
+        .setTitle(`Start Listening to Music, by connecting to a Voice Channel and sending either the **___SONG LINK___** or **___SONG NAME___** in this Channel!`)
         .setDescription(`> *I support <:Youtube:885396627307773953> Youtube, <:Spotify:885396603781935154> Spotify, <:soundcloud:909071134920691742> Soundcloud and direct MP3 Links!*`)
     ]
     const player = client.manager.players.get(guild.id);
@@ -400,7 +400,7 @@ function generateQueueEmbed(client, guildId, leave){
             .addField(`${emoji?.msg.time} Duration: `, `\`${format(player.queue.current.duration).split(" | ")[0]}\` | \`${format(player.queue.current.duration).split(" | ")[1]}\``, true)
             .addField(`${emoji?.msg.song_by} Song By: `, `\`${player.queue.current.author}\``, true)
             .addField(`${emoji?.msg.repeat_mode} Queue length: `, `\`${player.queue.length} Songs\``, true)
-            .setAuthor(`${player.queue.current.title}`, "https://cdn.discordapp.com/attachments/755272082387894323/938356786413592626/standard_17.gif", player.queue.current.uri)
+            .setAuthor(`${player.queue.current.title}`, "https://images-ext-1.discordapp.net/external/DkPCBVBHBDJC8xHHCF2G7-rJXnTwj_qs78udThL8Cy0/%3Fv%3D1/https/cdn.discordapp.com/emojis/859459305152708630.gif", player.queue.current.uri)
         delete embeds[1].description;
         delete embeds[1].title;
         //get the right tracks of the current tracks
@@ -411,14 +411,14 @@ function generateQueueEmbed(client, guildId, leave){
         embeds[0] = new MessageEmbed()
         .setTitle(`📃 Queue of __${guild.name}__  -  [ ${player.queue.length} Tracks ]`)
         .setColor(es.color)
-        .setDescription(String(songs.map((track, index) => `**\` ${++index}. \` ${track.uri ? `[${track.title.substring(0, 60).replace(/\[/igu, "\\[").replace(/\]/igu, "\\]")}](${track.uri})` : track.title}** - \`${track.isStream ? `LIVE STREAM` : format(track.duration).split(` | `)[0]}\`\n> *Requested by: __${track.requester.tag}__*`).join(`\n`)).substring(0, 2048));
+        .setDescription(String(songs.map((track, index) => `**\` ${++index}. \` ${track.uri ? `[${track.title.substr(0, 60).replace(/\[/igu, "\\[").replace(/\]/igu, "\\]")}](${track.uri})` : track.title}** - \`${track.isStream ? `LIVE STREAM` : format(track.duration).split(` | `)[0]}\`\n> *Requested by: __${track.requester.tag}__*`).join(`\n`)).substr(0, 2048));
         if(player.queue.length > 10)
           embeds[0].addField(`**\` N. \` *${player.queue.length > maxTracks ? player.queue.length - maxTracks : player.queue.length} other Tracks ...***`, `\u200b`)
-        embeds[0].addField(`**\` 0. \` __CURRENT TRACK__**`, `**${player.queue.current.uri ? `[${player.queue.current.title.substring(0, 60).replace(/\[/igu, "\\[").replace(/\]/igu, "\\]")}](${player.queue.current.uri})`:player.queue.current.title}** - \`${player.queue.current.isStream ? `LIVE STREAM` : format(player.queue.current.duration).split(` | `)[0]}\`\n> *Requested by: __${player.queue.current.requester.tag}__*`)
+        embeds[0].addField(`**\` 0. \` __CURRENT TRACK__**`, `**${player.queue.current.uri ? `[${player.queue.current.title.substr(0, 60).replace(/\[/igu, "\\[").replace(/\]/igu, "\\]")}](${player.queue.current.uri})`:player.queue.current.title}** - \`${player.queue.current.isStream ? `LIVE STREAM` : format(player.queue.current.duration).split(` | `)[0]}\`\n> *Requested by: __${player.queue.current.requester.tag}__*`)
             
     }
-    var joinbutton = new MessageButton().setStyle('SUCCESS').setCustomId('Join').setEmoji(`938937482714701865`).setLabel(`Join`).setDisabled(false);
-    var leavebutton = new MessageButton().setStyle('DANGER').setCustomId('Leave').setEmoji(`938937460140953630`).setLabel(`Leave`).setDisabled();
+    var joinbutton = new MessageButton().setStyle('SUCCESS').setCustomId('Join').setEmoji(`966523117642088468`).setLabel(`Join`).setDisabled(false);
+    var leavebutton = new MessageButton().setStyle('DANGER').setCustomId('Leave').setEmoji(`966523117625298974`).setLabel(`Leave`).setDisabled();
     var stopbutton = new MessageButton().setStyle('DANGER').setCustomId('Stop').setEmoji(`🏠`).setLabel(`Stop`).setDisabled()
     var skipbutton = new MessageButton().setStyle('PRIMARY').setCustomId('Skip').setEmoji(`⏭`).setLabel(`Skip`).setDisabled();
     var shufflebutton = new MessageButton().setStyle('PRIMARY').setCustomId('Shuffle').setEmoji('🔀').setLabel(`Shuffle`).setDisabled();

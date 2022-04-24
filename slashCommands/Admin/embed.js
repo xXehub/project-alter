@@ -40,8 +40,8 @@ module.exports = {
 		//let RoleOption = options.getRole("OPTIONNAME"); //RETURNS ROLE OBJECT
 		const channel = ChannelOption && ["GUILD_PRIVATE_THREAD ", "GUILD_PUBLIC_THREAD ", "GUILD_NEWS_THREAD ", "GUILD_NEWS", "GUILD_TEXT"].includes(ChannelOption.type) ? ChannelOption : guild.channels.cache.get(channelId);
 		let embed = new MessageEmbed().setColor(EmbedColor ? EmbedColor : es.color)
-		.setTitle(String(EmbedTitle).substring(0, 256))
-		.setDescription(String(EmbedDescription).substring(0, 2048).split("+n+").join("\n"))
+		.setTitle(String(EmbedTitle).substr(0, 256))
+		.setDescription(String(EmbedDescription).substr(0, 2048).split("+n+").join("\n"))
         .setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null).setFooter(client.getFooter(es));
 		//update it without a response!
 		await interaction?.reply({content: `Sending the Embed...`, ephemeral: true}).catch(()=>{});

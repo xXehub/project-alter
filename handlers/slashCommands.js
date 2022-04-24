@@ -48,7 +48,7 @@ module.exports = (client) => {
 						if (pull.name && pull.description) {
 							subCommand
 							.addSubcommand((subcommand) => {
-								subcommand.setName(String(pull.name).toLowerCase().substring(0, 25)).setDescription(pull.description.substring(0, 50))
+								subcommand.setName(String(pull.name).toLowerCase().substr(0, 25)).setDescription(pull.description.substr(0, 50))
 								if(pull.options && pull.options.length > 0){
 									for(const option of pull.options){
 										if(option.User && option.User.name && option.User.description){

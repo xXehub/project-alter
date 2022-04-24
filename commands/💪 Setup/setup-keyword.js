@@ -54,9 +54,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -99,7 +99,7 @@ module.exports = {
           return message.reply({embeds: [new Discord.MessageEmbed()
             .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-keyword"]["variable5"]))
             .setColor(es.wrongcolor)
-            .setDescription(`You cannot have more then **24** Key Words`.substring(0, 2000))
+            .setDescription(`You cannot have more then **24** Key Words`.substr(0, 2000))
             .setFooter(client.getFooter(es))
           ]});
         var tempmsg = await message.reply({embeds: [new Discord.MessageEmbed()
@@ -237,7 +237,7 @@ module.exports = {
                                   return message.reply({embeds: [new Discord.MessageEmbed()
                                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-keyword"]["variable18"]))
                                     .setColor(es.wrongcolor)
-                                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                                     .setFooter(client.getFooter(es))
                                   ]});
                                 })
@@ -248,7 +248,7 @@ module.exports = {
                               return message.reply({embeds: [new Discord.MessageEmbed()
                                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-keyword"]["variable19"]))
                                 .setColor(es.wrongcolor)
-                                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                                 .setFooter(client.getFooter(es))
                               ]});
                             })
@@ -256,7 +256,7 @@ module.exports = {
                           return message.reply({embeds: [new Discord.MessageEmbed()
                             .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-keyword"]["variable20"]))
                             .setColor(es.wrongcolor)
-                            .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                            .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                             .setFooter(client.getFooter(es))
                           ]});
                         }
@@ -266,7 +266,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-keyword"]["variable20"]))
                           .setColor(es.wrongcolor)
-                          .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                          .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                           .setFooter(client.getFooter(es))
                         ]});
                       })
@@ -281,7 +281,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-keyword"]["variable21"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]});
                 })
@@ -298,7 +298,7 @@ module.exports = {
           return message.reply({embeds: [new Discord.MessageEmbed()
             .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-keyword"]["variable22"]))
             .setColor(es.wrongcolor)
-            .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+            .setDescription(`Cancelled the Operation!`.substr(0, 2000))
             .setFooter(client.getFooter(es))
           ]});
 
@@ -310,8 +310,8 @@ module.exports = {
             ]
             cuc.forEach((cc, index)=>{
               menuoptions.push({
-                value: `${cc.name}`.substring(0, 25),
-                description: `Delete ${cc.name} ${cc.embed ? "[✅ Embed]" : "[❌ Embed]"}`.substring(0, 50),
+                value: `${cc.name}`.substr(0, 25),
+                description: `Delete ${cc.name} ${cc.embed ? "[✅ Embed]" : "[❌ Embed]"}`.substr(0, 50),
                 emoji: NumberEmojiIds[index + 1]
               })
             })
@@ -324,9 +324,9 @@ module.exports = {
               .addOptions(
               menuoptions.map(option => {
                 let Obj = {
-                  label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                  value: option.value.substring(0, 50),
-                  description: option.description.substring(0, 50),
+                  label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                  value: option.value.substr(0, 50),
+                  description: option.description.substr(0, 50),
                 }
               if(option.emoji) Obj.emoji = option.emoji;
               return Obj;
@@ -349,7 +349,7 @@ module.exports = {
               if (menu?.user.id === cmduser.id) {
                 collector.stop();
                 for(const value of menu?.values){
-                  client.keyword.remove(message.guild.id, d => String(d.name).substring(0, 25).toLowerCase() == String(value).toLowerCase(), "commands")
+                  client.keyword.remove(message.guild.id, d => String(d.name).substr(0, 25).toLowerCase() == String(value).toLowerCase(), "commands")
                 }
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(`Deleted ${menu?.values.length} Keywords!`)
@@ -379,7 +379,7 @@ module.exports = {
             for(let i = 0; i < cuc.length; i++){
               try{
                 var string = `${cuc[i].output}`;
-                if(string.length > 250) string = string.substring(0, 250) + " ..."
+                if(string.length > 250) string = string.substr(0, 250) + " ..."
                 if(i > 13){
                   sendembed2 = true;
                   embed2.addField(`<:arrow:832598861813776394> \`${cuc[i].name}\` | ${cuc[i].embed ? "✅ Embed" : "❌ Embed"}`, ">>> "+ string)

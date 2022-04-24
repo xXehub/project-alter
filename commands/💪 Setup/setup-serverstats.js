@@ -33,7 +33,7 @@ module.exports = {
         embeds: [new MessageEmbed()
           .setColor(es.wrongcolor).setFooter(client.getFooter(es))
           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-membercount"]["variable15"]))
-          .setDescription(`\`\`\`${String(JSON.stringify(e)).substring(0, 2000)}\`\`\``)
+          .setDescription(`\`\`\`${String(JSON.stringify(e)).substr(0, 2000)}\`\`\``)
         ]
       });
     }

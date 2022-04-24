@@ -77,9 +77,9 @@ module.exports = {
           .addOptions(
             menuoptions.map(option => {
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
             if(option.emoji) Obj.emoji = option.emoji;
             return Obj;
@@ -147,7 +147,7 @@ module.exports = {
                       return message.reply({embeds: [new Discord.MessageEmbed()
                         .setTitle("Successfully Enabled the Anti-Mention System")
                         .setColor(es.color)
-                        .setDescription(`If a non Admin User sends more Pings in one Message then ${limit}, his message(s) will be deleted + he will be "warned" (no warn system warn but yeah)\n\nIf he continues to do that, he will get Muted`.substring(0, 2048))
+                        .setDescription(`If a non Admin User sends more Pings in one Message then ${limit}, his message(s) will be deleted + he will be "warned" (no warn system warn but yeah)\n\nIf he continues to do that, he will get Muted`.substr(0, 2048))
                         .setFooter(client.getFooter(es))]
                       });
                     } catch (e) {
@@ -167,7 +167,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-anticaps"]["variable10"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))]
                   });
                 })
@@ -178,7 +178,7 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle("Successfully disabled the Anti Mention System")
               .setColor(es.color)
-              .setDescription(`To enabled it type \`${prefix}setup-antimention\``.substring(0, 2048))
+              .setDescription(`To enabled it type \`${prefix}setup-antimention\``.substr(0, 2048))
               .setFooter(client.getFooter(es))]
             });
           }break;
@@ -187,7 +187,7 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle("The Settings of the Anti Mention System")
               .setColor(es.color)
-              .setDescription(`**Enabled:** ${thesettings.enabled ? "<a:yes:833101995723194437>" : "<:no:833101993668771842>"}\n\n**Allowed Mentions / Message:** \`${thesettings.limit} Pings\``.substring(0, 2048))
+              .setDescription(`**Enabled:** ${thesettings.enabled ? "<a:yes:833101995723194437>" : "<:no:833101993668771842>"}\n\n**Allowed Mentions / Message:** \`${thesettings.limit} Pings\``.substr(0, 2048))
               .setFooter(client.getFooter(es))]}
             );
           } break;
@@ -218,7 +218,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(`The Channel \`${channel.name}\` is now got added to the Whitelisted Channels of this System`)
                     .setColor(es.color)
-                    .setDescription(`Every single Channel:\n<#${client.settings.get(message.guild.id, "antimention.whitelistedchannels").join(">\n<#")}>\nis not checked by the System`.substring(0, 2048))
+                    .setDescription(`Every single Channel:\n<#${client.settings.get(message.guild.id, "antimention.whitelistedchannels").join(">\n<#")}>\nis not checked by the System`.substr(0, 2048))
                     .setFooter(client.getFooter(es))]
                   });
                 } catch (e) {
@@ -237,7 +237,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antidiscord"]["variable11"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
             })
@@ -270,7 +270,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(`The Channel \`${channel.name}\` is now removed out of the Whitelisted Channels of this System`)
                     .setColor(es.color)
-                    .setDescription(`Every single Channel:\n> <#${client.settings.get(message.guild.id, "antimention.whitelistedchannels").join(">\n> <#")}>\nis not checked by the System`.substring(0, 2048))
+                    .setDescription(`Every single Channel:\n> <#${client.settings.get(message.guild.id, "antimention.whitelistedchannels").join(">\n> <#")}>\nis not checked by the System`.substr(0, 2048))
                     .setFooter(client.getFooter(es))]
                   });
                 } catch (e) {
@@ -289,7 +289,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antidiscord"]["variable18"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
             })
@@ -318,7 +318,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle("Successfully set the New Maximum Allowed Amounts to " + number + " Times")
                     .setColor(es.color)
-                    .setDescription(`**If someone does it over __${number} times__ he/she/they will get muted for 10 Minutes!**`.substring(0, 2048))
+                    .setDescription(`**If someone does it over __${number} times__ he/she/they will get muted for 10 Minutes!**`.substr(0, 2048))
                     .setFooter(client.getFooter(es))]
                   });
                 } catch (e) {
@@ -337,7 +337,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antidiscord"]["variable18"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
             })

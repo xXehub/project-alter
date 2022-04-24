@@ -71,9 +71,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -144,9 +144,9 @@ module.exports = {
                 .addOptions(
                 menuoptions.map(option => {
                   let Obj = {
-                    label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                    value: option.value.substring(0, 50),
-                    description: option.description.substring(0, 50),
+                    label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                    value: option.value.substr(0, 50),
+                    description: option.description.substr(0, 50),
                   }
                 if(option.emoji) Obj.emoji = option.emoji;
                 return Obj;
@@ -241,7 +241,7 @@ module.exports = {
                       return message.reply({embeds: [new Discord.MessageEmbed()
                         .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-autoembed"]["variable12"]))
                         .setColor(es.wrongcolor)
-                        .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                        .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                         .setFooter(client.getFooter(es))
                       ]});
                     })
@@ -302,7 +302,7 @@ module.exports = {
                       return message.reply({embeds: [new Discord.MessageEmbed()
                         .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-autoembed"]["variable12"]))
                         .setColor(es.wrongcolor)
-                        .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                        .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                         .setFooter(client.getFooter(es))
                       ]});
                     })
@@ -323,7 +323,7 @@ module.exports = {
                   message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(`📑 Settings of the Join Vc-Messages System`)
                     .setColor(es.color)
-                    .setDescription(`**VCS Where a Message is sent:**\n${a.map(d => `<#${d.channelId}> [Send in: <#${d.textChannelId}>]`).join("\n")}`.substring(0, 2000))
+                    .setDescription(`**VCS Where a Message is sent:**\n${a.map(d => `<#${d.channelId}> [Send in: <#${d.textChannelId}>]`).join("\n")}`.substr(0, 2000))
                     .setFooter(client.getFooter(es))]
                   })
                 }break;
@@ -363,9 +363,9 @@ module.exports = {
                 .addOptions(
                 menuoptions.map(option => {
                   let Obj = {
-                    label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                    value: option.value.substring(0, 50),
-                    description: option.description.substring(0, 50),
+                    label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                    value: option.value.substr(0, 50),
+                    description: option.description.substr(0, 50),
                   }
                 if(option.emoji) Obj.emoji = option.emoji;
                 return Obj;
@@ -464,7 +464,7 @@ module.exports = {
                       return message.reply({embeds: [new Discord.MessageEmbed()
                         .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-autoembed"]["variable12"]))
                         .setColor(es.wrongcolor)
-                        .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                        .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                         .setFooter(client.getFooter(es))
                       ]});
                     })
@@ -525,7 +525,7 @@ module.exports = {
                       return message.reply({embeds: [new Discord.MessageEmbed()
                         .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-autoembed"]["variable12"]))
                         .setColor(es.wrongcolor)
-                        .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                        .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                         .setFooter(client.getFooter(es))
                       ]});
                     })
@@ -546,7 +546,7 @@ module.exports = {
                   message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(`📑 Settings of the Join Vc-Role System`)
                     .setColor(es.color)
-                    .setDescription(`**VCS Where I add a Role:**\n${a.map(d => `<#${d.channelId}> [Role: <@&${d.roleId}>]`).join("\n")}`.substring(0, 2000))
+                    .setDescription(`**VCS Where I add a Role:**\n${a.map(d => `<#${d.channelId}> [Role: <@&${d.roleId}>]`).join("\n")}`.substr(0, 2000))
                     .setFooter(client.getFooter(es))]
                   })
                 }break;

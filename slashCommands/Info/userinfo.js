@@ -129,7 +129,7 @@ module.exports = {
 			  }
 			}
 			embeduserinfo.addField(client.la[ls].cmds.info.userinfo.field10,`> ${userstatus}`)
-			embeduserinfo.addField(client.la[ls].cmds.info.userinfo.field11,`> ${member.permissions.toArray().includes("ADMINISTRATOR") ? "\`ADMINISTRATOR\`": member.permissions.toArray().sort((a, b) => a.localeCompare(b)).map(p=>`\`${p}\``).join("︲")}`.substring(0, 2048))
+			embeduserinfo.addField(client.la[ls].cmds.info.userinfo.field11,`> ${member.permissions.toArray().includes("ADMINISTRATOR") ? "\`ADMINISTRATOR\`": member.permissions.toArray().sort((a, b) => a.localeCompare(b)).map(p=>`\`${p}\``).join("︲")}`.substr(0, 2048))
 			embeduserinfo.addField(handlemsg(client.la[ls].cmds.info.userinfo.field12, { rolesize: roles.cache.size}), roles.cache.size < 25 ? [...roles.cache.values()].sort((a, b) => b?.rawPosition - a.rawPosition).map(role => `<@&${role.id}>`).join(', ') : roles.cache.size > 25 ? trimArray(roles.cache) : client.la[ls].cmds.info.userinfo.noroles)
 			embeduserinfo.setColor(es.color)
 			embeduserinfo.setFooter(client.getFooter(es))

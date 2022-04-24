@@ -5,7 +5,7 @@ var emoji = require(`${process.cwd()}/botconfig/emojis.json`);
 var {
     MessageEmbed, Permissions
 } = require(`discord.js`);
-const { databasing, delay } = require(`./functions`)
+const { databasing, delay } = require(`${process.cwd()}/handlers/functions`)
 const countermap = new Map()
 const ms = require("ms");
 module.exports = client => {

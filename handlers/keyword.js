@@ -3,7 +3,7 @@ const config = require(`${process.cwd()}/botconfig/config.json`)
 var {
     MessageEmbed
 } = require(`discord.js`);
-const {escapeRegex} = require(`./functions`)
+const {escapeRegex} = require(`${process.cwd()}/handlers/functions`)
 const map = new Map()
 module.exports = client => {
 

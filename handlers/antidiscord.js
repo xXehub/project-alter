@@ -13,7 +13,7 @@ module.exports = client => {
         check_voice_channels,
         create_join_to_create_Channel,
         isValidURL, delay
-    } = require(`./functions`);
+    } = require(`${process.cwd()}/handlers/functions`);
 
     const isInvite = async (guild, code) => {
         return await new Promise((resolve) => {

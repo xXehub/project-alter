@@ -75,9 +75,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -165,7 +165,7 @@ module.exports = {
               return message.reply({embeds: [new MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-blacklist"]["variable11"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]}
               );
             })
@@ -221,7 +221,7 @@ module.exports = {
                 return message.reply({embeds: [new MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-blacklist"]["variable18"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))]}
                 );
               })
@@ -267,7 +267,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(`The Channel \`${channel.name}\` is now got added to the Whitelisted Channels of this System`)
                     .setColor(es.color)
-                    .setDescription(`Every single Channel:\n<#${client.blacklist.get(message.guild.id, "whitelistedchannels").join(">\n<#")}>\nis not checked by the System`.substring(0, 2048))
+                    .setDescription(`Every single Channel:\n<#${client.blacklist.get(message.guild.id, "whitelistedchannels").join(">\n<#")}>\nis not checked by the System`.substr(0, 2048))
                     .setFooter(client.getFooter(es))]
                   });
                 } catch (e) {
@@ -286,7 +286,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antidiscord"]["variable11"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
             })
@@ -319,7 +319,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(`The Channel \`${channel.name}\` is now removed out of the Whitelisted Channels of this System`)
                     .setColor(es.color)
-                    .setDescription(`Every single Channel:\n> <#${client.blacklist.get(message.guild.id, "whitelistedchannels").join(">\n> <#")}>\nis not checked by the System`.substring(0, 2048))
+                    .setDescription(`Every single Channel:\n> <#${client.blacklist.get(message.guild.id, "whitelistedchannels").join(">\n> <#")}>\nis not checked by the System`.substr(0, 2048))
                     .setFooter(client.getFooter(es))]
                   });
                 } catch (e) {
@@ -338,7 +338,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antidiscord"]["variable18"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
             })
@@ -367,7 +367,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle("Successfully set the New Maximum Allowed Amounts to " + number + " Times")
                     .setColor(es.color)
-                    .setDescription(`**If someone does it over __${number} times__ he/she/they will get muted for 10 Minutes!**`.substring(0, 2048))
+                    .setDescription(`**If someone does it over __${number} times__ he/she/they will get muted for 10 Minutes!**`.substr(0, 2048))
                     .setFooter(client.getFooter(es))]
                   });
                 } catch (e) {
@@ -386,7 +386,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antidiscord"]["variable18"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
             })

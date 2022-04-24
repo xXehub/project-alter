@@ -92,9 +92,9 @@ module.exports = {
           .addOptions(
             menuoptions.map(option => {
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
               if (option.emoji) Obj.emoji = option.emoji;
               return Obj;
@@ -131,7 +131,7 @@ module.exports = {
           menumsg.edit({
             embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)],
             components: [],
-            content: `${collected && collected.first() && collected.first().values ? `<a:Check_List_Ijo:870279724906197033>  **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`
+            content: `${collected && collected.first() && collected.first().values ? `<a:yes:833101995723194437> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`
           })
         });
       }
@@ -139,7 +139,7 @@ module.exports = {
       client.settings.ensure(message.guild.id, {
         suggest: {
           channel: "",
-          approvemsg: `<a:Check_List_Ijo:870279724906197033>  Accepted Idea! Expect this soon.`,
+          approvemsg: `<a:yes:833101995723194437> Accepted Idea! Expect this soon.`,
           denymsg: `<:no:833101993668771842> Thank you for the feedback, but we are not interested in this idea at this time.`,
           maybemsg: `💡 We are thinking about this idea!`,
           duplicatemsg: `💢 This is a duplicated Suggestion`,
@@ -179,7 +179,7 @@ module.exports = {
                       embeds: [new Discord.MessageEmbed()
                         .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable6"]))
                         .setColor(es.color)
-                        .setDescription(`Start writing in there, to write a Suggestion, to accept/deny them use the: \`${prefix}suggest <approve/deny/maybe> <MESSAGEID> [REASON]\` command`.substring(0, 2048))
+                        .setDescription(`Start writing in there, to write a Suggestion, to accept/deny them use the: \`${prefix}suggest <approve/deny/maybe> <MESSAGEID> [REASON]\` command`.substr(0, 2048))
                         .setFooter(client.getFooter(es))
                       ]
                     });
@@ -204,7 +204,7 @@ module.exports = {
                   embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable9"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]
                 });
@@ -247,7 +247,7 @@ module.exports = {
                     embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable12"]))
                       .setColor(es.color)
-                      .setDescription(`${message.content}`.substring(0, 2048))
+                      .setDescription(`${message.content}`.substr(0, 2048))
                       .setFooter(client.getFooter(es))
                     ]
                   });
@@ -272,7 +272,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable9"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });
@@ -304,7 +304,7 @@ module.exports = {
                     embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable18"]))
                       .setColor(es.color)
-                      .setDescription(`${message.content}`.substring(0, 2048))
+                      .setDescription(`${message.content}`.substr(0, 2048))
                       .setFooter(client.getFooter(es))
                     ]
                   });
@@ -328,7 +328,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable9"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });
@@ -360,7 +360,7 @@ module.exports = {
                     embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable24"]))
                       .setColor(es.color)
-                      .setDescription(`${message.content}`.substring(0, 2048))
+                      .setDescription(`${message.content}`.substr(0, 2048))
                       .setFooter(client.getFooter(es))
                     ]
                   });
@@ -385,7 +385,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable9"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });
@@ -417,7 +417,7 @@ module.exports = {
                     embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable30"]))
                       .setColor(es.color)
-                      .setDescription(`${message.content}`.substring(0, 2048))
+                      .setDescription(`${message.content}`.substr(0, 2048))
                       .setFooter(client.getFooter(es))
                     ]
                   });
@@ -441,7 +441,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable9"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });
@@ -473,7 +473,7 @@ module.exports = {
                     embeds: [new Discord.MessageEmbed()
                       .setTitle("Successfully set the new SOON MESSAGE to:")
                       .setColor(es.color)
-                      .setDescription(`${message.content}`.substring(0, 2048))
+                      .setDescription(`${message.content}`.substr(0, 2048))
                       .setFooter(client.getFooter(es))
                     ]
                   });
@@ -498,7 +498,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable9"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });
@@ -530,7 +530,7 @@ module.exports = {
                     embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable36"]))
                       .setColor(es.color)
-                      .setDescription(`${message.content}`.substring(0, 2048))
+                      .setDescription(`${message.content}`.substr(0, 2048))
                       .setFooter(client.getFooter(es))
                     ]
                   });
@@ -555,7 +555,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable9"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });
@@ -629,7 +629,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable50"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });
@@ -703,7 +703,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-suggestion"]["variable61"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });

@@ -67,7 +67,7 @@ module.exports = client => {
                   .setThumbnail(thumbs.leave)
                   .setDescription(`<@${vcMember.id}> **(\`${vcMember.user.tag}\`) left the VC:** <#${oldState.channelId}>`)
                 ],
-                content: `**\`${vcMember.user.tag}\` LEFT!** *Removed the MESSAGE*`.substring(0, 2000)
+                content: `**\`${vcMember.user.tag}\` LEFT!** *Removed the MESSAGE*`.substr(0, 2000)
               }).catch(() => {}).then(msg => {
                 client.joinvc.delete("msg-"+oldState.id);
               })
@@ -80,7 +80,7 @@ module.exports = client => {
                   .setThumbnail(thumbs.leave)
                   .setDescription(`<@${vcMember.id}> **(\`${vcMember.user.tag}\`) left the VC:** <#${oldState.channelId}> **again...**`)
                 ],
-                content: `**\`${vcMember.user.tag}\` LEFT!** *Removed the MESSAGE*`.substring(0, 2000)
+                content: `**\`${vcMember.user.tag}\` LEFT!** *Removed the MESSAGE*`.substr(0, 2000)
               }).catch(() => {}).then(msg => {
                 client.joinvc.delete("msg-"+oldState.id);
               })
@@ -138,7 +138,7 @@ module.exports = client => {
               .setThumbnail(thumbs.join)
               .setDescription(`<@${vcMember.id}> **(\`${vcMember.user.tag}\`) joined the VC:** <#${newState.channelId}>`)
             ],
-            content: `${theData.message && theData.message.length > 10 ? theData.message : "*No __VALID__ Message Added*"}`.substring(0, 2000)
+            content: `${theData.message && theData.message.length > 10 ? theData.message : "*No __VALID__ Message Added*"}`.substr(0, 2000)
           }).catch(() => {}).then(msg => {
             client.joinvc.set("msg-"+newState.id, msg.id);
           })

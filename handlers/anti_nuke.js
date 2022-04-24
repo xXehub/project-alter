@@ -5,7 +5,7 @@ var {
     MessageAttachment, Permissions
 } = require(`discord.js`);
 const Enmap = require("enmap");
-const { simple_databasing } = require(`./functions`);
+const { simple_databasing } = require(`${process.cwd()}/handlers/functions`);
 module.exports = client => {
 
     client.Anti_Nuke_System = new Enmap({

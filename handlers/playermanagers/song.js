@@ -88,12 +88,12 @@ async function song(client, message, args, type, slashCommand, extras) {
       if(slashCommand) 
       return slashCommand.reply({ephemeral: true, embeds: [new MessageEmbed()
         .setColor(ee.wrongcolor)
-        .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+        .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
         .setDescription(eval(client.la[ls]["handlers"]["playermanagers"]["song"]["variable3"]))
       ]})
       return message.reply({embeds: [new MessageEmbed()
         .setColor(ee.wrongcolor)
-        .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+        .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
         .setDescription(eval(client.la[ls]["handlers"]["playermanagers"]["song"]["variable3"]))
       ]}).then(msg => {
         setTimeout(()=>{
@@ -157,12 +157,12 @@ async function song(client, message, args, type, slashCommand, extras) {
       if(slashCommand) 
       return slashCommand.reply({ephemeral: true, embeds: [new MessageEmbed()
         .setColor(ee.wrongcolor)
-        .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+        .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
         .setDescription(eval(client.la[ls]["handlers"]["playermanagers"]["song"]["variable5"]))
       ]})
       return message.reply({embeds: [new MessageEmbed()
         .setColor(ee.wrongcolor)
-        .setTitle(String("❌ Error | Found nothing for: **`" + search).substring(0, 256 - 3) + "`**")
+        .setTitle(String("❌ Error | Found nothing for: **`" + search).substr(0, 256 - 3) + "`**")
         .setDescription(eval(client.la[ls]["handlers"]["playermanagers"]["song"]["variable5"]))
       ]}).then(msg => {
         setTimeout(()=>{
@@ -203,7 +203,7 @@ async function song(client, message, args, type, slashCommand, extras) {
     }
     //send information
     var playlistembed = new MessageEmbed()
-      .setTitle(`Added Playlist 🩸 **\`${res.playlist.name}`.substring(0, 256 - 3) + "`**")
+      .setTitle(`Added Playlist 🩸 **\`${res.playlist.name}`.substr(0, 256 - 3) + "`**")
       .setURL(res.playlist.uri).setColor(ee.color)
       .setThumbnail(`https://img.youtube.com/vi/${res.tracks[0].identifier}/mqdefault.jpg`)
       .addField("⌛ Duration: ", `\`${format(res.playlist.duration)}\``, true)

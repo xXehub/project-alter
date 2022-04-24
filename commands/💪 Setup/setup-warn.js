@@ -66,9 +66,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -122,7 +122,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable6"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled`.substring(0, 2000))
+                      .setDescription(`Cancelled`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   if(amount.toLowerCase() == "no"){
@@ -137,14 +137,14 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable8"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`You entered: \`${amount}\``.substring(0, 2000))
+                      .setDescription(`You entered: \`${amount}\``.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   if(Number(amount) <= 0)
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable9"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`You entered: \`${amount}\``.substring(0, 2000))
+                      .setDescription(`You entered: \`${amount}\``.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   client.settings.set(message.guild.id, amount, "warnsettings.kick")
@@ -158,7 +158,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable11"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]});
                 })
@@ -181,7 +181,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable14"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled`.substring(0, 2000))
+                      .setDescription(`Cancelled`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   if(amount.toLowerCase() == "no"){
@@ -196,14 +196,14 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable16"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`You entered: \`${amount}\``.substring(0, 2000))
+                      .setDescription(`You entered: \`${amount}\``.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   if(Number(amount) <= 0)
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable17"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`You entered: \`${amount}\``.substring(0, 2000))
+                      .setDescription(`You entered: \`${amount}\``.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   client.settings.set(message.guild.id, amount, "warnsettings.ban")
@@ -217,7 +217,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable19"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]});
                 })
@@ -242,28 +242,28 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable22"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled`.substring(0, 2000))
+                      .setDescription(`Cancelled`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   if(!amount)
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable23"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled`.substring(0, 2000))
+                      .setDescription(`Cancelled`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   if(isNaN(amount))
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable24"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`You entered: \`${amount}\``.substring(0, 2000))
+                      .setDescription(`You entered: \`${amount}\``.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   if(Number(amount) <= 0)
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable25"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`You entered: \`${amount}\``.substring(0, 2000))
+                      .setDescription(`You entered: \`${amount}\``.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
 
@@ -271,7 +271,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable26"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`You can't add 2 Roles at the Same time`.substring(0, 2000))
+                      .setDescription(`You can't add 2 Roles at the Same time`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   client.settings.push(message.guild.id, { warncount: Number(amount), roleid: role.id }, "warnsettings.roles")
@@ -285,7 +285,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable28"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]});
                 })
@@ -309,21 +309,21 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable31"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled`.substring(0, 2000))
+                      .setDescription(`Cancelled`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   if(isNaN(amount))
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable32"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`You entered: \`${amount}\``.substring(0, 2000))
+                      .setDescription(`You entered: \`${amount}\``.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   if(Number(amount) <= 0)
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable33"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`You entered: \`${amount}\``.substring(0, 2000))
+                      .setDescription(`You entered: \`${amount}\``.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
 
@@ -331,7 +331,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable34"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`You can't remove a Setting which does not exist`.substring(0, 2000))
+                      .setDescription(`You can't remove a Setting which does not exist`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   let yeee = warnsettings.roles.filter(r => r?.warncount == amount)[0]
@@ -346,7 +346,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable36"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]});
                 })
@@ -363,13 +363,13 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable39"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]});
               })
             break;
           default:
-            message.reply(String("SORRY, that Number does not exists :(\n Your Input:\n> " + collected.first().content).substring(0, 1999))
+            message.reply(String("SORRY, that Number does not exists :(\n Your Input:\n> " + collected.first().content).substr(0, 1999))
           break;
         }
       }

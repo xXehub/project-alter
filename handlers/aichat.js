@@ -5,10 +5,13 @@ var emoji = require(`${process.cwd()}/botconfig/emojis.json`);
 var {
     MessageEmbed, MessageAttachment, User, Permissions
 } = require(`discord.js`);
-const { databasing } = require(`./functions`)
+const { databasing } = require(`${process.cwd()}/handlers/functions`)
 const fetch = require("node-fetch")
 module.exports = client => {
-    // CMD
+
+
+    //CMD
+
     client.on("messageCreate", async message => {
         try{
             if (!message.guild || message.guild.available === false || !message.channel || message.author.bot) return;
@@ -35,13 +38,13 @@ module.exports = client => {
             }
         }catch(e){console.log(String(e).grey)}
     })
-    // AFK SYSTEM
+    //AFK SYSTEM
     client.on("messageCreate", async message => {
         try{
             if (!message.guild || message.guild.available === false || !message.channel || message.author.bot ) return;
             for(const user of [...message.mentions.users.values()]){
                 if(client.afkDB.has(message.guild.id + user.id)){
-                    await message.reply({content: `<:Crying:867724032316407828> **${user.tag}** went AFK <t:${Math.floor(client.afkDB.get(message.guild.id+user.id, "stamp") / 1000)}:R>!${client.afkDB.get(message.guild.id+user.id, "message") && client.afkDB.get(message.guild.id+user.id, "message").length > 1 ? `\n\n__His Message__\n>>> ${String(client.afkDB.get(message.guild.id+user.id, "message")).substring(0, 1800).split(`@`).join(`\`@\``)}` : "" }`}).then(msg=>{
+                    await message.reply({content: `<:Crying:867724032316407828> **${user.tag}** went AFK <t:${Math.floor(client.afkDB.get(message.guild.id+user.id, "stamp") / 1000)}:R>!${client.afkDB.get(message.guild.id+user.id, "message") && client.afkDB.get(message.guild.id+user.id, "message").length > 1 ? `\n\n__His Message__\n>>> ${String(client.afkDB.get(message.guild.id+user.id, "message")).substr(0, 1800).split(`@`).join(`\`@\``)}` : "" }`}).then(msg=>{
                         setTimeout(()=>{
                             try{
                                 msg.delete().catch(() => {});
@@ -54,7 +57,7 @@ module.exports = client => {
             console.log(String(e).grey)
         }
     });
-    // AFK SYSTEM
+    //AFK SYSTEM
     client.on("messageCreate", async message => {
         try{
             if (!message.guild || message.guild.available === false || !message.channel || message.author.bot) return;
@@ -69,7 +72,7 @@ module.exports = client => {
             console.log(String(e).grey)
         }
     });
-    // autodelete
+    //autodelete
     client.on("messageCreate", async message => {
         if(message.guild){
             client.setups.ensure(message.guild.id, {
@@ -96,7 +99,7 @@ module.exports = client => {
             }
         }
     })
-    // sniping System
+    //sniping System
     client.on("messageDelete", async message => {
         if (!message.guild || message.guild.available === false || !message.channel || !message.author) return;
         let snipes = client.snipes.has(message.channel.id) ? client.snipes.get(message.channel.id) : [];

@@ -29,7 +29,7 @@ module.exports = {
         "fr": "🇫🇷 French",
         "it": "🇮🇹 Italian",
         "sp": "🇪🇸 Spanish",
-        "id": "🇮🇳 Indonesia",
+        "in": "🇮🇳 India (Hindi)",
         "nl": "🇳🇱 Dutch",
         "tr": "🇹🇷 Turkish",
         "ir": "🇮🇷 Iran"
@@ -70,9 +70,9 @@ module.exports = {
           .addOptions(
             menuoptions.map(option => {
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
             if(option.emoji) Obj.emoji = option.emoji;
             return Obj;
@@ -116,7 +116,7 @@ module.exports = {
             let button_fr = new MessageButton().setStyle('PRIMARY').setCustomId('language_fr').setEmoji("🇫🇷").setLabel("French").setDisabled(false)
             let button_it = new MessageButton().setStyle('PRIMARY').setCustomId('language_it').setEmoji("🇮🇹").setLabel("Italian").setDisabled(false)
             let button_sp = new MessageButton().setStyle('PRIMARY').setCustomId('language_sp').setEmoji("🇪🇸").setLabel("Spanish").setDisabled(false)
-            let button_ae = new MessageButton().setStyle('PRIMARY').setCustomId('language_in').setEmoji("🇮🇩").setLabel("Indonesia (soon)").setDisabled(false)
+            let button_ae = new MessageButton().setStyle('PRIMARY').setCustomId('language_in').setEmoji("🇮🇳").setLabel("India (Hindi)").setDisabled(false)
             let button_nl = new MessageButton().setStyle('PRIMARY').setCustomId('language_nl').setEmoji("🇳🇱").setLabel("Dutch").setDisabled(false)
             let button_tr = new MessageButton().setStyle('PRIMARY').setCustomId('language_tr').setEmoji("🇹🇷").setLabel("Turkish").setDisabled(false)
             let button_ir = new MessageButton().setStyle('PRIMARY').setCustomId('language_ir').setEmoji("🇮🇷").setLabel("Iran").setDisabled(false)

@@ -55,9 +55,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -116,7 +116,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-dailyfact"]["variable7"]))
                       .setColor(es.color)
-                      .setDescription(`Posting now, every Day`.substring(0, 2048))
+                      .setDescription(`Posting now, every Day`.substr(0, 2048))
                       .setFooter(client.getFooter(es))
                     ]});
                   }
@@ -129,7 +129,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-dailyfact"]["variable8"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]});
                 })
@@ -141,7 +141,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-dailyfact"]["variable9"]))
                 .setColor(es.color)
-                .setDescription(`I will not send automatic Facts to a Channel anymore`.substring(0, 2048))
+                .setDescription(`I will not send automatic Facts to a Channel anymore`.substr(0, 2048))
                 .setFooter(client.getFooter(es))
               ]});
             }
@@ -152,7 +152,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-dailyfact"]["variable10"]))
                 .setColor(es.color)
-                .setDescription(`**Channel:** ${thesettings == "no" ? "Not Setupped" : `<#${thesettings}> | \`${thesettings}\``}\n\n**Cooldown:** 24 Hours`.substring(0, 2048))
+                .setDescription(`**Channel:** ${thesettings == "no" ? "Not Setupped" : `<#${thesettings}> | \`${thesettings}\``}\n\n**Cooldown:** 24 Hours`.substr(0, 2048))
                 .setFooter(client.getFooter(es))
               ]});
             }

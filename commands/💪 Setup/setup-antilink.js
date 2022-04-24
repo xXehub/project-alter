@@ -82,9 +82,9 @@ module.exports = {
           .addOptions(
             menuoptions.map(option => {
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
             if(option.emoji) Obj.emoji = option.emoji;
             return Obj;
@@ -138,8 +138,8 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antilink"]["variable4"]))
               .setColor(es.color)
-              .setDescription(`**Enabled:** ${thesettings.enabled ? "<a:yes:833101995723194437>" : "<:no:833101993668771842>"}\n\n**Witelisted Channels:** ${thesettings.whitelistedchannels && thesettings.whitelistedchannels.length > 0 ? `<#${thesettings.whitelistedchannels.join("> | <#")}>` : "No Channels Whitelisted!"}\n\n**Information:** *Anti Discord are not enabled in Tickets from THIS BOT*`.substring(0, 2048))
-              .addField("**Whitelisted Links**", `${thesettings.whitelistedlinks.lenght > 0 ? thesettings.whitelistedlinks.join("\n").substring(0, 1024): "No Links allowed!"}`)
+              .setDescription(`**Enabled:** ${thesettings.enabled ? "<a:yes:833101995723194437>" : "<:no:833101993668771842>"}\n\n**Witelisted Channels:** ${thesettings.whitelistedchannels && thesettings.whitelistedchannels.length > 0 ? `<#${thesettings.whitelistedchannels.join("> | <#")}>` : "No Channels Whitelisted!"}\n\n**Information:** *Anti Discord are not enabled in Tickets from THIS BOT*`.substr(0, 2048))
+              .addField("**Whitelisted Links**", `${thesettings.whitelistedlinks.lenght > 0 ? thesettings.whitelistedlinks.join("\n").substr(0, 1024): "No Links allowed!"}`)
               .setFooter(client.getFooter(es))
             ]});
           }break
@@ -170,7 +170,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antilink"]["variable8"]))
                   .setColor(es.color)
-                  .setDescription(`Every single Channel:\n> <#${client.settings.get(message.guild.id, "antilink.whitelistedchannels").join(">\n> <#")}>\nis not checked by the Anti Links System`.substring(0, 2048))
+                  .setDescription(`Every single Channel:\n> <#${client.settings.get(message.guild.id, "antilink.whitelistedchannels").join(">\n> <#")}>\nis not checked by the Anti Links System`.substr(0, 2048))
                   .setFooter(client.getFooter(es))]
                 });
               } catch (e) {
@@ -189,7 +189,7 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antilink"]["variable11"]))
               .setColor(es.wrongcolor)
-              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
               .setFooter(client.getFooter(es))]
             });
           })
@@ -221,7 +221,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antilink"]["variable15"]))
                   .setColor(es.color)
-                  .setDescription(`Every single Channel:\n<#${client.settings.get(message.guild.id, "antilink.whitelistedchannels").join(">\n<#")}>\nis not a checked by the Anti Links System`.substring(0, 2048))
+                  .setDescription(`Every single Channel:\n<#${client.settings.get(message.guild.id, "antilink.whitelistedchannels").join(">\n<#")}>\nis not a checked by the Anti Links System`.substr(0, 2048))
                   .setFooter(client.getFooter(es))]
                 });
               } catch (e) {
@@ -240,7 +240,7 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antilink"]["variable18"]))
               .setColor(es.wrongcolor)
-              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
               .setFooter(client.getFooter(es))]
             });
           })
@@ -273,7 +273,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(`Added the Link ${content} to the allowed links!`)
                     .setColor(es.color)
-                    .setDescription(`Every single allowed Link:\n> ${client.settings.get(message.guild.id, "antilink.whitelistedlinks").join("\n> ")}\nIs not a checked by the Anti Discord Links System`.substring(0, 2048))
+                    .setDescription(`Every single allowed Link:\n> ${client.settings.get(message.guild.id, "antilink.whitelistedlinks").join("\n> ")}\nIs not a checked by the Anti Discord Links System`.substr(0, 2048))
                     .setFooter(client.getFooter(es))]
                   });
                 } catch (e) {
@@ -293,7 +293,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antilink"]["variable11"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
             })
@@ -327,7 +327,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(`Removed the Link ${content} from the allowed links!`)
                     .setColor(es.color)
-                    .setDescription(`Every single allowed Link:\n> ${client.settings.get(message.guild.id, "antilink.whitelistedlinks").join("\n> ")}\nIs not a checked by the Anti Discord Links System`.substring(0, 2048))
+                    .setDescription(`Every single allowed Link:\n> ${client.settings.get(message.guild.id, "antilink.whitelistedlinks").join("\n> ")}\nIs not a checked by the Anti Discord Links System`.substr(0, 2048))
                     .setFooter(client.getFooter(es))]
                   });
                 } catch (e) {
@@ -347,7 +347,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antilink"]["variable11"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
             })
@@ -377,7 +377,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle("Successfully set the New Maximum Allowed Amounts to " + number + " Times")
                     .setColor(es.color)
-                    .setDescription(`**If someone does it over __${number} times__ he/she/they will get muted for 10 Minutes!**`.substring(0, 2048))
+                    .setDescription(`**If someone does it over __${number} times__ he/she/they will get muted for 10 Minutes!**`.substr(0, 2048))
                     .setFooter(client.getFooter(es))]
                   });
                 } catch (e) {
@@ -396,7 +396,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antidiscord"]["variable18"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))]
               });
             })

@@ -56,9 +56,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -118,7 +118,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-counter"]["variable7"]))
                     .setColor(es.color)
-                    .setDescription(`You can now count Numbers in <#${channel.id}>`.substring(0, 2048))
+                    .setDescription(`You can now count Numbers in <#${channel.id}>`.substr(0, 2048))
                     .setFooter(client.getFooter(es))
                   ]});
                 }
@@ -131,7 +131,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-counter"]["variable8"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]});
               })
@@ -141,7 +141,7 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-counter"]["variable9"]))
               .setColor(es.color)
-              .setDescription(`You can't count Numbers anymore`.substring(0, 2048))
+              .setDescription(`You can't count Numbers anymore`.substr(0, 2048))
               .setFooter(client.getFooter(es))
             ]});
           }break;
@@ -150,7 +150,7 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-counter"]["variable10"]))
               .setColor(es.color)
-              .setDescription(`People now need to count from 1 again!`.substring(0, 2048))
+              .setDescription(`People now need to count from 1 again!`.substr(0, 2048))
               .setFooter(client.getFooter(es))
             ]});
           }break;
@@ -159,7 +159,7 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-counter"]["variable11"]))
               .setColor(es.color)
-              .setDescription(`**Channel:** ${thesettings == "no" ? "Not Setupped" : `<#${thesettings}> | \`${thesettings}\``}\n\n**Current Number:** \`${client.settings.get(message.guild.id, "counternum")}\`\n**Nest Number:** \`${Number(client.settings.get(message.guild.id, "counternum")) + 1}\``.substring(0, 2048))
+              .setDescription(`**Channel:** ${thesettings == "no" ? "Not Setupped" : `<#${thesettings}> | \`${thesettings}\``}\n\n**Current Number:** \`${client.settings.get(message.guild.id, "counternum")}\`\n**Nest Number:** \`${Number(client.settings.get(message.guild.id, "counternum")) + 1}\``.substr(0, 2048))
               .setFooter(client.getFooter(es))
             ]});
           }break;

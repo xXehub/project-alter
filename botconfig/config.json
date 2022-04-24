@@ -1,6 +1,6 @@
 {
-   "token": "OTYzMDU2ODYzODQ1NDE2OTcw.YlQimQ.DsPo_oOSOApXO8N0gP_1LoQFupQ",
-   "prefix": "/",
+   "token": "ODY0ODYxNjI2ODk3Mzk5ODU4.YO7nKA.NbLyq8AkxIr5KfmofXeaeO8aRU8",
+   "prefix": "s/",
    "ownerIDS": [
       "309182131811254272"
    ],
@@ -8,19 +8,18 @@
    "fortnitetracker": "d54f8936-5737-42ee-a362-143ad2d78169",
    "memer_api": "0jSlSZubj3b",
    "status": {
-      "text": "Nerd Corporation",
-      "text2": "Consign, Topup, Socmed",
+      "text": "{prefix}help | on Alterra-Worlds with {membercount} Members",
+      "text2": "https://alterraworlds.xyz/",
       "type": "PLAYING",
-      "url": "https://twitch.tv/nerdgamehouse"
+      "url": "https://alterraworlds.xyz/"
    },
    "clientsettings": {
       "nodes": [
-         {
-            "host": "lava.link",
-            "port": 80,
-            "password": "techboy"
-        
-         }
+        {
+                "host": "weez-node.cf",
+                "port": 2333,
+                "password": "FreeLava"
+            }
       ]
    },
    "spotify": {

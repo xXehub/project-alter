@@ -286,9 +286,9 @@ module.exports = {
           .addOptions(
             menuoptions.map(option => {
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
             if(option.emoji) Obj.emoji = option.emoji;
             return Obj;
@@ -381,9 +381,9 @@ module.exports = {
               .addOptions(
                 menuoptions.map(option => {
                   let Obj = {
-                    label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                    value: option.value.substring(0, 50),
-                    description: option.description.substring(0, 50),
+                    label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                    value: option.value.substr(0, 50),
+                    description: option.description.substr(0, 50),
                   }
                 if(option.emoji) Obj.emoji = option.emoji;
                 return Obj;
@@ -455,7 +455,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable20"]))
                       .setColor(es.color)
-                      .setDescription(`**Removed [${removedroles.length}] Roles and [${removedusers.length}] Users from the __general__ Whitelist!**`.substring(0, 2048))
+                      .setDescription(`**Removed [${removedroles.length}] Roles and [${removedusers.length}] Users from the __general__ Whitelist!**`.substr(0, 2048))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_21"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable21"]))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_22"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable22"]))
                       .setFooter(client.getFooter(es))]
@@ -468,7 +468,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable23"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))]
                   });
               } else if(String(index) == "1"){
@@ -524,7 +524,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable26"]))
                       .setColor(es.color)
-                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Bot add__ Whitelist (module)!**`.substring(0, 2048))
+                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Bot add__ Whitelist (module)!**`.substr(0, 2048))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_27"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable27"]))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_28"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable28"]))
                       .setFooter(client.getFooter(es))]
@@ -537,7 +537,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable29"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))]
                   });
               } else if(String(index) == "2"){
@@ -593,7 +593,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable32"]))
                       .setColor(es.color)
-                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Kick/Ban__ Whitelist (module)!**`.substring(0, 2048))
+                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Kick/Ban__ Whitelist (module)!**`.substr(0, 2048))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_33"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable33"]))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_34"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable34"]))
                       .setFooter(client.getFooter(es))]
@@ -606,7 +606,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable35"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))]
                   });
               } else if(String(index) == "3"){
@@ -662,7 +662,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable38"]))
                       .setColor(es.color)
-                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Create Role__ Whitelist (module)!**`.substring(0, 2048))
+                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Create Role__ Whitelist (module)!**`.substr(0, 2048))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_39"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable39"]))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_40"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable40"]))
                       .setFooter(client.getFooter(es))]
@@ -675,7 +675,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable41"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))]
                   });
               } else if(String(index) == "4"){
@@ -731,7 +731,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable44"]))
                       .setColor(es.color)
-                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Delete Role__ Whitelist (module)!**`.substring(0, 2048))
+                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Delete Role__ Whitelist (module)!**`.substr(0, 2048))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_45"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable45"]))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_46"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable46"]))
                       .setFooter(client.getFooter(es))]
@@ -744,7 +744,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable47"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))]
                   });
               } else if(String(index) == "5"){
@@ -800,7 +800,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable50"]))
                       .setColor(es.color)
-                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Channel Create__ Whitelist (module)!**`.substring(0, 2048))
+                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Channel Create__ Whitelist (module)!**`.substr(0, 2048))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_51"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable51"]))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_52"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable52"]))
                       .setFooter(client.getFooter(es))]
@@ -813,7 +813,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable53"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))]
                   });
               } else if(String(index) == "6"){
@@ -869,7 +869,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable56"]))
                       .setColor(es.color)
-                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Channel Delete__ Whitelist (module)!**`.substring(0, 2048))
+                      .setDescription(`<:leaves:866356598356049930> **Removed \`[${removedroles.length}] Roles\` and \`[${removedusers.length}] Users\` from the __Anti Channel Delete__ Whitelist (module)!**`.substr(0, 2048))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_57"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable57"]))
                       .addField(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variablex_58"]), eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable58"]))
                       .setFooter(client.getFooter(es))]
@@ -882,7 +882,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable59"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))]
                   });
               } else {
@@ -977,9 +977,9 @@ module.exports = {
                 .addOptions(
                   menuoptions.map(option => {
                     let Obj = {
-                      label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                      value: option.value.substring(0, 50),
-                      description: option.description.substring(0, 50),
+                      label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                      value: option.value.substr(0, 50),
+                      description: option.description.substr(0, 50),
                     }
                   if(option.emoji) Obj.emoji = option.emoji;
                   return Obj;
@@ -1027,7 +1027,7 @@ module.exports = {
                           message.mentions.channels.filter(ch=>ch.guild.id==message.guild.id).first().send({embeds: [new Discord.MessageEmbed()
                             .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable69"]))
                             .setColor(es.color)
-                            .setDescription(`**Here are some Infos:**\n>>> In the **FOOTER** (bottom), will be Informations (ID & AVATAR) of the EXECUTOR\nIn the **AUTHOR** (top), will be information about the **METHOD**\n\nIf there is a **Thumbnail**, it will be the **TARGET INFORMATION**\n\nEvery Embed, which is **GREEN**, is a security action from **ME**\nEvery Embed in **YELLOW** is a **WARN**\nEvery Embed in **ORANGE** is a **KICK**\nEvery Embed in **RED** is a **BAN**\nEvery Embed in **BLURPLE** is a **Remove Role**`.substring(0, 2048))
+                            .setDescription(`**Here are some Infos:**\n>>> In the **FOOTER** (bottom), will be Informations (ID & AVATAR) of the EXECUTOR\nIn the **AUTHOR** (top), will be information about the **METHOD**\n\nIf there is a **Thumbnail**, it will be the **TARGET INFORMATION**\n\nEvery Embed, which is **GREEN**, is a security action from **ME**\nEvery Embed in **YELLOW** is a **WARN**\nEvery Embed in **ORANGE** is a **KICK**\nEvery Embed in **RED** is a **BAN**\nEvery Embed in **BLURPLE** is a **Remove Role**`.substr(0, 2048))
                             .setFooter(client.getFooter(es))]
                           })
                         }catch (e){
@@ -1037,7 +1037,7 @@ module.exports = {
                           message.reply({embeds: [new Discord.MessageEmbed()
                             .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable70"]))
                             .setColor(es.color)
-                            .setDescription(`**Here are some Infos:**\n>>> In the **FOOTER** (bottom), will be Informations (ID & AVATAR) of the EXECUTOR\nIn the **AUTHOR** (top), will be information about the **METHOD**\n\nIf there is a **Thumbnail**, it will be the **TARGET INFORMATION**\n\nEvery Embed, which is **GREEN**, is a security action from **ME**\nEvery Embed in **YELLOW** is a **WARN**\nEvery Embed in **ORANGE** is a **KICK**\nEvery Embed in **RED** is a **BAN**\nEvery Embed in **BLURPLE** is a **Remove Role**`.substring(0, 2048))
+                            .setDescription(`**Here are some Infos:**\n>>> In the **FOOTER** (bottom), will be Informations (ID & AVATAR) of the EXECUTOR\nIn the **AUTHOR** (top), will be information about the **METHOD**\n\nIf there is a **Thumbnail**, it will be the **TARGET INFORMATION**\n\nEvery Embed, which is **GREEN**, is a security action from **ME**\nEvery Embed in **YELLOW** is a **WARN**\nEvery Embed in **ORANGE** is a **KICK**\nEvery Embed in **RED** is a **BAN**\nEvery Embed in **BLURPLE** is a **Remove Role**`.substr(0, 2048))
                             .setFooter(client.getFooter(es))
                           ]})
                         }catch (e){
@@ -1047,7 +1047,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable71"]))
                           .setColor(es.color)
-                          .setDescription(`If some Anti-Nuke actions are needed to be executed, i will log them there!`.substring(0, 2048))
+                          .setDescription(`If some Anti-Nuke actions are needed to be executed, i will log them there!`.substr(0, 2048))
                           .setFooter(client.getFooter(es))]
                         });
                       }
@@ -1062,7 +1062,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable72"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                      .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                       .setFooter(client.getFooter(es))]
                     });
                 } else if(String(index) == "2"){
@@ -1102,7 +1102,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable79"]))
                           .setColor(es.color)
-                          .setDescription(`This Role will be added, if the User gets the roles removed!\n> You can also ran a command in the \`${prefix}setup-antinuke\` to set all channels to not visible when having this Role!`.substring(0, 2048))
+                          .setDescription(`This Role will be added, if the User gets the roles removed!\n> You can also ran a command in the \`${prefix}setup-antinuke\` to set all channels to not visible when having this Role!`.substr(0, 2048))
                           .setFooter(client.getFooter(es))]
                         });
                       }
@@ -1117,28 +1117,19 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-antinuke"]["variable80"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                      .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                       .setFooter(client.getFooter(es))]
                     });
                 } else {
                   let keys = {
-                    "4": "antibot",
-                    "5": "antideleteuser",
-                    "6": "anticreaterole",
-                    "7": "antideleterole",
-                    "8": "antichannelcreate",
-                    "9": "antichanneldelete",
-                  }
-                  let thenames = {
-                    "antibot" : "Anti Bot Add",
-                    "antideleteuser": "Anti Kick/Ban",
-                    "anticreaterole": "Anti Create Role",
-                    "antideleterole": "Anti Delete Role",
-                    "antichannelcreate": "Anti Create Channel",
-                    "antichanneldelete": "Anti Delete Channel",
+                    "4": "antichannelcreate",
+                    "5": "antichanneldelete",
+                    "6": "antideleterole",
+                    "7": "anticreaterole",
+                    "8": "antideleteuser",
+                    "9": "antibot"
                   }
                   let thekey = keys[`${String(index)}`];
-                  let thename = thenames[`${thekey}`];
                   /**
                    
                     [Remove Roles] Actions / Day: 1
@@ -1156,11 +1147,6 @@ module.exports = {
                     first_layer()
                     async function first_layer(){
                       menuoptions = [
-                        {
-                          value: client.Anti_Nuke_System.get(message.guild.id, `${thekey}.enabled`) ? `Disable ${thename}`: `Enable ${thename}`,
-                          description: client.Anti_Nuke_System.get(message.guild.id, `${thekey}.enabled`) ? `${thename} will stop working`: `${thename} will be working`,
-                          emoji: client.Anti_Nuke_System.get(message.guild.id, `${thekey}.enabled`) ? "833101993668771842": "833101995723194437"
-                        },
                         {
                           value: "Remove Roles / Day",
                           description: `Amount of Actions / Day to remove the Roles`,
@@ -1222,9 +1208,9 @@ module.exports = {
                         .addOptions(
                         menuoptions.map(option => {
                           let Obj = {
-                            label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                            value: option.value.substring(0, 50),
-                            description: option.description.substring(0, 50),
+                            label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                            value: option.value.substr(0, 50),
+                            description: option.description.substr(0, 50),
                           }
                         if(option.emoji) Obj.emoji = option.emoji;
                         return Obj;
@@ -1250,12 +1236,7 @@ module.exports = {
                             if(menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-warn"]["variable3"]))
                             menu?.deferUpdate();
                             used33 = true;
-                            if(menu?.values[0] == client.Anti_Nuke_System.get(message.guild.id, `${thekey}.enabled`) ? `Disable ${thename}`: `Enable ${thename}`) {
-                              client.Anti_Nuke_System.set(message.guild.id, !client.Anti_Nuke_System.get(message.guild.id, `${thekey}.enabled`), `${thekey}.enabled`)
-                              return message.reply(`${client.Anti_Nuke_System.get(message.guild.id, `${thekey}.enabled`) ? `Enabled: ${thename}`: `Disabled: ${thename}`}`)
-                            } else {
-                              handle_the_picks_X(menuoptionindex - 1, menuoptiondata)
-                            }
+                            handle_the_picks_X(menuoptionindex, menuoptiondata)
                           }
                           else menu?.reply({content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
                         }
@@ -1292,7 +1273,7 @@ module.exports = {
                           var message = collected.first();
                           let thenumber = message.content;
                           if(isNaN(thenumber)){
-                            return message.reply(`:x: **Your Input is not a real Number**\n> \`${String(thenumber).substring(0, 50)}\``)
+                            return message.reply(`:x: **Your Input is not a real Number**\n> \`${String(thenumber).substr(0, 50)}\``)
                           }
                           thenumber = Number(thenumber)
                           client.Anti_Nuke_System.set(message.guild.id, thenumber, finalkey);
@@ -1307,7 +1288,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable69"]))
                           .setColor(es.wrongcolor)
-                          .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                          .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                           .setFooter(client.getFooter(es))
                         ]});
                       })

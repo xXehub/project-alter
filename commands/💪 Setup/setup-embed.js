@@ -94,7 +94,7 @@ module.exports = {
                       newcolor = resolveColor(color);
                       if(!newcolor) throw { message: "Invalid Color Added, make sure to stick to the Example-Rules" };
                     }catch (e){
-                      return message.reply({embeds: [new MessageEmbed().setColor("RED").setTitle(":x: INVALID COLOR ADDED").setDescription(`\`\`\`${String(e.message ? e.message : e).substring(0, 2000)}\`\`\``)]})
+                      return message.reply({embeds: [new MessageEmbed().setColor("RED").setTitle(":x: INVALID COLOR ADDED").setDescription(`\`\`\`${String(e.message ? e.message : e).substr(0, 2000)}\`\`\``)]})
                     }
                     client.settings.set(message.guild.id, color ,"embed.color")
                     es = client.settings.get(message.guild.id, "embed")
@@ -119,7 +119,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-embed"]["variable14"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]});
       
@@ -202,7 +202,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-embed"]["variable25"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]});
             } else if (button?.customId == "3") {
@@ -223,7 +223,7 @@ module.exports = {
                     client.settings.set(message.guild.id, text, "embed.footertext")
                     es = client.settings.get(message.guild.id, "embed")
                     return message.reply({embeds: [new Discord.MessageEmbed()
-                      .setTitle(`<a:yes:833101995723194437> The new Embed Footer Text is:`.substring(0, 256))
+                      .setTitle(`<a:yes:833101995723194437> The new Embed Footer Text is:`.substr(0, 256))
                       .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
                       .setDescription(es.footertext)
                       .setFooter(client.getFooter(es))
@@ -244,7 +244,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-embed"]["variable30"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]});
             } else if (button?.customId == "4") {

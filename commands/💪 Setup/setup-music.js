@@ -35,15 +35,15 @@ module.exports = {
           new MessageEmbed()
             .setColor(es.color)
             .setFooter(client.getFooter(es))
-            .setImage(message.guild.banner ? message.guild.bannerURL({size: 4096}) : "https://cdn.discordapp.com/attachments/755272082387894323/938356786413592626/standard_17.gif")
-            .setTitle(`Start Listening to Music, by connecting to a Voice Channel and sending either the **SONG LINK** or **SONG NAME** in this Channel!`)
+            .setImage(message.guild.banner ? message.guild.bannerURL({size: 4096}) : "https://cdn.discordapp.com/attachments/963725161239052308/966673339491954748/standard_21.gif")
+            .setTitle(`Start Listening to Music, by connecting to a Voice Channel and sending either the **___SONG LINK___** or **___SONG NAME___** in this Channel!`)
             .setDescription(`> *I support <:Youtube:885396627307773953> Youtube, <:Spotify:885396603781935154> Spotify, <:soundcloud:909071134920691742> Soundcloud and direct MP3 Links!*`)
         ]
         //now we add the components!
         var components = [
           new MessageActionRow().addComponents([
-            new MessageButton().setStyle('SUCCESS').setCustomId('Join').setEmoji(`938937482714701865`).setLabel(`Join`).setDisabled(false),
-            new MessageButton().setStyle('DANGER').setCustomId('Leave').setEmoji(`938937460140953630`).setLabel(`Leave`).setDisabled(),
+            new MessageButton().setStyle('SUCCESS').setCustomId('Join').setEmoji(`966523117642088468`).setLabel(`Join`).setDisabled(false),
+            new MessageButton().setStyle('DANGER').setCustomId('Leave').setEmoji(`966523117625298974`).setLabel(`Leave`).setDisabled(),
           ]),
           new MessageActionRow().addComponents([
             new MessageButton().setStyle('PRIMARY').setCustomId('Skip').setEmoji(`⏭`).setLabel(`Skip`).setDisabled(),
@@ -67,7 +67,7 @@ module.exports = {
           client.musicsettings.set(message.guild.id, channel.id, "channel");
           client.musicsettings.set(message.guild.id, msg.id, "message");
           //send a success message
-          return message.reply(`✅ **Successfully setupped the Music System in:** <#${channel.id}>`)
+          return message.reply(`<a:Check_List_Ijo:878170554815905792> **Successfully setupped the Music System in:** <#${channel.id}>`)
         });
         } catch (e) {
             console.log(String(e.stack).grey.bgRed)
@@ -80,3 +80,12 @@ module.exports = {
         }
     },
 };
+/**
+  * @INFO
+  * Bot Coded by Tomato#6966 | https://discord.gg/xxehub
+  * @INFO
+  * Work for xxehub Development | https://xxehub.eu
+  * @INFO
+  * Please mention him / xxehub Development, when using this Code!
+  * @INFO
+*/

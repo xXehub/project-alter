@@ -1,7 +1,6 @@
 const Enmap = require("enmap");
 module.exports = client => {
-    let dateNow = Date.now();
-    console.log(`${String("[x] :: ".magenta)}Now loading the Database...`.brightGreen)
+
     //Each Database gets a own file and folder which is pretty handy!
     client.notes = new Enmap({
         name: "notes",
@@ -52,6 +51,13 @@ module.exports = client => {
         name: "settings",
         dataDir: "./databases/settings"
     });
+    for (let i = 0; i <= 25; i++) {
+        let index = i + 1;
+        client[`jtcsettings${index != 1 ? index : ""}`] = new Enmap({
+            name: `jtcsettings${index != 1 ? index : ""}`,
+            dataDir: `./databases/jtc${index == 1 ? "1" : index == 2 ? "2" : "3"}`
+        });
+    }
     client.jointocreatemap = new Enmap({
         name: "jointocreatemap",
         dataDir: "./databases/jointocreatemap"
@@ -78,45 +84,8 @@ module.exports = client => {
         dataDir: "./databases/warns"
     });
 
-    client.jtcsettings = new Enmap({
-        name: `jtcsettings`,
-        dataDir: `./databases/jtc1`
-    }); // - CHANGE TO : {jtc1 : data, jtc2: data, jtc3: data, ..., jtc100: data}
-/**/client.roster = new Enmap({
-        name: `roster`,
-        dataDir: `./databases/roster`
-    }); // - CHANGE TO : {roster1 : data, roster2: data, roster3: data, ..., roster100: data}
-/**/client.autosupport = new Enmap({
-        name: `autosupport`,
-        dataDir: `./databases/menuticket`
-    }); // - CHANGE TO : {autosupport1 : data, autosupport2: data, autosupport3: data, ..., autosupport100: data}
-/**/client.menuticket = new Enmap({
-        name: `menuticket`,
-        dataDir: `./databases/menuticket`
-    }); // - CHANGE TO : {menuticket1 : data, menuticket2: data, menuticket3: data, ..., menuticket100: data}
 
-/**/client.menuapply = new Enmap({
-        name: `menuapply`,
-        dataDir: `./databases/menuticket`
-    }); // - CHANGE TO : {menuapply1 : data, menuapply2: data, menuapply3: data, ..., menuapply100: data}
-    
-/**/client.apply = new Enmap({
-        name: `apply`,
-        dataDir: `./databases/apply`
-    }); // - CHANGE TO : {apply1 : data, apply2: data, apply3: data, ..., apply100: data}
-/*
-    for (let i = 0; i <= 100; i++) {
-        let index = i + 1;
-        client[`jtcsettings${index != 1 ? index : ""}`] = new Enmap({
-            name: `jtcsettings${index != 1 ? index : ""}`,
-            dataDir: `./databases/jtc${index == 1 ? "1" : index == 2 ? "2" : "3"}`
-        });
-        client[`roster${index != 1 ? index : ""}`] = new Enmap({
-            name: `roster${index != 1 ? index : ""}`,
-            dataDir: `./databases/roster`
-        });
-    }
-    for (let i = 1; i <= 100; i++) {
+    for (let i = 1; i <= 3; i++) {
         client[`autosupport${i}`] = new Enmap({
             name: `autosupport${i != 1 ? i : ""}`,
             dataDir: `./databases/menuticket`
@@ -129,11 +98,13 @@ module.exports = client => {
             name: `menuapply${i != 1 ? i : ""}`,
             dataDir: `./databases/menuticket`
         });
-        client[`apply${i}`] = new Enmap({
-            name: `apply${i}`,
+    }
+    for (let i = 1; i <= 25; i++) {
+        client[`apply${i != 1 ? i : ""}`] = new Enmap({
+            name: `apply${i != 1 ? i : ""}`,
             dataDir: `./databases/apply${i == 1 ? "" : i == 2 ? "2" : i == 3 ? "3" : i == 4 ? "4" : "5"}`
         });
-    }*/
+    }
     
 
     client.points = new Enmap({
@@ -148,6 +119,13 @@ module.exports = client => {
         name: "reactionrole",
         dataDir: "./databases/reactionrole"
     });
+    for (let i = 0; i <= 25; i++) {
+        let index = i + 1;
+        client[`roster${index != 1 ? index : ""}`] = new Enmap({
+            name: `roster${index != 1 ? index : ""}`,
+            dataDir: `./databases/roster`
+        });
+    }
     client.social_log = new Enmap({
         name: "social_log",
         dataDir: "./databases/social_log"
@@ -189,9 +167,8 @@ module.exports = client => {
         REMIND: []
     });
     let ensureObject = {};
-    for(let i = -1; i<=100; i++) ensureObject[`tickets${i != -1 ? i : ""}`] = [];
-    for(let i = -1; i<=100; i++) ensureObject[`applytickets${i != -1 ? i : ""}`] = [];
-    for(let i = -1; i<=100; i++) ensureObject[`menutickets${i != -1 ? i : ""}`] = [];
+    for(let i = 0; i<=26; i++) ensureObject[`tickets${i != 26 ? i : ""}`] = [];
+    for(let i = 0; i<=26; i++) ensureObject[`applytickets${i != 26 ? i : ""}`] = [];
+    for(let i = 0; i<=26; i++) ensureObject[`menutickets${i != 26 ? i : ""}`] = [];
     client.setups.ensure("TICKETS", ensureObject);
-    console.log(`[x] :: `.magenta + `LOADED THE DATABASES after: `.brightGreen + `${Date.now() - dateNow}ms`.green)
 }

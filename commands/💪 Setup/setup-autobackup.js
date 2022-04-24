@@ -61,9 +61,9 @@ module.exports = {
           .addOptions(
             menuoptions.map(option => {
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
             if(option.emoji) Obj.emoji = option.emoji;
             return Obj;
@@ -91,7 +91,7 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(client.settings.get(message.guild.id, "autobackup") ? "Enabled Auto-Backups" : "Disabled Auto-Backups")
               .setColor(es.color)
-              .setDescription(`${client.settings.get(message.guild.id, "autobackup") ? `I woll now make a Backup every 2nd Day!\nOld Backups will automatically get removed!\n\nTo See the backups use the: \`${prefix}listbackups ${message.guild.id}\` Command\n\nTo load the latest Backup use the \`${prefix}loadbackup ${message.guild.id} 0\` Command` : `I will no longer make automatic Backups every 2 Days!\n\nTo create backups manually use: \`${prefix}createbackup`}`.substring(0, 2048))
+              .setDescription(`${client.settings.get(message.guild.id, "autobackup") ? `I woll now make a Backup every 2nd Day!\nOld Backups will automatically get removed!\n\nTo See the backups use the: \`${prefix}listbackups ${message.guild.id}\` Command\n\nTo load the latest Backup use the \`${prefix}loadbackup ${message.guild.id} 0\` Command` : `I will no longer make automatic Backups every 2 Days!\n\nTo create backups manually use: \`${prefix}createbackup`}`.substr(0, 2048))
               .setFooter(client.getFooter(es))]
             });
           }

@@ -72,9 +72,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -117,21 +117,21 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(`There are no Twitch Channels Setupped yet!`)
                 .setColor(es.wrongcolor)
-                .setDescription(`Add some others first...`.substring(0, 2000))
+                .setDescription(`Add some others first...`.substr(0, 2000))
                 .setFooter(client.getFooter(es))
               ]});
             let channels = client.social_log.get(message.guild.id, "twitch.channels");
             let menuoptions = channels.map((data, index) => {
               let Obj = {}
               Obj.emoji = NumberEmojiIds[index + 1];
-              Obj.value = `${data.ChannelName}`.substring(0, 25)
-              Obj.description = `https://twitch.tv/${data.ChannelName}`.substring(0, 50);
+              Obj.value = `${data.ChannelName}`.substr(0, 25)
+              Obj.description = `https://twitch.tv/${data.ChannelName}`.substr(0, 50);
               return Obj;
             })
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(`All [${channels.length}] Twitch-Channels`)
               .setColor(es.wrongcolor)
-              .setDescription(`${channels.map((data, index) => `> ${TextEmojis[index + 1]} [${data.ChannelName}](https://twitch.tv/${data.ChannelName})`).join("\n\n")}`.substring(0, 2000))
+              .setDescription(`${channels.map((data, index) => `> ${TextEmojis[index + 1]} [${data.ChannelName}](https://twitch.tv/${data.ChannelName})`).join("\n\n")}`.substr(0, 2000))
               .setFooter(client.getFooter(es))
             ]});
           } break;
@@ -141,15 +141,15 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(`There are no Twitch Channels Setupped yet!`)
               .setColor(es.wrongcolor)
-              .setDescription(`Add some others first...`.substring(0, 2000))
+              .setDescription(`Add some others first...`.substr(0, 2000))
               .setFooter(client.getFooter(es))
             ]});
           let channels = client.social_log.get(message.guild.id, "twitch.channels");
           let menuoptions = channels.map((data, index) => {
             let Obj = {}
             Obj.emoji = NumberEmojiIds[index + 1];
-            Obj.value = `${data.ChannelName}`.substring(0, 25)
-            Obj.description = `https://twitch.tv/${data.ChannelName}`.substring(0, 50);
+            Obj.value = `${data.ChannelName}`.substr(0, 25)
+            Obj.description = `https://twitch.tv/${data.ChannelName}`.substr(0, 50);
             return Obj;
           })
           //define the selection
@@ -161,9 +161,9 @@ module.exports = {
             .addOptions(
             menuoptions.map(option => {
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
             if(option.emoji) Obj.emoji = option.emoji;
             return Obj;
@@ -272,7 +272,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-twitch"]["variable15"]))
                               .setColor(es.wrongcolor)
-                              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                               .setFooter(client.getFooter(es))
                             ]});
                           })
@@ -286,7 +286,7 @@ module.exports = {
                       return message.reply({embeds: [new Discord.MessageEmbed()
                         .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-twitch"]["variable15"]))
                         .setColor(es.wrongcolor)
-                        .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                        .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                         .setFooter(client.getFooter(es))
                       ]});
                     })
@@ -300,7 +300,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-twitch"]["variable15"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]});
               })
@@ -354,7 +354,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-twitch"]["variable23"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))
               ]});
             })
@@ -408,7 +408,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-twitch"]["variable30"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]});
               })
@@ -462,7 +462,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-twitch"]["variable37"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))
               ]});
             })

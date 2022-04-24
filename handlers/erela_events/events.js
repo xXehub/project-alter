@@ -13,7 +13,7 @@ ee = require(`${process.cwd()}/botconfig/embed.json`),
   check_if_dj,
   databasing,
   autoplay
-} = require(`../functions`),
+} = require(`${process.cwd()}/handlers/functions`),
 playermanager = require("../../handlers/playermanager"),
 
 playercreated = new Map(),
@@ -45,7 +45,7 @@ module.exports = (client) => {
             if(currentSongPlayMsg && currentSongPlayMsg.embeds && currentSongPlayMsg.embeds[0]){
               var embed = currentSongPlayMsg.embeds[0];
               embed.author.iconURL = "https://cdn.discordapp.com/attachments/883978730261860383/883978741892649000/847032838998196234.png"
-              embed.footer.text += "\n\n⛔️ SONG & QUEUE ENDED! | Player got DESTROYED (stopped)"
+              embed.footer.text += "\n\n⛔ Song & Queue Ended! | Player got Destroyed (stopped)"
               currentSongPlayMsg.edit({embeds: [embed], components: []}).catch(() => {})
             }
           }).catch(() => {})
@@ -120,7 +120,7 @@ module.exports = (client) => {
               if(currentSongPlayMsg && currentSongPlayMsg.embeds && currentSongPlayMsg.embeds[0]){
                 var embed = currentSongPlayMsg.embeds[0];
                 embed.author.iconURL = "https://cdn.discordapp.com/attachments/883978730261860383/883978741892649000/847032838998196234.png"
-                embed.footer.text += "\n⛔️ SONG ENDED!"
+                embed.footer.text += "\n⛔ Song Ended!"
                 currentSongPlayMsg.edit({embeds: [embed], components: []}).catch(() => {})
               }
             }).catch(() => {})
@@ -154,16 +154,16 @@ module.exports = (client) => {
               const { channel } = member.voice
               const player = client.manager.players.get(i?.guild.id);
               if (!player)
-                return i?.reply({content: "<:no:833101993668771842> Nothing Playing yet", ephemeral: true})
+                return i?.reply({content: "<:no:939372664559132723> Nothing Playing yet", ephemeral: true})
                 
               if (!channel)
                 return i?.reply({
-                  content: `<:no:833101993668771842> **Please join a Voice Channel first!**`,
+                  content: `<:no:939372664559132723> **Please join a Voice Channel first!**`,
                   ephemeral: true
                 })                  
               if (channel.id !== player.voiceChannel)
                 return i?.reply({
-                  content: `<:no:833101993668771842> **Please join __my__ Voice Channel first! <#${player.voiceChannel}>**`,
+                  content: `<:no:939372664559132723> **Please join __my__ Voice Channel first! <#${player.voiceChannel}>**`,
                   ephemeral: true
                 })
               
@@ -171,7 +171,7 @@ module.exports = (client) => {
                 return i?.reply({embeds: [new MessageEmbed()
                   .setColor(ee.wrongcolor)
                   .setFooter({text: `${ee.footertext}`, iconURL: `${ee.footericon}`})
-                  .setTitle(`<:no:833101993668771842> **You are not a DJ and not the Song Requester!**`)
+                  .setTitle(`<:no:939372664559132723> **You are not a DJ and not the Song Requester!**`)
                   .setDescription(`**DJ-ROLES:**\n${check_if_dj(client, i?.member, player.queue.current)}`)
                 ],
                 ephemeral: true});
@@ -189,7 +189,7 @@ module.exports = (client) => {
                     .setColor(ee.color)
                     .setTimestamp()
                     .setTitle(`⏹ **Stopped playing and left the Channel**`)
-                    .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                    .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                   })
                   edited = true;
                   player.destroy()
@@ -202,7 +202,7 @@ module.exports = (client) => {
                   .setColor(ee.color)
                   .setTimestamp()
                   .setTitle(`⏭ **Skipped to the next Song!**`)
-                  .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                  .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
               }
 
@@ -216,7 +216,7 @@ module.exports = (client) => {
                   .setColor(ee.color)
                   .setTimestamp()
                   .setTitle(`⏹ **Stopped playing and left the Channel**`)
-                  .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                  .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 }) 
                 edited = true;
                 player.destroy()
@@ -233,7 +233,7 @@ module.exports = (client) => {
                     .setColor(ee.color)
                     .setTimestamp()
                     .setTitle(`▶️ **Resumed!**`)
-                    .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                    .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                   })
                 } else{
                   //pause the player
@@ -244,7 +244,7 @@ module.exports = (client) => {
                     .setColor(ee.color)
                     .setTimestamp()
                     .setTitle(`⏸ **Paused!**`)
-                    .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                    .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                   })
                 }
                 var data = generateQueueEmbed(client, player, track)
@@ -267,8 +267,8 @@ module.exports = (client) => {
                   embeds: [new MessageEmbed()
                   .setColor(ee.color)
                   .setTimestamp()
-                  .setTitle(`${player.get(`autoplay`) ? `<a:yes:833101995723194437> **Enabled Autoplay**`: `<:no:833101993668771842> **Disabled Autoplay**`}`)
-                  .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                  .setTitle(`${player.get(`autoplay`) ? `<a:Check_List_Ijo:878170554815905792> **Enabled Autoplay**`: `<:no:939372664559132723> **Disabled Autoplay**`}`)
+                  .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
               }
 
@@ -285,7 +285,7 @@ module.exports = (client) => {
                     .setColor(ee.color)
                     .setTimestamp()
                     .setTitle(`🔀 **Shuffled ${player.queue.length} Songs!**`)
-                    .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                    .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
               }
 
@@ -302,8 +302,8 @@ module.exports = (client) => {
                   embeds: [new MessageEmbed()
                   .setColor(ee.color)
                   .setTimestamp()
-                  .setTitle(`${player.trackRepeat ? `<a:yes:833101995723194437> **Enabled Song Loop**`: `<:no:833101993668771842> **Disabled Song Loop**`}`)
-                  .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                  .setTitle(`${player.trackRepeat ? `<a:Check_List_Ijo:878170554815905792> **Enabled Song Loop**`: `<:no:939372664559132723> **Disabled Song Loop**`}`)
+                  .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
                 var data = generateQueueEmbed(client, player, track)
                 swapmsg.edit(data).catch((e) => {
@@ -324,8 +324,8 @@ module.exports = (client) => {
                   embeds: [new MessageEmbed()
                   .setColor(ee.color)
                   .setTimestamp()
-                  .setTitle(`${player.queueRepeat ? `<a:yes:833101995723194437> **Enabled Queue Loop**`: `<:no:833101993668771842> **Disabled Queue Loop**`}`)
-                  .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                  .setTitle(`${player.queueRepeat ? `<a:Check_List_Ijo:878170554815905792> **Enabled Queue Loop**`: `<:no:939372664559132723> **Disabled Queue Loop**`}`)
+                  .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
                 var data = generateQueueEmbed(client, player, track)
                 swapmsg.edit(data).catch((e) => {
@@ -350,7 +350,7 @@ module.exports = (client) => {
                     .setColor(ee.color)
                     .setTimestamp()
                     .setTitle(`⏩ **Forwarded the song for \`10 Seconds\`!**`)
-                    .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                    .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
               }
 
@@ -369,7 +369,7 @@ module.exports = (client) => {
                     .setColor(ee.color)
                     .setTimestamp()
                     .setTitle(`⏪ **Rewinded the song for \`10 Seconds\`!**`)
-                    .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+                    .setFooter(client.getFooter(`💥 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
                 })
               }
           });  
@@ -475,6 +475,15 @@ module.exports = (client) => {
       }
     });
 };
+/**
+* @INFO
+* Bot Coded by Tomato#6966 | https://github?.com/Tomato6966/discord-js-lavalink-Music-Bot-erela-js
+* @INFO
+* Work for Milrato Development | https://milrato.eu
+* @INFO
+* Please mention Him / Milrato Development, when using this Code!
+* @INFO
+*/
 
 
 function generateQueueEmbed(client, player, track){

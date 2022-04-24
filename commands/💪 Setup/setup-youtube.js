@@ -68,9 +68,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -141,7 +141,7 @@ module.exports = {
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-youtube"]["variable8"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]});
               })
@@ -151,7 +151,7 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-youtube"]["variable9"]))
               .setColor(es.wrongcolor)
-              .setDescription(`Remove some others first...`.substring(0, 2000))
+              .setDescription(`Remove some others first...`.substr(0, 2000))
               .setFooter(client.getFooter(es))
             ]});
           var tempmsg = await message.reply({embeds: [new Discord.MessageEmbed()
@@ -193,7 +193,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-youtube"]["variable14"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))
               ]});
             })
@@ -203,15 +203,15 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-youtube"]["variable15"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Add some others first...`.substring(0, 2000))
+                .setDescription(`Add some others first...`.substr(0, 2000))
                 .setFooter(client.getFooter(es))
               ]});
             let channels = client.social_log.get(message.guild.id, "youtube.channels");
             let menuoptions = channels.map((data, index) => {
               let Obj = {}
               Obj.emoji = NumberEmojiIds[index + 1];
-              Obj.value = `${data.split("/")[data.split("/").length - 1]}`.substring(0, 25)
-              Obj.description = `${data.replace("https://", "").replace("http://", "").replace("www.", "")}`.substring(0, 50);
+              Obj.value = `${data.split("/")[data.split("/").length - 1]}`.substr(0, 25)
+              Obj.description = `${data.replace("https://", "").replace("http://", "").replace("www.", "")}`.substr(0, 50);
               return Obj;
             })
             //define the selection
@@ -223,9 +223,9 @@ module.exports = {
               .addOptions(
               menuoptions.map(option => {
                 let Obj = {
-                  label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                  value: option.value.substring(0, 50),
-                  description: option.description.substring(0, 50),
+                  label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                  value: option.value.substr(0, 50),
+                  description: option.description.substr(0, 50),
                 }
               if(option.emoji) Obj.emoji = option.emoji;
               return Obj;
@@ -265,15 +265,15 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-youtube"]["variable19"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Add some others first...`.substring(0, 2000))
+                .setDescription(`Add some others first...`.substr(0, 2000))
                 .setFooter(client.getFooter(es))
               ]});
             let channels = client.social_log.get(message.guild.id, "youtube.channels");
             let menuoptions = channels.map((data, index) => {
               let Obj = {}
               Obj.emoji = NumberEmojiIds[index + 1];
-              Obj.value = `${data.split("/")[data.split("/").length - 1]}`.substring(0, 25)
-              Obj.description = `${data.replace("https://", "").replace("http://", "").replace("www.", "")}`.substring(0, 50);
+              Obj.value = `${data.split("/")[data.split("/").length - 1]}`.substr(0, 25)
+              Obj.description = `${data.replace("https://", "").replace("http://", "").replace("www.", "")}`.substr(0, 50);
               return Obj;
             })
             //define the selection
@@ -285,9 +285,9 @@ module.exports = {
               .addOptions(
               menuoptions.map(option => {
                 let Obj = {
-                  label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                  value: option.value.substring(0, 50),
-                  description: option.description.substring(0, 50),
+                  label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                  value: option.value.substr(0, 50),
+                  description: option.description.substr(0, 50),
                 }
               if(option.emoji) Obj.emoji = option.emoji;
               return Obj;
@@ -320,7 +320,7 @@ module.exports = {
                 tempmsg = await message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-youtube"]["variable21"]))
                   .setColor(es.color)
-                  .setDescription(`**CURRENT MESSAGE:**\n> ${client.youtube_log.get(channel, "message")}`.substring(0, 2048))
+                  .setDescription(`**CURRENT MESSAGE:**\n> ${client.youtube_log.get(channel, "message")}`.substr(0, 2048))
                   .addField("**VARIABLES**",`> \`{url}\` ... will be replaced with the video **LINK**\n> \`{author}\` ... will be replaced with the video's **Author**\n> \`{title}\` ... will be replaced with the video's **title**\n> \`{date}\` ... will be replaced with the video's **date**`)
                   .setFooter(client.getFooter(es))
                 ]})
@@ -351,7 +351,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-youtube"]["variable23"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]});
                 })
@@ -369,7 +369,7 @@ module.exports = {
               new Discord.MessageEmbed()
                 .setTitle(`Settings of the Youtube Poster`)
                 .setColor(es.wrongcolor)
-                .setDescription(`**Discord Poster Channel:** <#${client.social_log.get(message.guild.id, "youtube.dc_channel")}>\n**[${channels.length}] Channels:**${channels.length == 0 ? "\n> \`NONE\`" : channels.map(d => `\n> [${d.split("/")[d.split("/").length - 1]}](${d})`).join("\n")}`.substring(0, 2000))
+                .setDescription(`**Discord Poster Channel:** <#${client.social_log.get(message.guild.id, "youtube.dc_channel")}>\n**[${channels.length}] Channels:**${channels.length == 0 ? "\n> \`NONE\`" : channels.map(d => `\n> [${d.split("/")[d.split("/").length - 1]}](${d})`).join("\n")}`.substr(0, 2000))
                 .setFooter(client.getFooter(es))
             ]})
           } break;

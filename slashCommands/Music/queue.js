@@ -58,7 +58,7 @@ module.exports = {
             dynamic: true
           }))
           .addField(eval(client.la[ls]["cmds"]["music"]["queue"]["variablex_3"]), eval(client.la[ls]["cmds"]["music"]["queue"]["variable3"]))
-          .setColor(es.color).setDescription(tracks.map((track, i) => `**${++i})** **${track.title.substring(0, 60)}** - \`${track.isStream ? `LIVE STREAM` : format(track.duration).split(` | `)[0]}\`\n*requested by: ${track.requester.tag}*`).join(`\n`))
+          .setColor(es.color).setDescription(tracks.map((track, i) => `**${++i})** **${track.title.substr(0, 60)}** - \`${track.isStream ? `LIVE STREAM` : format(track.duration).split(` | `)[0]}\`\n*requested by: ${track.requester.tag}*`).join(`\n`))
         ]}).then(msg => {
           setTimeout(()=>{
             try { 
@@ -70,12 +70,12 @@ module.exports = {
       let quelist = [];
       for (let i = 0; i < tracks.length; i += 15) {
         let songs = tracks.slice(i, i + 15);
-        quelist.push(songs.map((track, index) => `**${i + ++index})** **${track.title.substring(0, 60)}** - \`${track.isStream ? `LIVE STREAM` : format(track.duration).split(` | `)[0]}\`\n*requested by: ${track.requester.tag}*`).join(`\n`))
+        quelist.push(songs.map((track, index) => `**${i + ++index})** **${track.title.substr(0, 60)}** - \`${track.isStream ? `LIVE STREAM` : format(track.duration).split(` | `)[0]}\`\n*requested by: ${track.requester.tag}*`).join(`\n`))
       }
       let limit = quelist.length <= 5 ? quelist.length : 5
       let embeds = []
       for (let i = 0; i < limit; i++) {
-        let desc = String(quelist[i]).substring(0, 2048)
+        let desc = String(quelist[i]).substr(0, 2048)
         await embeds.push(new MessageEmbed()
           .setAuthor(`Queue for ${guild.name}  -  [ ${player.queue.length} Tracks ]`, guild.iconURL({
             dynamic: true

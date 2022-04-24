@@ -57,9 +57,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -142,9 +142,9 @@ module.exports = {
                 .addOptions(
                 menuoptions.map(option => {
                   let Obj = {
-                    label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                    value: option.value.substring(0, 50),
-                    description: option.description.substring(0, 50),
+                    label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                    value: option.value.substr(0, 50),
+                    description: option.description.substr(0, 50),
                   }
                 if(option.emoji) Obj.emoji = option.emoji;
                 return Obj;
@@ -201,7 +201,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable9"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "Not defined yet"}!\nEdit the message with: \`${prefix}setup-leave  --> Pick 1️⃣ --> Pick 4️⃣\``.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "Not defined yet"}!\nEdit the message with: \`${prefix}setup-leave  --> Pick 1️⃣ --> Pick 4️⃣\``.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } else {
@@ -213,7 +213,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable12"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                      .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   })
@@ -223,7 +223,7 @@ module.exports = {
                   return reaction.message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable13"]))
                     .setColor(es.color)
-                    .setDescription(`If Someone joins this Server, no message will be sent into a Channel!\nSet a Channel with: \`${prefix}setup-leave\` --> Pick 1️⃣ --> Pick 1️⃣`.substring(0, 2048))
+                    .setDescription(`If Someone joins this Server, no message will be sent into a Channel!\nSet a Channel with: \`${prefix}setup-leave\` --> Pick 1️⃣ --> Pick 1️⃣`.substr(0, 2048))
                     .setFooter(client.getFooter(es))
                   ]});
                 }break;
@@ -301,9 +301,9 @@ module.exports = {
                       .addOptions(
                       menuoptions.map(option => {
                         let Obj = {
-                          label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                          value: option.value.substring(0, 50),
-                          description: option.description.substring(0, 50),
+                          label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                          value: option.value.substr(0, 50),
+                          description: option.description.substr(0, 50),
                         }
                       if(option.emoji) Obj.emoji = option.emoji;
                       return Obj;
@@ -345,7 +345,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable18"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with__out__ an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with__out__ an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -354,7 +354,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable21"]))
                           .setColor(es.color)
-                          .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -380,7 +380,7 @@ module.exports = {
                                 return reaction.message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable26"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -398,7 +398,7 @@ module.exports = {
                                 return reaction.message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable28"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -424,7 +424,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable31"]))
                               .setColor(es.wrongcolor)
-                              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                               .setFooter(client.getFooter(es))
                             ]});
                           })
@@ -435,7 +435,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable32"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -459,7 +459,7 @@ module.exports = {
                                 return reaction.message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable36"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -476,7 +476,7 @@ module.exports = {
                                 return reaction.message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable38"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -502,7 +502,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable41"]))
                               .setColor(es.wrongcolor)
-                              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                               .setFooter(client.getFooter(es))
                             ]});
                           })
@@ -513,7 +513,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable42"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -523,7 +523,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable45"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -533,7 +533,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable48"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -543,7 +543,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable51"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -553,7 +553,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable54"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -597,7 +597,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable59"]))
                               .setColor(color)
-                              .setDescription(`If Someone leaves this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                              .setDescription(`If Someone leaves this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                               .setFooter(client.getFooter(es))
                             ]});
                           } else {
@@ -627,7 +627,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable66"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, this message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL YET"}!\n\n${message.content.replace("{user}", message.author)}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, this message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "NO CHANNEL YET"}!\n\n${message.content.replace("{user}", message.author)}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                     })
@@ -636,7 +636,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable69"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                      .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   })
@@ -646,7 +646,7 @@ module.exports = {
                   return reaction.message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable70"]))
                     .setColor(es.color)
-                    .setDescription(`If Someone joins this Server, a message with Invite Information will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "Not defined yet"}!\nEdit the message with: \`${prefix}setup-leave  --> Pick 1️⃣ --> Pick 4️⃣\``.substring(0, 2048))
+                    .setDescription(`If Someone joins this Server, a message with Invite Information will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "leave.channel")) : "Not defined yet"}!\nEdit the message with: \`${prefix}setup-leave  --> Pick 1️⃣ --> Pick 4️⃣\``.substr(0, 2048))
                     .setFooter(client.getFooter(es))
                   ]});
                 }break;
@@ -693,9 +693,9 @@ module.exports = {
                 .addOptions(
                 menuoptions.map(option => {
                   let Obj = {
-                    label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                    value: option.value.substring(0, 50),
-                    description: option.description.substring(0, 50),
+                    label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                    value: option.value.substr(0, 50),
+                    description: option.description.substr(0, 50),
                   }
                 if(option.emoji) Obj.emoji = option.emoji;
                 return Obj;
@@ -823,9 +823,9 @@ module.exports = {
                       .addOptions(
                       menuoptions.map(option => {
                         let Obj = {
-                          label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                          value: option.value.substring(0, 50),
-                          description: option.description.substring(0, 50),
+                          label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                          value: option.value.substr(0, 50),
+                          description: option.description.substr(0, 50),
                         }
                       if(option.emoji) Obj.emoji = option.emoji;
                       return Obj;
@@ -867,7 +867,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable18"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with__out__ an image** will be sent into There Dms`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with__out__ an image** will be sent into There Dms`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -876,7 +876,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable21"]))
                           .setColor(es.color)
-                          .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into DMS`.substring(0, 2048))
+                          .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into DMS`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -902,7 +902,7 @@ module.exports = {
                                 return reaction.message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable26"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into DMS`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into DMS`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -920,7 +920,7 @@ module.exports = {
                                 return reaction.message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable28"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into DMS`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into DMS`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -946,7 +946,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable31"]))
                               .setColor(es.wrongcolor)
-                              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                               .setFooter(client.getFooter(es))
                             ]});
                           })
@@ -957,7 +957,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable32"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an image** will be sent into DMS`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an image** will be sent into DMS`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -981,7 +981,7 @@ module.exports = {
                                 return reaction.message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable36"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into DMS`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into DMS`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -998,7 +998,7 @@ module.exports = {
                                 return reaction.message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable38"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into DMS`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "leave.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into DMS`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -1024,7 +1024,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable41"]))
                               .setColor(es.wrongcolor)
-                              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                               .setFooter(client.getFooter(es))
                             ]});
                           })
@@ -1035,7 +1035,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable42"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into DMS`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into DMS`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -1045,7 +1045,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable45"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into DMS`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into DMS`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -1055,7 +1055,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable48"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into DMS`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into DMS`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -1065,7 +1065,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable51"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into DMS`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into DMS`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -1075,7 +1075,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable54"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into DMS`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into DMS`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -1119,7 +1119,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable59"]))
                               .setColor(color)
-                              .setDescription(`If Someone leaves this Server, a message **with an automated image** will be sent into DMS`.substring(0, 2048))
+                              .setDescription(`If Someone leaves this Server, a message **with an automated image** will be sent into DMS`.substr(0, 2048))
                               .setFooter(client.getFooter(es))
                             ]});
                           } else {
@@ -1149,7 +1149,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable66"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, this message will be sent into DMS!\n\n${message.content.replace("{user}", message.author)}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, this message will be sent into DMS!\n\n${message.content.replace("{user}", message.author)}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                     })
@@ -1158,7 +1158,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable69"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                      .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   })
@@ -1168,7 +1168,7 @@ module.exports = {
                   return reaction.message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-leave"]["variable70"]))
                     .setColor(es.color)
-                    .setDescription(`If Someone joins this Server, a message with Invite Information will be sent into DMS!\nEdit the message with: \`${prefix}setup-leave  --> Pick 1️⃣ --> Pick 4️⃣\``.substring(0, 2048))
+                    .setDescription(`If Someone joins this Server, a message with Invite Information will be sent into DMS!\nEdit the message with: \`${prefix}setup-leave  --> Pick 1️⃣ --> Pick 4️⃣\``.substr(0, 2048))
                     .setFooter(client.getFooter(es))
                   ]});
                 }break;
@@ -1182,7 +1182,7 @@ module.exports = {
       return message.reply({embeds: [new MessageEmbed()
         .setColor(es.wrongcolor).setFooter(client.getFooter(es))
         .setTitle(client.la[ls].common.erroroccur)
-        .setDescription(`\`\`\`${String(JSON.stringify(e)).substring(0, 2000)}\`\`\``)
+        .setDescription(`\`\`\`${String(JSON.stringify(e)).substr(0, 2000)}\`\`\``)
       ]});
     }
   },

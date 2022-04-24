@@ -18,10 +18,10 @@ module.exports = (client) => {
         suggest: {
           channel: "",
           approvemsg: `<a:Check_List_Ijo:878170554815905792> Accepted Idea! Expect this soon.`,
-          denymsg: `<:NO:886994166666645504> Thank you for the feedback, but we are not interested in this idea at this time.`,
+          denymsg: `<:no:939372664559132723> Thank you for the feedback, but we are not interested in this idea at this time.`,
           maybemsg: `💡 We are thinking about this idea!`,
-          duplicatemsg: `💢 This is a duplicated Suggestion`,
-          soonmsg: `👌 Expect this Feature Soon!`,
+          duplicatemsg: `<:no:939372664559132723> This is a duplicated Suggestion`,
+          soonmsg: `✨ Expect this Feature Soon!`,
           statustext: `<a:Loading:833101350623117342> Waiting for Community Feedback, please vote!`,
           footertext: `Want to suggest / Feedback something? Simply type in this channel!`,
           approveemoji: `833101995723194437`,
@@ -59,8 +59,8 @@ module.exports = (client) => {
       var imagename = `Unknown`;
       var embed = new MessageEmbed()
         .setThumbnail(message.member.user.displayAvatarURL({ dynamic: true }))
-        .addField(`:thumbsup: **__Up Votes__**`, `**\`\`\`0 Votes\`\`\`**`, true)
-        .addField(`:thumbsdown: **__Down Votes__**`, `**\`\`\`0 Votes\`\`\`**`, true)
+        .addField(`<:Like:961992347120459846> **__Up Votes__**`, `**\`\`\`0 Votes\`\`\`**`, true)
+        .addField(`<:Dislike:961992347162390548> **__Down Votes__**`, `**\`\`\`0 Votes\`\`\`**`, true)
         .setColor(es.color)
         .setAuthor(client.getAuthor(message.author.tag + "' Suggestion", message.member.user.displayAvatarURL({ dynamic: true }), `https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot`))
         .setDescription("\n" + message.content + "\n")

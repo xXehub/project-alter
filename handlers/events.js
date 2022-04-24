@@ -1,9 +1,7 @@
 const fs = require("fs");
 const allevents = [];
-module.exports = (client) => {
+module.exports = async (client) => {
   try {
-    let dateNow = Date.now();
-    console.log(`${String("[x] :: ".magenta)}Now loading the Events ...`.brightGreen)
     const load_dir = (dir) => {
       const event_files = fs.readdirSync(`./events/${dir}`).filter((file) => file.endsWith(".js"));
       for (const file of event_files) {
@@ -18,9 +16,20 @@ module.exports = (client) => {
         }
       }
     }
-    ["client", "guild"].forEach(e => load_dir(e));
-    
-    console.log(`[x] :: `.magenta + `LOADED THE ${allevents.length} EVENTS after: `.brightGreen + `${Date.now() - dateNow}ms`.green)
+    await ["client", "guild"].forEach(e => load_dir(e));
+    try {
+      const stringlength = 69;
+      console.log("\n")
+      console.log(`     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓`.bold.brightGreen)
+      console.log(`     ┃ `.bold.brightGreen + " ".repeat(-1 + stringlength - ` ┃ `.length) + "┃".bold.brightGreen)
+      console.log(`     ┃ `.bold.brightGreen + `Welcome to SERVICE HANDLER!`.bold.brightGreen + " ".repeat(-1 + stringlength - ` ┃ `.length - `Welcome to SERVICE HANDLER!`.length) + "┃".bold.brightGreen)
+      console.log(`     ┃ `.bold.brightGreen + `  /-/ By https://hubsense /-/`.bold.brightGreen + " ".repeat(-1 + stringlength - ` ┃ `.length - `  /-/ By https://hubsense /-/`.length) + "┃".bold.brightGreen)
+      console.log(`     ┃ `.bold.brightGreen + " ".repeat(-1 + stringlength - ` ┃ `.length) + "┃".bold.brightGreen)
+      console.log(`     ┃ `.bold.brightGreen + `  /-/ Discord: xxehub#6290 /-/`.bold.brightGreen + " ".repeat(-1 + stringlength - ` ┃ `.length - `  /-/ By Discord: xxehub#6290 /-/`.length) + "   ┃".bold.brightGreen)
+      console.log(`     ┃ `.bold.brightGreen + " ".repeat(-1 + stringlength - ` ┃ `.length) + "┃".bold.brightGreen)
+      console.log(`     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛`.bold.brightGreen)
+    } catch {
+      /* */ }
     try {
       const stringlength2 = 69;
       console.log("\n")
@@ -31,7 +40,16 @@ module.exports = (client) => {
       console.log(`     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛`.bold.yellow)
     } catch {
       /* */ }
-    } catch (e) {
+  } catch (e) {
     console.log(String(e.stack).grey.bgRed)
   }
 };
+/**
+ * @INFO
+ * Bot Coded by xxehub#6290 | https://discord.gg/milrato
+ * @INFO
+ * Work for Milrato Development | https://hubsense
+ * @INFO
+ * Please mention him / Milrato Development, when using this Code!
+ * @INFO
+ */

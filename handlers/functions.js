@@ -13,47 +13,44 @@ const ms = require("ms")
 const moment = require("moment")
 const fs = require('fs')
 
-
-module.exports = {
-  create_transcript_buffer,
-  handlemsg,
-  ensure_economy_user,
-  nFormatter,
-  create_transcript,
-  databasing,
-  simple_databasing,
-  reset_DB,
-  change_status,
-  check_voice_channels,
-  check_created_voice_channels,
-  create_join_to_create_Channel,
-  getMember,
-  shuffle,
-  formatDate,
-  delay,
-  getRandomInt,
-  duration,
-  getRandomNum,
-  createBar,
-  format,
-  stations,
-  swap_pages,
-  swap_pages2,
-  swap_pages2_interaction,
-  escapeRegex,
-  autoplay,
-  arrayMove,
-  edit_Roster_msg,
-  send_roster_msg,
-  isValidURL,
-  GetUser,
-  GetRole,
-  GetGlobalUser,
-  parseMilliseconds,
-  isEqual,
-  check_if_dj,
-  dbEnsure
-}
+module.exports.create_transcript_buffer = create_transcript_buffer;
+module.exports.handlemsg = handlemsg;
+module.exports.ensure_economy_user = ensure_economy_user;
+module.exports.nFormatter = nFormatter;
+module.exports.create_transcript = create_transcript;
+module.exports.databasing = databasing;
+module.exports.simple_databasing = simple_databasing;
+module.exports.reset_DB = reset_DB;
+module.exports.change_status = change_status;
+module.exports.check_voice_channels = check_voice_channels;
+module.exports.check_created_voice_channels = check_created_voice_channels;
+module.exports.create_join_to_create_Channel = create_join_to_create_Channel;
+module.exports.getMember = getMember;
+module.exports.shuffle = shuffle;
+module.exports.formatDate = formatDate;
+module.exports.promptMessage = promptMessage;
+module.exports.delay = delay;
+module.exports.getRandomInt = getRandomInt;
+module.exports.duration = duration;
+module.exports.getRandomNum = getRandomNum;
+module.exports.createBar = createBar;
+module.exports.format = format;
+module.exports.stations = stations;
+module.exports.swap_pages2 = swap_pages2;
+module.exports.swap_pages2_interaction = swap_pages2_interaction;
+module.exports.swap_pages = swap_pages;
+module.exports.escapeRegex = escapeRegex;
+module.exports.autoplay = autoplay;
+module.exports.arrayMove = arrayMove;
+module.exports.edit_Roster_msg = edit_Roster_msg;
+module.exports.send_roster_msg = send_roster_msg;
+module.exports.isValidURL = isValidURL;
+module.exports.GetUser = GetUser;
+module.exports.GetRole = GetRole;
+module.exports.GetGlobalUser = GetGlobalUser;
+module.exports.parseMilliseconds = parseMilliseconds;
+module.exports.isEqual = isEqual;
+module.exports.check_if_dj = check_if_dj;
 function check_if_dj(client, member, song) {
   //if no message added return
   if(!client) return false;
@@ -260,13 +257,26 @@ function GetGlobalUser(message, arg){
  * @param {*} the_roster_db | the Database of the Roster
  * @returns true / false + edits the message
  */
-async function edit_Roster_msg(client, guild, the_roster_db, pre) {
+async function edit_Roster_msg(client, guild, the_roster_db) {
   try{
     //fetch all guild members
     await guild.members.fetch().catch(() => {});
     //get the roster data
-    var data = the_roster_db?.get(guild.id, pre)
+    var data = the_roster_db?.get(guild.id)
     //get the EMBED SETTINGS
+    client.settings.ensure(guild.id, {
+      prefix: config.prefix,
+      embed: {
+        "color": ee.color,
+        "thumb": true,
+        "wrongcolor": ee.wrongcolor,
+        "footertext": client.guilds.cache.get(guild.id) ? client.guilds.cache.get(guild.id).name : ee.footertext,
+        "footericon": client.guilds.cache.get(guild.id) ? client.guilds.cache.get(guild.id).iconURL({
+          dynamic: true
+        }) : ee.footericon,
+      },
+      language: "en"
+    })
     let es = client.settings.get(guild.id, "embed")
     let ls = client.settings.get(guild.id, "language")
     //if the rosterchannel is not valid, then send error + return
@@ -284,15 +294,16 @@ async function edit_Roster_msg(client, guild, the_roster_db, pre) {
     if(data.rostermessage.length < 5) 
       return //console.log("Roster Message not valid | :: | " + data.rostermessage);
     //fetch the message from the channel
-    let message = channel.messages.cache.get(data.rostermessage) || await channel.messages.fetch(data.rostermessage).catch(() => {}) || false;
+    let message = await channel.messages.fetch(data.rostermessage).catch(() => {}) || false;
     //if the message is undefined, then send the message ;)
-    if (!message || message == null || !message.id || message.id == null) return send_roster(client, guild);
+    if (!message || message == null || !message.id || message.id == null) 
+      return send_roster(client, guild);
     //define a variable for the total break of the loop later
     let totalbreak = false;
     //define the embed
     let rosterembed = new Discord.MessageEmbed()
       .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null).setFooter(client.getFooter(es))
-      .setTitle(String(data.rostertitle).substring(0, 256))
+      .setTitle(String(data.rostertitle).substr(0, 256))
     //get rosterole and loop through every single role
     let rosterroles = data.rosterroles;
     //if there are no roles added add this to the embed
@@ -313,93 +324,92 @@ async function edit_Roster_msg(client, guild, the_roster_db, pre) {
         //set the left number to the maximumlength - the leftnumber
         leftnum = rosterembed.length - leftnum - 100;
       }
-      
       //try to send the roster with the right style..
       if (data.rosterstyle == "1") {
         //define the memberarray
-        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, pre+".rosteremoji")} <@${member.user.id}> | \`${member.user.tag}\``)
+        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, "rosteremoji")} <@${member.user.id}> | \`${member.user.tag}\``)
         //loopthrough the array for 20 members / page
         for (let i = 0; i < memberarray.length; i += 20) {
           var thearray = memberarray;
           if (rosterembed.length > 5000) break;
-          if (!the_roster_db?.get(guild.id, pre+".showallroles") || memberarray.length < 20)
+          if (!the_roster_db?.get(guild.id, "showallroles") || memberarray.length < 20)
             try { 
-              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024) + `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, pre+".rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024) + `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, "rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
               break;
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
           else
             try {
-              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, "inline"))
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
         }
         //if there are no members who have this role, do this
         if(memberarray.length === 0){
           try {
-            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
           } catch (e) {
-            console.error(e)
+            console.log(e.stack ? String(e.stack).grey : String(e).grey)
           }
         }
       } else if (data.rosterstyle == "2") {
         //define the memberarray
-        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, pre+".rosteremoji")} <@${member.user.id}>`)
+        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, "rosteremoji")} <@${member.user.id}>`)
         //loopthrough the array for 20 members / page
         for (let i = 0; i < memberarray.length; i += 20) {
           var thearray = memberarray;
           if (rosterembed.length > 5000) break;
-          if (!the_roster_db?.get(guild.id, pre+".showallroles") || memberarray.length < 20)
+          if (!the_roster_db?.get(guild.id, "showallroles") || memberarray.length < 20)
             try {
-              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, pre+".rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, "rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
               break;
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
           else
             try {
-              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, "inline"))
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
         }
         //if there are no members who have this role, do this
         if(memberarray.length === 0){
           try {
-            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
           } catch (e) {
-            console.error(e)
+            console.log(e.stack ? String(e.stack).grey : String(e).grey)
           }
         }
       } else if (data.rosterstyle == "3") {
         //define the memberarray
-        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, pre+".rosteremoji")} **${member.user.tag}**`)
+        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, "rosteremoji")} **${member.user.tag}**`)
         //loopthrough the array for 20 members / page
         for (let i = 0; i < memberarray.length; i += 20) {
           var thearray = memberarray;
           if (rosterembed.length > 5000) break;
-          if (!the_roster_db?.get(guild.id, pre+".showallroles") || memberarray.length < 20)
+          if (!the_roster_db?.get(guild.id, "showallroles") || memberarray.length < 20)
             try {
-              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, pre+".rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, "rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
               break;
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
           else
             try {
-              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, "inline"))
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
         }     
         //if there are no members who have this role, do this   
         if(memberarray.length === 0){
           try {
-            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
           } catch (e) {
-            console.error(e)
+            console.log(e.stack ? String(e.stack).grey : String(e).grey)
           }
         }
         /**
@@ -414,154 +424,153 @@ async function edit_Roster_msg(client, guild, the_roster_db, pre) {
         
       } else if (data.rosterstyle == "4") {
         //define the memberarray
-        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, pre+".rosteremoji")} **${member.user.username}**`)
+        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, "rosteremoji")} **${member.user.username}**`)
         //loopthrough the array for 20 members / page
         for (let i = 0; i < memberarray.length; i += 20) {
           var thearray = memberarray;
           if (rosterembed.length > 5000) break;
-          if (!the_roster_db?.get(guild.id, pre+".showallroles") || memberarray.length < 20)
+          if (!the_roster_db?.get(guild.id, "showallroles") || memberarray.length < 20)
             try {
-              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, pre+".rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, "rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
               break;
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
           else
             try {
-              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, "inline"))
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
         }
         //if there are no members who have this role, do this
         if(memberarray.length === 0){
           try {
-            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
           } catch (e) {
-            console.error(e)
+            console.log(e.stack ? String(e.stack).grey : String(e).grey)
           }
         }
       } else if (data.rosterstyle == "5") {
         //define the memberarray
-        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, pre+".rosteremoji")} <@${member.user.id}> | \`${member.user.id}\``)
+        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, "rosteremoji")} <@${member.user.id}> | \`${member.user.id}\``)
         //loopthrough the array for 20 members / page
         for (let i = 0; i < memberarray.length; i += 20) {
           var thearray = memberarray;
           if (rosterembed.length > 5000) break;
-          if (!the_roster_db?.get(guild.id, pre+".showallroles") || memberarray.length < 20)
+          if (!the_roster_db?.get(guild.id, "showallroles") || memberarray.length < 20)
             try {
-              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, pre+".rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, "rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
           else
             try {
-              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, "inline"))
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
         }
         //if there are no members who have this role, do this
         if(memberarray.length === 0){
           try {
-            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
             break;
           } catch (e) {
-            console.error(e)
+            console.log(e.stack ? String(e.stack).grey : String(e).grey)
           }
         }
       } else if (data.rosterstyle == "6") {
         //define the memberarray
-        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, pre+".rosteremoji")} <@${member.user.id}> | **${member.user.username}**`)
+        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, "rosteremoji")} <@${member.user.id}> | **${member.user.username}**`)
         //loopthrough the array for 20 members / page
         for (let i = 0; i < memberarray.length; i += 20) {
 
           var thearray = memberarray;
           if (rosterembed.length > 5000) break;
           if (!thearray) return;
-          if (!the_roster_db?.get(guild.id, pre+".showallroles") || memberarray.length < 20)
+          if (!the_roster_db?.get(guild.id, "showallroles") || memberarray.length < 20)
             try {
-              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, pre+".rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, "rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
               break;
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
           else
             try {
-              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, "inline"))
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
         }
         //if there are no members who have this role, do this
         if(memberarray.length === 0){
           try {
-            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
           } catch (e) {
-            console.error(e)
+            console.log(e.stack ? String(e.stack).grey : String(e).grey)
           }
         }
       } else if (data.rosterstyle == "7") {
         //define the memberarray
-        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, pre+".rosteremoji")} <@${member.user.id}> | **${member.user.tag}**`)
+        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, "rosteremoji")} <@${member.user.id}> | **${member.user.tag}**`)
         //loopthrough the array for 20 members / page
         for (let i = 0; i < memberarray.length; i += 20) {
           var thearray = memberarray;
           if (rosterembed.length > 5000) break;
-          if (!the_roster_db?.get(guild.id, pre+".showallroles") || memberarray.length < 20)
+          if (!the_roster_db?.get(guild.id, "showallroles") || memberarray.length < 20)
             try {
-              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, pre+".rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, "rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
               break;
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
           else
             try {
-              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, "inline"))
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
         }
         //if there are no members who have this role, do this
         if(memberarray.length === 0){
           try {
-            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
 
           } catch (e) {
-            console.error(e)
+            console.log(e.stack ? String(e.stack).grey : String(e).grey)
           }
         }
       } else {
         //define the memberarray
-        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, pre+".rosteremoji")} <@${member.user.id}> | \`${member.user.tag}\``)
+        let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, "rosteremoji")} <@${member.user.id}> | \`${member.user.tag}\``)
         //loopthrough the array for 20 members / page
         for (let i = 0; i < memberarray.length; i += 20) {
-          var thearray = memberarray;
           if (rosterembed.length > 5000) leftnum = 800;
           if (rosterembed.length > 5500) {
             totalbreak = true;
             break;
           }
-          if (!the_roster_db?.get(guild.id, pre+".showallroles") || memberarray.length < 20)
+          if (!the_roster_db?.get(guild.id, "showallroles") || memberarray.length < 20)
             try {
-              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, pre+".rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, "rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
               break;
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
           else
             try {
-              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, pre+".inline"))
+              rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substr(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, "inline"))
             } catch (e) {
-              console.error(e)
+              console.log(e.stack ? String(e.stack).grey : String(e).grey)
             }
         }
         //if there are no members who have this role, do this
         if(memberarray.length === 0){
           try {
-            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
+            rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substr(0, 1024), the_roster_db?.get(guild.id, "inline"))
           } catch (e) {
-            console.error(e)
+            console.log(e.stack ? String(e.stack).grey : String(e).grey)
           }
         }
       }
@@ -576,35 +585,43 @@ async function edit_Roster_msg(client, guild, the_roster_db, pre) {
     console.log("ROSTER_COULD NOT FIND THE MESSAGE".grey, e)
   }
 }
-async function send_roster_msg(client, guild, the_roster_db, pre) {
+async function send_roster_msg(client, guild, the_roster_db) {
   //ensure the database
-  const obj = { };
-  obj[pre] = {
+  the_roster_db?.ensure(guild.id, {
     rosterchannel: "notvalid", showallroles: false, rostermessage: "", rostertitle: "Roster",
     rosteremoji: "➤", rosterstyle: "1", rosterroles: [], inline: false,
-  }
-  dbEnsure(the_roster_db, guild.id, obj)
+  })
+  client.settings.ensure(guild.id, {
+    prefix: config.prefix,
+    embed: {
+      "color": ee.color,
+      "thumb": true,
+      "wrongcolor": ee.wrongcolor,
+      "footertext": client.guilds.cache.get(guild.id) ? client.guilds.cache.get(guild.id).name : ee.footertext,
+      "footericon": client.guilds.cache.get(guild.id) ? client.guilds.cache.get(guild.id).iconURL({
+        dynamic: true
+      }) : ee.footericon,
+    },
+    language: "en"
+  })
   let es = client.settings.get(guild.id, "embed")
   let ls = client.settings.get(guild.id, "language")
-  if (the_roster_db?.get(guild.id, pre+".rosterchannel") == "notvalid") return;
-  let channel = await client.channels.fetch(the_roster_db?.get(guild.id, pre+".rosterchannel")).catch(() => {});
+  if (the_roster_db?.get(guild.id, "rosterchannel") == "notvalid") return;
+  let channel = await client.channels.fetch(the_roster_db?.get(guild.id, "rosterchannel")).catch(() => {});
   //define the embed
   let rosterembed = new Discord.MessageEmbed()
     .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
-    .setTitle(String(the_roster_db?.get(guild.id, pre+".rostertitle")).substring(0, 256))
+    .setTitle(String(the_roster_db?.get(guild.id, "rostertitle")).substr(0, 256))
     .setFooter(client.getFooter(es))
   //get rosterole and loop through every single role
-  let rosterroles = the_roster_db?.get(guild.id, pre+".rosterroles");
+  let rosterroles = the_roster_db?.get(guild.id, "rosterroles");
   if (!rosterroles || rosterroles.length === 0) try {
     rosterembed.addField(eval(client.la[ls]["handlers"]["functionsjs"]["functions"]["variablex_2"]), eval(client.la[ls]["handlers"]["functionsjs"]["functions"]["variable2"]))
   } catch (e) {
-    console.error(e)
+    console.log(e.stack ? String(e.stack).grey : String(e).grey)
   }
   for (let i = 0; i < rosterroles.length; i++) {
-    //get the role
-    let role = await guild.roles.fetch(rosterroles[i]).catch(() => {})
-    //if no valid role skip
-    if(!role || role == undefined || !role.members || role.members == undefined) continue;  
+    let role = guild.roles.cache.get(rosterroles[i])
     //if the embed is too big break
     if (rosterembed.length > 5900) break;
     //get the maximum field value length on an variabel
@@ -612,45 +629,18 @@ async function send_roster_msg(client, guild, the_roster_db, pre) {
     //if the length is bigger then the maximum length - the leftnumber
     if (rosterembed.length > 6000 - leftnum) {
       //set the left number to the maximumlength - the leftnumber
-      leftnum = rosterembed.length - leftnum - 100;
+      leftnum = rosterembed.length - leftnum;
     }
-    //define the memberarray
-    let memberarray = role.members.map(member => `${the_roster_db?.get(guild.id, pre+".rosteremoji")} <@${member.user.id}> | \`${member.user.tag}\``)
-    //loopthrough the array for 20 members / page
-    for (let i = 0; i < memberarray.length; i += 20) {
-      var thearray = memberarray;
-      if (rosterembed.length > 5000) leftnum = 800;
-      if (rosterembed.length > 5500) {
-        totalbreak = true;
-        break;
-      }
-      if (!the_roster_db?.get(guild.id, pre+".showallroles") || memberarray.length < 20)
-        try {
-          rosterembed.addField(`**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024)+ `${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20 > 0 ? `\n${the_roster_db?.get(guild.id, pre+".rosteremoji")} ***\`${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length - 20}\` other Members have this Role ...***`: ""}`.substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
-          break;
-        } catch (e) {
-          console.error(e)
-        }
-      else
-        try {
-          rosterembed.addField(i < 20 ? `**__${role.name.toUpperCase()} [${role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length}]__**` : `\u200b`, role.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966).length == 0 ? "> No one has this Role" : thearray.slice(i, i + 20).join("\n").substring(0, leftnum <= 1024 ? leftnum : 1024), the_roster_db?.get(guild.id, pre+".inline"))
-        } catch (e) {
-          console.error(e)
-        }
-    }
-    //if there are no members who have this role, do this
-    if(memberarray.length === 0){
-      try {
-        rosterembed.addField(`**__${role.name.toUpperCase()} [0]__**`, "> ***No one has this Role***".substring(0, 1024), the_roster_db?.get(guild.id, pre+".inline"))
-      } catch (e) {
-        console.error(e)
-      }
+    try {
+      rosterembed.addField(eval(client.la[ls]["handlers"]["functionsjs"]["functions"]["variablex_3"]), eval(client.la[ls]["handlers"]["functionsjs"]["functions"]["variable3"]))
+    } catch (e) {
+      console.log(e.stack ? String(e.stack).grey : String(e).grey)
     }
   }
   channel.send({embeds: [rosterembed]}).then(msg => {
-    the_roster_db?.set(guild.id, msg.id, pre+".rostermessage");
+    the_roster_db?.set(guild.id, msg.id, "rostermessage");
     setTimeout(() => {
-      edit_Roster_msg(client, guild, the_roster_db, pre)
+      edit_msg(client, guild, the_roster_db)
     }, 500)
   }).catch(e => console.log("Couldn't send a message, give the Bot permissions or smt!"))
 }
@@ -1069,7 +1059,7 @@ function createBar(player) {
     let slider = "🔷";
     let bar = current > total ? [line.repeat(size / 2 * 2), (current / total) * 100] : [line.repeat(Math.round(size / 2 * (current / total))).replace(/.$/, slider) + line.repeat(size - Math.round(size * (current / total)) + 1), current / total];
     if (!String(bar).includes("🔷")) return `**[${"🔷"}${line.repeat(size - 1)}]**\n**00:00:00 / 00:00:00**`;
-    return `**[${bar[0]}]**\n**${new Date(player.position).toISOString().substring(11, 8)+" / "+(player.queue.current.duration==0?" ◉ LIVE":new Date(player.queue.current.duration).toISOString().substring(11, 8))}**`;
+    return `**[${bar[0]}]**\n**${new Date(player.position).toISOString().substr(11, 8)+" / "+(player.queue.current.duration==0?" ◉ LIVE":new Date(player.queue.current.duration).toISOString().substr(11, 8))}**`;
   } catch (e) {
     console.log(String(e.stack).grey.bgRed)
   }
@@ -1104,132 +1094,132 @@ function stations(client, prefix, message) {
     let beforeindex = 1;
     let REYFM = "";
     for (let i = 0; i < radios.REYFM.length; i++) {
-      REYFM += `**${i + beforeindex}** [${radios.REYFM[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.REYFM[i].split(" ")[1]})\n`;
+      REYFM += `**${i + beforeindex}** [${radios.REYFM[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.REYFM[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.REYFM.length;
     let ILOVERADIO = "";
     for (let i = 0; i < radios.ILOVERADIO.length; i++) {
-      ILOVERADIO += `**${i + beforeindex}** [${radios.ILOVERADIO[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.ILOVERADIO[i].split(" ")[1]})\n`;
+      ILOVERADIO += `**${i + beforeindex}** [${radios.ILOVERADIO[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.ILOVERADIO[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.ILOVERADIO.length;
-    reyfm_iloveradio_embed.addField("**REYFM-STATIONS:**", `${REYFM}`.substring(0, 1024), true)
-    reyfm_iloveradio_embed.addField("**ILOVEMUSIC-STATIONS:**", `${ILOVERADIO}`.substring(0, 1024), true)
+    reyfm_iloveradio_embed.addField("**REYFM-STATIONS:**", `${REYFM}`.substr(0, 1024), true)
+    reyfm_iloveradio_embed.addField("**ILOVEMUSIC-STATIONS:**", `${ILOVERADIO}`.substr(0, 1024), true)
     reyfm_iloveradio_embed.addField("**INFORMATIONS:**", "> *On the next pages, are country specific Radiostations*\n> *Some of those might not work, because they might be offline, this is because of either ping, timezone or because that they are not maintained!*")
 
     let United_Kingdom = "";
     for (let i = 0; i < radios.EU.United_Kingdom.length; i++) {
-      United_Kingdom += `**${i + beforeindex}** [${radios.EU.United_Kingdom[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.United_Kingdom[i].split(" ")[1]})\n`;
+      United_Kingdom += `**${i + beforeindex}** [${radios.EU.United_Kingdom[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.United_Kingdom[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.United_Kingdom.length;
     stationsembed.addField("🇬🇧 United Kingdom", `>>> ${United_Kingdom}`, true);
 
     let austria = "";
     for (let i = 0; i < radios.EU.Austria.length; i++) {
-      austria += `**${i + beforeindex}** [${radios.EU.Austria[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Austria[i].split(" ")[1]})\n`;
+      austria += `**${i + beforeindex}** [${radios.EU.Austria[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Austria[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Austria.length;
     stationsembed.addField("🇦🇹 Austria", `>>> ${austria}`, true);
     
     let Belgium = "";
     for (let i = 0; i < radios.EU.Belgium.length; i++) {
-      Belgium += `**${i + beforeindex}** [${radios.EU.Belgium[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Belgium[i].split(" ")[1]})\n`;
+      Belgium += `**${i + beforeindex}** [${radios.EU.Belgium[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Belgium[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Belgium.length;
     stationsembed.addField("🇧🇪 Belgium", `>>> ${Belgium}`, true);
     
     let Bosnia = "";
     for (let i = 0; i < radios.EU.Bosnia.length; i++) {
-      Bosnia += `**${i + beforeindex}** [${radios.EU.Bosnia[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Bosnia[i].split(" ")[1]})\n`;
+      Bosnia += `**${i + beforeindex}** [${radios.EU.Bosnia[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Bosnia[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Bosnia.length;
     stationsembed.addField("🇧🇦 Bosnia", `>>> ${Bosnia}`, true);
     
     let Czech = "";
     for (let i = 0; i < radios.EU.Czech.length; i++) {
-      Czech += `**${i + beforeindex}** [${radios.EU.Czech[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Czech[i].split(" ")[1]})\n`;
+      Czech += `**${i + beforeindex}** [${radios.EU.Czech[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Czech[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Czech.length;
     stationsembed.addField("🇨🇿 Czech", `>>> ${Czech}`, true);
     
     let Denmark = "";
     for (let i = 0; i < radios.EU.Denmark.length; i++) {
-      Denmark += `**${i + beforeindex}** [${radios.EU.Denmark[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Denmark[i].split(" ")[1]})\n`;
+      Denmark += `**${i + beforeindex}** [${radios.EU.Denmark[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Denmark[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Denmark.length;
     stationsembed.addField("🇩🇰 Denmark", `>>> ${Denmark}`, true);
     
     let germany = "";
     for (let i = 0; i < radios.EU.Germany.length; i++) {
-      germany += `**${i + beforeindex}** [${radios.EU.Germany[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Germany[i].split(" ")[1]})\n`;
+      germany += `**${i + beforeindex}** [${radios.EU.Germany[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Germany[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Germany.length;
     stationsembed2.addField("🇩🇪 Germany", `>>> ${germany}`, true);
     
     let Hungary = "";
     for (let i = 0; i < radios.EU.Hungary.length; i++) {
-      Hungary += `**${i + beforeindex}** [${radios.EU.Hungary[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Hungary[i].split(" ")[1]})\n`;
+      Hungary += `**${i + beforeindex}** [${radios.EU.Hungary[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Hungary[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Hungary.length;
     stationsembed2.addField("🇭🇺 Hungary", `>>> ${Hungary}`, true);
     
     let Ireland = "";
     for (let i = 0; i < radios.EU.Ireland.length; i++) {
-      Ireland += `**${i + beforeindex}** [${radios.EU.Ireland[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Ireland[i].split(" ")[1]})\n`;
+      Ireland += `**${i + beforeindex}** [${radios.EU.Ireland[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Ireland[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Ireland.length;
     stationsembed2.addField("🇮🇪 Ireland", `>>> ${Ireland}`, true);
     
     let Italy = "";
     for (let i = 0; i < radios.EU.Italy.length; i++) {
-      Italy += `**${i + beforeindex}** [${radios.EU.Italy[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Italy[i].split(" ")[1]})\n`;
+      Italy += `**${i + beforeindex}** [${radios.EU.Italy[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Italy[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Italy.length;
     stationsembed2.addField("🇮🇹 Italy", `>>> ${Italy}`, true);
     
     let Luxembourg = "";
     for (let i = 0; i < radios.EU.Luxembourg.length; i++) {
-      Luxembourg += `**${i + beforeindex}** [${radios.EU.Luxembourg[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Luxembourg[i].split(" ")[1]})\n`;
+      Luxembourg += `**${i + beforeindex}** [${radios.EU.Luxembourg[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Luxembourg[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Luxembourg.length;
     stationsembed2.addField("🇱🇺 Luxembourg", `>>> ${Luxembourg}`, true);
     
     let Romania = "";
     for (let i = 0; i < radios.EU.Romania.length; i++) {
-      Romania += `**${i + beforeindex}** [${radios.EU.Romania[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Romania[i].split(" ")[1]})\n`;
+      Romania += `**${i + beforeindex}** [${radios.EU.Romania[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Romania[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Romania.length;
     stationsembed2.addField("🇷🇴 Romania", `>>> ${Romania}`, true);
     
     let Serbia = "";
     for (let i = 0; i < radios.EU.Serbia.length; i++) {
-      Serbia += `**${i + beforeindex}** [${radios.EU.Serbia[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Serbia[i].split(" ")[1]})\n`;
+      Serbia += `**${i + beforeindex}** [${radios.EU.Serbia[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Serbia[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Serbia.length;
     stationsembed3.addField("🇷🇸 Serbia", `>>> ${Serbia}`, true);
     
     let Spain = "";
     for (let i = 0; i < radios.EU.Spain.length; i++) {
-      Spain += `**${i + beforeindex}** [${radios.EU.Spain[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Spain[i].split(" ")[1]})\n`;
+      Spain += `**${i + beforeindex}** [${radios.EU.Spain[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Spain[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Spain.length;
     stationsembed3.addField("🇪🇸 Spain", `>>> ${Spain}`, true);
     
     let Sweden = "";
     for (let i = 0; i < radios.EU.Sweden.length; i++) {
-      Sweden += `**${i + beforeindex}** [${radios.EU.Sweden[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Sweden[i].split(" ")[1]})\n`;
+      Sweden += `**${i + beforeindex}** [${radios.EU.Sweden[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Sweden[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Sweden.length;
     stationsembed3.addField("🇸🇪 Sweden", `>>> ${Sweden}`, true);
     
     let TURKEY = "";
     for (let i = 0; i < radios.EU.TURKEY.length; i++) {
-      TURKEY += `**${i + beforeindex}** [${radios.EU.TURKEY[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.TURKEY[i].split(" ")[1]})\n`;
+      TURKEY += `**${i + beforeindex}** [${radios.EU.TURKEY[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.TURKEY[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.TURKEY.length;
     stationsembed3.addField("🇹🇷 TURKEY", `>>> ${TURKEY}`, true);
     let Ukraine = "";
     for (let i = 0; i < radios.EU.Ukraine.length; i++) {
-      Ukraine += `**${i + beforeindex}** [${radios.EU.Ukraine[i].split(" ")[0].replace("-", " ").substring(0, 16)}](${radios.EU.Ukraine[i].split(" ")[1]})\n`;
+      Ukraine += `**${i + beforeindex}** [${radios.EU.Ukraine[i].split(" ")[0].replace("-", " ").substr(0, 16)}](${radios.EU.Ukraine[i].split(" ")[1]})\n`;
     }
     beforeindex+=radios.EU.Ukraine.length;
     stationsembed3.addField("🇺🇦 Ukraine", `>>> ${Ukraine}`, true);
@@ -1241,7 +1231,7 @@ function stations(client, prefix, message) {
     embeds.push(stationsembed3)
     let requests = "";
     for (let i = 0; i < radios.OTHERS.request.length; i++) {
-      requests += `**${i + beforeindex}** [${radios.OTHERS.request[i].split(" ")[0].replace("-", " ").substring(0, 20)}](${radios.OTHERS.request[i].split(" ")[1]})\n`;
+      requests += `**${i + beforeindex}** [${radios.OTHERS.request[i].split(" ")[0].replace("-", " ").substr(0, 20)}](${radios.OTHERS.request[i].split(" ")[1]})\n`;
       if(requests.length > 1900){
         embeds.push(new MessageEmbed().setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null).setFooter(client.getFooter(es)).setTitle("CUSTOM REQUESTS | Pick your Station, by typing in the right `INDEX` Number!").setDescription(`${requests}`))
         requests = "";
@@ -1268,8 +1258,21 @@ function escapeRegex(str) {
 }
 
 async function autoplay(client, player, type) {
+  client.settings.ensure(player.guild, {
+    prefix: config.prefix,
+    embed: {
+      "color": ee.color,
+      "thumb": true,
+      "wrongcolor": ee.wrongcolor,
+      "footertext": client.guilds.cache.get(player.guild) ? client.guilds.cache.get(player.guild).name : ee.footertext,
+      "footericon": client.guilds.cache.get(player.guild) ? client.guilds.cache.get(player.guild).iconURL({
+        dynamic: true
+      }) : ee.footericon,
+    },
+    language: "en"
+  })
   let es = client.settings.get(player.guild, "embed") 
-  if(!client.settings.has(player.guild, "language")) dbEnsure(client.settings, player.guild, { language: "en" });
+  if(!client.settings.has(player.guild, "language")) client.settings.ensure(player.guild, { language: "en" });
   let ls = client.settings.get(player.guild, "language")
   try {
     if (player.queue.length > 0) return;
@@ -1369,11 +1372,22 @@ function nFormatter(num, digits = 2) {
 }
 
 async function swap_pages(client, message, description, TITLE) {
-  const settings = client.settings.get(message.guild.id)
-  let es = settings.embed;
-  let prefix = settings.prefix
-  let ls = settings.language;
+  client.settings.ensure(message.guild.id, {
+    prefix: config.prefix,
+    embed: {
+      "color": ee.color,
+      "thumb": true,
+      "wrongcolor": ee.wrongcolor,
+      "footertext": client.guilds.cache.get(message.guild.id) ? client.guilds.cache.get(message.guild.id).name : ee.footertext,
+      "footericon": client.guilds.cache.get(message.guild.id) ? client.guilds.cache.get(message.guild.id).iconURL({
+        dynamic: true
+      }) : ee.footericon,
+    }
+  })
+  let es = client.settings.get(message.guild.id, "embed");
+  let prefix = client.settings.get(message.guild.id, "prefix");
   let cmduser = message.author;
+
 /**
  * @INFO
  * Bot Coded by Tomato#6966 | https://discord.gg/milrato
@@ -1402,7 +1416,7 @@ async function swap_pages(client, message, description, TITLE) {
         embeds.push(embed);
       }
       embeds;
-    } catch (e){console.error(e)}
+    } catch (e){console.log(e.stack ? String(e.stack).grey : String(e).grey)}
   } else {
     try {
       let k = 1000;
@@ -1417,7 +1431,7 @@ async function swap_pages(client, message, description, TITLE) {
         embeds.push(embed);
       }
       embeds;
-    } catch (e){console.error(e)}
+    } catch (e){console.log(e.stack ? String(e.stack).grey : String(e).grey)}
   }
   if (embeds.length === 0) return message.channel.send({embeds: [new MessageEmbed()
   .setTitle(`${emoji?.msg.ERROR} No Content added to the SWAP PAGES Function`)
@@ -1428,9 +1442,7 @@ async function swap_pages(client, message, description, TITLE) {
   let button_back = new MessageButton().setStyle('SUCCESS').setCustomId('1').setEmoji("833802907509719130").setLabel("Back")
   let button_home = new MessageButton().setStyle('DANGER').setCustomId('2').setEmoji("🏠").setLabel("Home")
   let button_forward = new MessageButton().setStyle('SUCCESS').setCustomId('3').setEmoji('832598861813776394').setLabel("Forward")
-  let button_blank = new MessageButton().setStyle('SECONDARY').setCustomId('button_blank').setLabel("\u200b").setDisabled();
-  let button_stop = new MessageButton().setStyle('DANGER').setCustomId('stop').setEmoji("🛑").setLabel("Stop")
-  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward, button_blank, button_stop])]
+  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward])]
   //Send message with buttons
   let swapmsg = await message.channel.send({   
       content: `***Click on the __Buttons__ to swap the Pages***`,
@@ -1445,53 +1457,39 @@ async function swap_pages(client, message, description, TITLE) {
         return b?.reply({content: `<:no:833101993668771842> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
         //page forward
         if(b?.customId == "1") {
-          collector.resetTimer();
           //b?.reply("***Swapping a PAGE FORWARD***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage !== 0) {
               currentPage -= 1
-              await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+              await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
               await b?.deferUpdate();
             } else {
                 currentPage = embeds.length - 1
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
                 await b?.deferUpdate();
             }
         }
         //go home
         else if(b?.customId == "2"){
-          collector.resetTimer();
           //b?.reply("***Going Back home***, *please wait 2 Seconds for the next Input*", true)
             currentPage = 0;
-            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+            await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
             await b?.deferUpdate();
         } 
         //go forward
         else if(b?.customId == "3"){
-          collector.resetTimer();
           //b?.reply("***Swapping a PAGE BACK***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage < embeds.length - 1) {
                 currentPage++;
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
                 await b?.deferUpdate();
             } else {
                 currentPage = 0
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
                 await b?.deferUpdate();
             }
         
-        } 
-        //go forward
-        else if(b?.customId == "stop"){
-            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
-            await b?.deferUpdate();
-            collector.stop("stopped");
-        }
+      }
   });
-  collector.on("end", (reason) => {
-    if(reason != "stopped"){
-      swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
-    }
-  })
 
 
 }
@@ -1502,9 +1500,7 @@ async function swap_pages2(client, message, embeds) {
   let button_back = new MessageButton().setStyle('SUCCESS').setCustomId('1').setEmoji("833802907509719130").setLabel("Back")
   let button_home = new MessageButton().setStyle('DANGER').setCustomId('2').setEmoji("🏠").setLabel("Home")
   let button_forward = new MessageButton().setStyle('SUCCESS').setCustomId('3').setEmoji('832598861813776394').setLabel("Forward")
-  let button_blank = new MessageButton().setStyle('SECONDARY').setCustomId('button_blank').setLabel("\u200b").setDisabled();
-  let button_stop = new MessageButton().setStyle('DANGER').setCustomId('stop').setEmoji("🛑").setLabel("Stop")
-  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward, button_blank, button_stop])]
+  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward])]
   let prefix = client.settings.get(message.guild.id, "prefix");
   //Send message with buttons
   let swapmsg = await message.channel.send({   
@@ -1520,61 +1516,40 @@ async function swap_pages2(client, message, embeds) {
         return b?.reply({content: `<:no:833101993668771842> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
         //page forward
         if(b?.customId == "1") {
-          collector.resetTimer();
           //b?.reply("***Swapping a PAGE FORWARD***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage !== 0) {
               currentPage -= 1
-              await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+              await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
               await b?.deferUpdate();
             } else {
                 currentPage = embeds.length - 1
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
                 await b?.deferUpdate();
             }
         }
         //go home
         else if(b?.customId == "2"){
-          collector.resetTimer();
           //b?.reply("***Going Back home***, *please wait 2 Seconds for the next Input*", true)
             currentPage = 0;
-            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+            await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
             await b?.deferUpdate();
         } 
         //go forward
         else if(b?.customId == "3"){
-          collector.resetTimer();
           //b?.reply("***Swapping a PAGE BACK***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage < embeds.length - 1) {
                 currentPage++;
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
                 await b?.deferUpdate();
             } else {
                 currentPage = 0
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
                 await b?.deferUpdate();
             }
         
-        } 
-        //go forward
-        else if(b?.customId == "stop"){
-            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
-            await b?.deferUpdate();
-            collector.stop("stopped");
-        }
+      }
   });
-  collector.on("end", (reason) => {
-    if(reason != "stopped"){
-      swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
-    }
-  })
 
-}
-function getDisabledComponents (MessageComponents) {
-  if(!MessageComponents) return []; // Returning so it doesn't crash
-  return MessageComponents.map(({components}) => {
-      return new MessageActionRow()
-          .addComponents(components.map(c => c.setDisabled(true)))
-  });
 }
 async function swap_pages2_interaction(client, interaction, embeds) {
   let currentPage = 0;
@@ -1583,9 +1558,7 @@ async function swap_pages2_interaction(client, interaction, embeds) {
   let button_back = new MessageButton().setStyle('SUCCESS').setCustomId('1').setEmoji("833802907509719130").setLabel("Back")
   let button_home = new MessageButton().setStyle('DANGER').setCustomId('2').setEmoji("🏠").setLabel("Home")
   let button_forward = new MessageButton().setStyle('SUCCESS').setCustomId('3').setEmoji('832598861813776394').setLabel("Forward")
-  let button_blank = new MessageButton().setStyle('SECONDARY').setCustomId('button_blank').setLabel("\u200b").setDisabled();
-  let button_stop = new MessageButton().setStyle('DANGER').setCustomId('stop').setEmoji("🛑").setLabel("Stop")
-  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward, button_blank, button_stop])]
+  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward])]
   let prefix = client.settings.get(interaction?.member.guild.id, "prefix");
   //Send message with buttons
   let swapmsg = await interaction?.reply({   
@@ -1602,63 +1575,49 @@ async function swap_pages2_interaction(client, interaction, embeds) {
         return b?.reply({content: `<:no:833101993668771842> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
         //page forward
         if(b?.customId == "1") {
-          collector.resetTimer();
           //b?.reply("***Swapping a PAGE FORWARD***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage !== 0) {
               currentPage -= 1
-              await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+              await swapmsg.edit({ephemeral: true,embeds: [embeds[currentPage]], components: allbuttons});
               await b?.deferUpdate();
             } else {
                 currentPage = embeds.length - 1
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+                await swapmsg.edit({ephemeral: true,embeds: [embeds[currentPage]], components: allbuttons});
                 await b?.deferUpdate();
             }
         }
         //go home
         else if(b?.customId == "2"){
-          collector.resetTimer();
           //b?.reply("***Going Back home***, *please wait 2 Seconds for the next Input*", true)
             currentPage = 0;
-            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+            await swapmsg.edit({ephemeral: true,embeds: [embeds[currentPage]], components: allbuttons});
             await b?.deferUpdate();
         } 
         //go forward
         else if(b?.customId == "3"){
-          collector.resetTimer();
           //b?.reply("***Swapping a PAGE BACK***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage < embeds.length - 1) {
                 currentPage++;
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+                await swapmsg.edit({ephemeral: true,embeds: [embeds[currentPage]], components: allbuttons});
                 await b?.deferUpdate();
             } else {
                 currentPage = 0
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
+                await swapmsg.edit({ephemeral: true,embeds: [embeds[currentPage]], components: allbuttons});
                 await b?.deferUpdate();
             }
         
-        } 
-        //go forward
-        else if(b?.customId == "stop"){
-            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
-            await b?.deferUpdate();
-            collector.stop("stopped");
-        }
+      }
   });
-  collector.on("end", (reason) => {
-    if(reason != "stopped"){
-      swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
-    }
-  })
 
 }
 function databasing(client, guildid, userid) {
   if(!client || client == undefined || !client.user || client.user == undefined) return;
   try {
     if (guildid) {
-      dbEnsure(client.customcommands, guildid, {
+      client.customcommands.ensure(guildid, {
         commands: []
       })
-      dbEnsure(client.keyword, guildid, {
+      client.keyword.ensure(guildid, {
         commands: []
       })
       /**
@@ -1670,7 +1629,7 @@ function databasing(client, guildid, userid) {
        * Please mention him / Milrato Development, when using this Code!
        * @INFO
        */
-       dbEnsure(client.social_log, guildid, {
+      client.social_log.ensure(guildid, {
         tiktok: {
           channels: [],
           dc_channel: ""
@@ -1705,7 +1664,7 @@ function databasing(client, guildid, userid) {
       })
       for (let i = 0; i <= 25; i++) {
           let index = i + 1;
-          dbEnsure(client[`roster${index != 1 ? index : ""}`], guildid, {
+          client[`roster${index != 1 ? index : ""}`].ensure(guildid, {
             rosterchannel: "notvalid",
             rosteremoji: "➤",
             rostermessage: "",
@@ -1715,14 +1674,14 @@ function databasing(client, guildid, userid) {
             inline: false,
           })
       }
-      dbEnsure(client.stats, guildid, {
+      client.stats.ensure(guildid, {
         commands: 0,
         songs: 0
       });
-      dbEnsure(client.premium, guildid, {
+      client.premium.ensure(guildid, {
         enabled: false,
       })
-      const ensureData = {
+      client.setups.ensure(guildid, {
         textchannel: "0",
         voicechannel: "0",
         category: "0",
@@ -1733,10 +1692,368 @@ function databasing(client, guildid, userid) {
           whitelistedroles: [],
           words: [],
           enabled: true
-        }
-      }
-      for(let i = 0; i<=100;i++){
-        ensureData[`ticketsystem${i}`] = {
+        },
+        ticketsystem1: {
+          enabled: false,
+          defaultname: "🎫・{count}・{member}",
+          guildid: guildid,
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem2: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem3: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem4: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem5: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem6: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem7: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem8: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem9: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem10: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem11: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem12: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem13: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem14: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem15: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem16: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem17: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem18: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem19: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem20: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem21: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem22: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem23: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem24: {
+          enabled: false,
+          guildid: guildid,
+          defaultname: "🎫・{count}・{member}",
+          messageid: "",
+          channelid: "",
+          parentid: "",
+          claim: {
+            enabled: false,
+            messageOpen: "Dear {user}!\n> *Please wait until a Staff Member, claimed your Ticket!*",
+            messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
+          },
+          message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
+          adminroles: []
+        },
+        ticketsystem25: {
           enabled: false,
           guildid: guildid,
           defaultname: "🎫・{count}・{member}",
@@ -1751,14 +2068,13 @@ function databasing(client, guildid, userid) {
           message: "Hey {user}, thanks for opening an ticket! Someone will help you soon!",
           adminroles: []
         }
-      }
-      dbEnsure(client.setups, guildid, ensureData);
-      dbEnsure(client.blacklist, guildid, {
+      });
+      client.blacklist.ensure(guildid, {
         words: [],
         mute_amount: 5,
         whitelistedchannels: [],
       });
-      dbEnsure(client.settings, guildid, {
+      client.settings.ensure(guildid, {
         prefix: config.prefix,
         pruning: true,
         requestonly: true,
@@ -1995,34 +2311,34 @@ function databasing(client, guildid, userid) {
         djonlycmds: ["autoplay", "clearqueue", "forward", "loop", "jump", "loopqueue", "loopsong", "move", "pause", "resume", "removetrack", "removedupe", "restart", "rewind", "seek", "shuffle", "skip", "stop", "volume"],
         botchannel: [],
       });
-      dbEnsure(client.jtcsettings, guildid, {
+      client.jtcsettings.ensure(guildid, {
         prefix: ".",
         channel: "",
         channelname: "{user}' Room",
         guild: guildid,
       });
-      dbEnsure(client.jtcsettings2, guildid, {
+      client.jtcsettings2.ensure(guildid, {
         channel: "",
         channelname: "{user}' Channel",
         guild: guildid,
       });
-      dbEnsure(client.jtcsettings3, guildid, {
+      client.jtcsettings3.ensure(guildid, {
         channel: "",
         channelname: "{user}' Lounge",
         guild: guildid,
       });
     }
     if (userid) {
-      dbEnsure(client.premium, userid, {
+      client.premium.ensure(userid, {
         enabled: false,
       })
-      dbEnsure(client.queuesaves, userid, {
+      client.queuesaves.ensure(userid, {
         "TEMPLATEQUEUEINFORMATION": ["queue", "sadasd"]
       });
-      dbEnsure(client.settings, userid, {
+      client.settings.ensure(userid, {
         dm: true,
       })
-      dbEnsure(client.stats, guildid + userid, {
+      client.stats.ensure(guildid + userid, {
         ban: [],
         kick: [],
         mute: [],
@@ -2032,7 +2348,7 @@ function databasing(client, guildid, userid) {
       })
     }
     if (userid && guildid) {
-      dbEnsure(client.stats, guildid + userid, {
+      client.stats.ensure(guildid + userid, {
         ban: [],
         kick: [],
         mute: [],
@@ -2040,7 +2356,7 @@ function databasing(client, guildid, userid) {
         says: [],
         warn: [],
       })
-      dbEnsure(client.userProfiles, userid, {
+      client.userProfiles.ensure(userid, {
         id: userid,
         guild: guildid,
         totalActions: 0,
@@ -2092,19 +2408,25 @@ async function check_voice_channels(client) {
   for (let i = 0; i < guilds.length; i++) {
       try {
           let guild = await client.guilds.cache.get(guilds[i]);
-          const obj = {}
-          for(let i = 1; i<=100; i++) {
-            obj[`jtcsettings${i}`] = {
-              channel: "",
-              channelname: "{user}' Room",
-              guild: guild.id,
-            }
-          }
-          dbEnsure(client.jtcsettings, guild.id, obj);
+          client.jtcsettings.ensure(guild.id, {
+            channel: "",
+            channelname: "{user}' Room",
+            guild: guild.id,
+          });
+          client.jtcsettings2.ensure(guild.id, {
+            channel: "",
+            channelname: "{user}' Channel",
+            guild: guild.id,
+          });
+          client.jtcsettings3.ensure(guild.id, {
+            channel: "",
+            channelname: "{user}' Lounge",
+            guild: guild.id,
+          });
           let jointocreate = []; //get the data from the database onto one variables
-          for(let i = 1; i<=100; i++) {
-            jointocreate.push(client.jtcsettings.get(guild.id, `jtcsettings${i}.channel`));
-          }
+          jointocreate.push(client.jtcsettings.get(guild.id, "channel"));
+          jointocreate.push(client.jtcsettings2.get(guild.id, "channel"));
+          jointocreate.push(client.jtcsettings3.get(guild.id, "channel"));
           await guild.channels.cache.filter(ch => ch.type == "GUILD_VOICE" && jointocreate.includes(ch.id)).each(async (channel, j) => {
               try{
                   let members = channel.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966);
@@ -2117,12 +2439,12 @@ async function check_voice_channels(client) {
                       //console.log("NO MEMBERS")
                   }
               }catch (e){
-                  console.error(e)
+                  console.log(e.stack ? String(e.stack).grey : String(e).grey)
               }
 
           });
       } catch (e) {
-          console.error(e)
+          console.log(e.stack ? String(e.stack).grey : String(e).grey)
       }
   }
   return;
@@ -2132,9 +2454,8 @@ async function check_created_voice_channels(client) {
   let guilds = client.guilds.cache.map(guild => guild.id);
   for (let i = 0; i < guilds.length; i++) {
       try {
-          let guild = client.guilds.cache.get(guilds[i]);      
-          if(guild) {
-            guild.channels.cache.filter(ch => ch.type == "GUILD_VOICE").each(async vc => {
+          let guild = await client.guilds.cache.get(guilds[i]);      
+          await guild.channels.cache.filter(ch => ch.type == "GUILD_VOICE").each(async vc => {
               try{
                   if(client.jointocreatemap.get(`tempvoicechannel_${vc.guild.id}_${vc.id}`) == vc.id){
                       let members = vc.members.map(this_Code_is_by_Tomato_6966 => this_Code_is_by_Tomato_6966);
@@ -2143,33 +2464,40 @@ async function check_created_voice_channels(client) {
                           client.jointocreatemap.delete(`owner_${vc.guild.id}_${vc.id}`);
                           //move user
                           if(vc.permissionsFor(vc.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
-                            vc.delete().catch(e => console.error(e) )
+                            vc.delete().catch(e => console.log(e.stack ? String(e.stack).grey : String(e).grey) )
                             console.log(`Deleted the Channel: ${vc.name} in: ${vc.guild ? vc.guild.name : "undefined"} DUE TO EMPTYNESS`.strikethrough.brightRed)
                           } else {
                             console.log(`I couldn't delete the Channel: ${vc.name} in: ${vc.guild ? vc.guild.name : "undefined"} DUE TO EMPTYNESS`.strikethrough.brightRed)
-                         }                          
+                          
+                          }
+                          
                       }
                   }
               }catch (e){
                  // console.log("Not in db")
               }
-            });
-          }
+
+          });
       } catch (e) {
-          console.error(e)
+          console.log(e.stack ? String(e.stack).grey : String(e).grey)
       }
   }
   return;
 }
 
-function create_join_to_create_Channel(client, voiceState, type) {
-  let ls = client.settings.get(voiceState.member.guild.id, "language")
-  let chname =  client.jtcsettings.get(voiceState.member.guild.id, `jtcsettings${type}.channelname`) || "{user}'s Room";
-  
+function create_join_to_create_Channel(client, user, type) {
+  let ls = client.settings.get(user.member.guild.id, "language")
+  let chname = "{user}'s Room";
+  for(let i = 1; i <= 25; i++){
+    if(type == i) {
+      chname = client[`jtcsettings${i && i != 1 ? i : ""}`].get(user.member.guild.id, `channelname`)}
+  }
   //CREATE THE CHANNEL
-  if (!voiceState.guild.me.permissions.has("MANAGE_CHANNELS")) {
+  let allowed = true;
+  if (!user.guild.me.permissions.has("MANAGE_CHANNELS")) {
+    allowed = false;
     try {
-      voiceState.member.user.send(eval(client.la[ls]["handlers"]["functionsjs"]["functions"]["variable10"]))
+      user.member.user.send(eval(client.la[ls]["handlers"]["functionsjs"]["functions"]["variable10"]))
     } catch {
       try {
         let channel = guild.channels.cache.find(
@@ -2180,65 +2508,63 @@ function create_join_to_create_Channel(client, voiceState, type) {
         channel.send(eval(client.la[ls]["handlers"]["functionsjs"]["functions"]["variable11"])).catch(e => console.log("THIS IS TO PREVENT A CRASH"))
       } catch {}
     }
-    return;
   }
-    const createOptions = {
+  if (allowed) {
+
+    console.log(`Created the Channel: ${String(chname.replace("{user}", user.member.user.username)).substr(0, 32)} in: ${user.guild ? user.guild.name : "undefined"}`.brightGreen)
+
+    user.guild.channels.create(String(chname.replace("{user}", user.member.user.username)).substr(0, 32), {
       type: 'GUILD_VOICE',
-      permissionOverwrites: [ {
-        //the role "EVERYONE" is just able to VIEW_CHANNEL and CONNECT
-        id: voiceState.guild.id,
-        allow: ['VIEW_CHANNEL', "CONNECT"],
-      } ],
-      userLimit: voiceState.channel.userLimit,
-      bitrate: voiceState.channel.bitrate,
-    };
-    //if there is a parent with enough size
-    if(voiceState.channel.parent && voiceState.channel.parent.children.size < 50) {
-      createOptions.parent = voiceState.channel.parentId;
-      createOptions.permissionOverwrites = [
+      permissionOverwrites: [ //update the permissions
         {
-          //the role "EVERYONE" is just able to VIEW_CHANNEL and CONNECT
-          id: voiceState.guild.id,
+          id: user.id, //the user is allowed to change everything
+          allow: ['MANAGE_CHANNELS', "VIEW_CHANNEL", "MANAGE_ROLES", "CONNECT"],
+        }, { //the role "EVERYONE" is just able to VIEW_CHANNEL and CONNECT
+          id: user.guild.id,
           allow: ['VIEW_CHANNEL', "CONNECT"],
         },
-        ... voiceState.channel.parent.permissionOverwrites.cache.values()
-      ];
-    }
-    //add the user
-    createOptions.permissionOverwrites.push({
-      id: voiceState.id, //the user is allowed to change everything
-      allow: ['MANAGE_CHANNELS', "VIEW_CHANNEL", "MANAGE_ROLES", "CONNECT"],
-    });
-    //remove permissionOverwrites, if needed
-    while(createOptions.permissionOverwrites > 100) {
-      createOptions.permissionOverwrites.shift();
-    }
-    const DateNow = Date.now();
-    //Create the channel
-    voiceState.guild.channels.create(String(chname.replace("{user}", voiceState.member.user.username)).substring(0, 32), createOptions).then(async vc => {
-      console.log(`Created the Channel: ${String(chname.replace("{user}", voiceState.member.user.username)).substring(0, 32)} in: ${voiceState.guild ? voiceState.guild.name : "undefined"} after: ${Date.now() - DateNow}ms`.brightGreen)
+      ],
+    }).then(async vc => {
       //add to the DB
-      client.jointocreatemap.set(`owner_${vc.guild.id}_${vc.id}`, voiceState.id);
+      client.jointocreatemap.set(`owner_${vc.guild.id}_${vc.id}`, user.id);
       client.jointocreatemap.set(`tempvoicechannel_${vc.guild.id}_${vc.id}`, vc.id);
-      //move user
-      if(vc.permissionsFor(vc.guild.me).has(Permissions.FLAGS.MOVE_MEMBERS) && voiceState.channel.permissionsFor(voiceState.guild.me).has(Permissions.FLAGS.MOVE_MEMBERS)){
-        await voiceState.setChannel(vc);
-      }
-      /*//move to parent
-      if(vc.permissionsFor(vc.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
-        await vc.setParent(voiceState.channel.parent)
-      }*/
-      //add permissions
-      if(vc.permissionsFor(vc.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
-        await vc.permissionOverwrites.edit(voiceState.id, {
-          MANAGE_CHANNELS: true,
-          VIEW_CHANNEL: true,
-          MANAGE_ROLES: true,
-          CONNECT: true,
-        }).catch(() => {});
+      //if parent do these, else just move the Member
+      if (user.channel.parent) {
+        //save userlimit on a var
+        let userlimit = user.channel.userLimit;
+        let Bitrate = user.channel.bitrate;
+        //move to parent
+        if(vc.permissionsFor(vc.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
+          await vc.setParent(user.channel.parent)
+        }
+        //move user
+        if(vc.permissionsFor(vc.guild.me).has(Permissions.FLAGS.MOVE_MEMBERS) && user.channel.permissionsFor(user.channel.guild.me).has(Permissions.FLAGS.MOVE_MEMBERS)){
+          await user.setChannel(vc);
+        }
+        if(vc.permissionsFor(vc.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
+          //set userlimit
+          await vc.setUserLimit(userlimit).catch(() => {});
+          //set Bitrate
+          await vc.setBitrate(Bitrate).catch(() => {});
+        }
+        //add permissions
+        if(vc.permissionsFor(vc.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
+          await vc.permissionOverwrites.edit(user.id, {
+            MANAGE_CHANNELS: true,
+            VIEW_CHANNEL: true,
+            MANAGE_ROLES: true,
+            CONNECT: true,
+          }).catch(() => {});
+        }
+
+      } else {
+        //move user
+        if(vc.permissionsFor(vc.guild.me).has(Permissions.FLAGS.MOVE_MEMBERS) && user.channel.permissionsFor(user.channel.guild.me).has(Permissions.FLAGS.MOVE_MEMBERS)){
+          await user.setChannel(vc);
+        }
       }
     })
-  
+  }
 }
 
 //OLD VERSION
@@ -2277,24 +2603,13 @@ async function create_transcript(message, client, msglimit) {
  * @INFO
  */
 
- function dbEnsure(db, key, data) {
-  if(!db?.has(key)) {
-     db?.ensure(key, data);
-  } else {
-    for(const [Okey, value] of Object.entries(data)) {
-      if(!db?.has(key, Okey)) {
-        db?.ensure(key, value, Okey);
-      } else {
-      }
-    }
-  }
-}
+
 
 function simple_databasing(client, guildid, userid) {
   if(!client || client == undefined || !client.user || client.user == undefined) return;
   try {
     if(guildid && userid){
-      dbEnsure(client.stats, guildid+userid, {
+      client.stats.ensure(guildid+userid, {
         ban: [],
         kick: [],
         mute: [],
@@ -2304,16 +2619,23 @@ function simple_databasing(client, guildid, userid) {
       })
     }
     if(userid){
-      dbEnsure(client.settings, userid, {
+      client.settings.ensure(userid, {
         dm: true,
       })
     }
-    if (guildid) { 
-      
-      dbEnsure(client.musicsettings, guildid, {"channel": "","message": ""});
-      dbEnsure(client.customcommands, guildid, {commands: []});
-      dbEnsure(client.stats, guildid, {commands: 0,songs: 0});
-      dbEnsure(client.settings, guildid, {
+    if (guildid) {
+      client.musicsettings.ensure(guildid, {
+        "channel": "",
+        "message": ""
+      })
+      client.customcommands.ensure(guildid, {
+        commands: []
+      })
+      client.stats.ensure(guildid, {
+        commands: 0,
+        songs: 0
+      });
+      client.settings.ensure(guildid, {
         prefix: config.prefix,
         pruning: true,
         requestonly: true,
@@ -2340,8 +2662,8 @@ function simple_databasing(client, guildid, userid) {
           "color": ee.color,
           "thumb": true,
           "wrongcolor": ee.wrongcolor,
-          "footertext": client.guilds.cache.has(guildid) ? client.guilds.cache.get(guildid).name : ee.footertext,
-          "footericon": client.guilds.cache.has(guildid) ? client.guilds.cache.get(guildid).iconURL({
+          "footertext": client.guilds.cache.get(guildid) ? client.guilds.cache.get(guildid).name : ee.footertext,
+          "footericon": client.guilds.cache.get(guildid) ? client.guilds.cache.get(guildid).iconURL({
             dynamic: true
           }) : ee.footericon,
         },
@@ -2453,7 +2775,7 @@ function simple_databasing(client, guildid, userid) {
 
 
 function ensure_economy_user(client, guildid, userid){
-    dbEnsure(client.economy, `${guildid}-${userid}`, {
+  client.economy.ensure(`${guildid}-${userid}`, {
       user: userid,
       work: 0,
       balance: 0,

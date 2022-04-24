@@ -25,82 +25,29 @@ module.exports = {
       async function first_layer(){
         
         let menuoptions = [ ]
-        for(let i = 0; i < 100; i++){
+        for(let i = 0; i < 25; i++){
           menuoptions.push({
             value: `${i + 1} Join-To-Create System`,
             description: `Manage/Edit the ${i + 1} Join-to-Create Setup`,
             emoji: NumberEmojiIds[i + 1]
           })
         }
-        
-        let row1 = new MessageActionRow().addComponents(new MessageSelectMenu()
-          .setCustomId('MenuSelection')
+        //define the selection
+        let Selection = new MessageSelectMenu()
+          .setCustomId('MenuSelection') 
           .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
           .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-          .setPlaceholder('Click me to setup the Join-to-Create System!')
+          .setPlaceholder('Click me to setup the Join-to-Create System!') 
           .addOptions(
-            menuoptions.slice(0, 25).map(option => {
-              let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
-              }
-              if (option.emoji) Obj.emoji = option.emoji;
-              return Obj;
-            })
-          )
-        )
-        let row2 = new MessageActionRow().addComponents(new MessageSelectMenu()
-          .setCustomId('MenuSelection2')
-          .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
-          .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-          .setPlaceholder('Click me to setup the Join-to-Create System!')
-          .addOptions(
-            menuoptions.slice(25, 50).map(option => {
-              let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
-              }
-              if (option.emoji) Obj.emoji = option.emoji;
-              return Obj;
-            })
-          )
-        )
-        let row3 = new MessageActionRow().addComponents(new MessageSelectMenu()
-          .setCustomId('MenuSelection3')
-          .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
-          .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-          .setPlaceholder('Click me to setup the Join-to-Create System!')
-          .addOptions(
-            menuoptions.slice(50, 75).map(option => {
-              let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
-              }
-              if (option.emoji) Obj.emoji = option.emoji;
-              return Obj;
-            })
-          )
-        )
-        let row4 = new MessageActionRow().addComponents(new MessageSelectMenu()
-          .setCustomId('MenuSelection4')
-          .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
-          .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-          .setPlaceholder('Click me to setup the Join-to-Create System!')
-          .addOptions(
-            menuoptions.slice(75, 100).map(option => {
-              let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
-              }
-              if (option.emoji) Obj.emoji = option.emoji;
-              return Obj;
-            })
-          )
-        )
+          menuoptions.map(option => {
+            let Obj = {
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
+            }
+          if(option.emoji) Obj.emoji = option.emoji;
+          return Obj;
+         }))
         
         //define the embed
         let MenuEmbed = new Discord.MessageEmbed()
@@ -108,7 +55,7 @@ module.exports = {
         .setAuthor('Join-to-Create Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/joypixels/291/studio-microphone_1f399-fe0f.png', 'https://discord.gg/milrato')
         .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
         //send the menu msg
-        let menumsg = await message.reply({embeds: [MenuEmbed], components: [row1, row2, row3, row4]})
+        let menumsg = await message.reply({embeds: [MenuEmbed], components: [new MessageActionRow().addComponents(Selection)]})
         //function to handle the menuselection
         function menuselection(menu) {
           let menuoptiondata = menuoptions.find(v=>v.value == menu?.values[0])
@@ -139,13 +86,12 @@ module.exports = {
       }
       async function second_layer(SetupNumber, menuoptiondata)
       {
-        var pre = `jtcsettings${SetupNumber}`
-        let thedb = client.jtcsettings;
+        let thedb = client[`jtcsettings${SetupNumber && SetupNumber != 1 ? SetupNumber : ""}`];
         thedb?.ensure(message.guild.id, {
           channel: "",
           channelname: "{user}' Lounge",
           guild: message.guild.id,
-        }, pre);
+        });
         let menuoptions = [
           {
             value: "Create Channel Setup",
@@ -177,9 +123,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -188,7 +134,7 @@ module.exports = {
         //define the embed
         let MenuEmbed = new Discord.MessageEmbed()
         .setColor(es.color)
-        .setAuthor(client.getAuthor(SetupNumber + " Join-to-Create Setup", 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/joypixels/291/studio-microphone_1f399-fe0f.png', 'https://discord.gg/milrato'))
+        .setAuthor(SetupNumber + " Join-to-Create Setup", 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/joypixels/291/studio-microphone_1f399-fe0f.png', 'https://discord.gg/milrato')
         .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable4"]))
         //send the menu msg
         let menumsg = await message.reply({embeds: [MenuEmbed], components: [new MessageActionRow().addComponents(Selection)]})
@@ -196,7 +142,7 @@ module.exports = {
         function menuselection(menu) {
           if(menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable5"]))
           menu?.deferUpdate();
-          handle_the_picks(menu?.values[0], SetupNumber, thedb, pre)
+          handle_the_picks(menu?.values[0], SetupNumber, thedb)
         }
         //Create the collector
         const collector = menumsg.createMessageComponentCollector({ 
@@ -217,7 +163,7 @@ module.exports = {
           menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:833101995723194437> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
         });
       }
-      async function handle_the_picks(optionhandletype, SetupNumber, thedb, pre){
+      async function handle_the_picks(optionhandletype, SetupNumber, thedb){
         switch (optionhandletype) {
           case "Create Channel Setup": {
             var maxbitrate = 96000;
@@ -244,7 +190,7 @@ module.exports = {
                 .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-jtc"]["variable7"]))
               .setFooter(client.getFooter(es))
               ]});
-              thedb?.set(message.guild.id, vc.id, `${pre}.channel`);
+              thedb?.set(message.guild.id, vc.id, `channel`);
             })
           } break;
           case "Use Current Channel": {
@@ -263,7 +209,7 @@ module.exports = {
                 .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-jtc"]["variable11"]))
                 .setFooter(client.getFooter(es))
               ]});
-              thedb?.set(message.guild.id, channel.id, `${pre}.channel`);
+              thedb?.set(message.guild.id, channel.id, `channel`);
           } break;
           case "Change the Temp Names": {
             var tempmsg = await message.reply({embeds: [new Discord.MessageEmbed()
@@ -278,11 +224,11 @@ module.exports = {
                 errors: ["time"]
               })
               .then(collected => {
-                thedb?.set(message.guild.id, `${collected.first().content}`.substring(0, 32), pre+".channelname");
+                thedb?.set(message.guild.id, `${collected.first().content}`.substr(0, 32), "channelname");
                 message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-jtc"]["variable14"]))
                   .setColor(es.color)
-                  .setDescription(`**New Channel Name:**\n> \`${thedb?.get(message.guild.id, pre+".channelname")}\`\n\n**What it could look like:**\n> \`${thedb?.get(message.guild.id, pre+".channelname").replace("{user}", `${message.author.username}`)}\``)
+                  .setDescription(`**New Channel Name:**\n> \`${thedb?.get(message.guild.id, "channelname")}\`\n\n**What it could look like:**\n> \`${thedb?.get(message.guild.id, "channelname").replace("{user}", `${message.author.username}`)}\``)
                   .setFooter(client.getFooter(es))
                 ]});
               })
@@ -293,7 +239,7 @@ module.exports = {
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-jtc"]["variable16"]))
                 .setColor(es.wrongcolor)
-                .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                 .setFooter(client.getFooter(es))
               ]});
           } break;

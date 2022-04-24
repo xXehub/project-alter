@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const config = require(`${process.cwd()}/botconfig/config.json`);
-const { simple_databasing } = require(`./functions`);
+const { simple_databasing } = require(`${process.cwd()}/handlers/functions`);
 module.exports = client => {
     
   client.getFooter = (es, stringurl = null) => {
@@ -11,7 +11,7 @@ module.exports = client => {
 
     let text = embedData.footertext;
     let iconURL = embedData.footericon;
-    if(!text || text.length < 1) text = `${client.user.username} | By: sh3hub#1337`;
+    if(!text || text.length < 1) text = `${client.user.username} | By: xxehub#6290`;
     if(!iconURL || iconURL.length < 1) iconURL = `${client.user.displayAvatarURL()}`;
     
     //Change the lengths
@@ -31,22 +31,21 @@ module.exports = client => {
     let iconURL = authoricon;
     let url = authorurl;
 
-    if(!name || name.length < 1) name = `${client.user.username} | By: sh3hub#1337`;
+    if(!name || name.length < 1) name = `${client.user.username} | By: xxehub#6290`;
     if(!iconURL || iconURL.length < 1) iconURL = `${client.user.displayAvatarURL()}`;
-    if(!url || url.length < 1) url = `https://discord.gg/sh3hub`;
+    if(!url || url.length < 1) url = `https://discord.gg/xxehub`;
 
     //Change the lengths
     iconURL = iconURL.trim();
     name = name.trim().substring(0, 2048);
     
     //verify the iconURL
-    if(!url.startsWith("https://") && !url.startsWith("http://")) url = `https://discord.gg/sh3hub`;
+    if(!url.startsWith("https://") && !url.startsWith("http://")) url = `https://discord.gg/xxehub`;
     if(!iconURL.startsWith("https://") && !iconURL.startsWith("http://")) iconURL = client.user.displayAvatarURL();
     if(![".png", ".jpg", ".wpeg", ".webm", ".gif"].some(d => iconURL.toLowerCase().endsWith(d))) iconURL = client.user.displayAvatarURL();
     //return the footerobject
     return { name, iconURL, url }
   }
-
   process.on('unhandledRejection', (reason, p) => {
     console.log('\n\n\n\n\n=== unhandled Rejection ==='.toUpperCase().yellow.dim);
     console.log('Reason: ', reason.stack ? String(reason.stack).gray : String(reason).gray);
@@ -128,7 +127,7 @@ module.exports = client => {
     let ls = client.settings.get(guild.id, "language")
     let embed = new MessageEmbed()
       .setColor("GREEN")
-      .setTitle(`<a:Join_vc:863876115584385074> Joined a New Server`)
+      .setTitle(`<:joined:966523117642088468> Joined a New Server`)
       .addField("Guild Info", `>>> \`\`\`${guild.name} (${guild.id})\`\`\``)
       .addField("Owner Info", `>>> \`\`\`${theowner ? `${theowner.tag} (${theowner.id})` : `${theowner} (${guild.ownerId})`}\`\`\``)
       .addField("Member Count", `>>> \`\`\`${guild.memberCount}\`\`\``)
@@ -136,10 +135,10 @@ module.exports = client => {
       .addField("Leave Server:", `>>> \`\`\`${config.prefix}leaveserver ${guild.id}\`\`\``)
       .setThumbnail(guild.iconURL({dynamic: true}));
     for(const owner of config.ownerIDS){
-      //If the Owner is Tomato, and the Bot is in not a Milrato Development, Public Bot, then dont send information!
+      //If the Owner is Tomato, and the Bot is in not a xxehub Development, Public Bot, then dont send information!
       if(owner == "442355791412854784"){
-        let milratoGuild = client.guilds.cache.get("773668217163218944");
-        if(milratoGuild && !milratoGuild.me.roles.cache.has("779021235790807050")){
+        let xxehubGuild = client.guilds.cache.get("773668217163218944");
+        if(xxehubGuild && !xxehubGuild.me.roles.cache.has("779021235790807050")){
           continue; 
         }
       }
@@ -151,63 +150,23 @@ module.exports = client => {
 
   client.on("guildDelete", async guild => {
     if(!guild || guild.available === false) return
-    function clearDBData(key) {
-      function cleardb(db, theKey) {
-        if(db && db?.has(theKey)) {
-          db?.delete(theKey);
-        }
-      }
-      cleardb(client.notes, key)
-      cleardb(client.economy, key)
-      cleardb(client.invitesdb, key)
-      cleardb(client.youtube_log, key)
-      cleardb(client.premium, key)
-      cleardb(client.snipes, key)
-      cleardb(client.afkDB, key)
-      // cleardb(client.stats, key) //dont clear stats
-      // cleardb(client.modActions, key) //dont clear modactions
-      // cleardb(client.userProfiles, key) //dont clear userprofiles
-      cleardb(client.musicsettings, key)
-      cleardb(client.settings, key)
-      for (let i = 0; i <= 100; i++) {
-          let index = i + 1;
-          cleardb(client[`jtcsettings${index != 1 ? index : ""}`], key)
-          cleardb(client[`roster${index != 1 ? index : ""}`], key)
-          cleardb(client[`autosupport${i}`], key)
-          cleardb(client[`menuticket${i}`], key)
-          cleardb(client[`menuapply${i}`], key)
-          cleardb(client[`apply${i}`], key)
-      }
-      cleardb(client.jointocreatemap, key)
-      cleardb(client.joinvc, key)
-      cleardb(client.setups, key)
-      cleardb(client.queuesaves, key)
-      cleardb(client.points, key)
-      cleardb(client.voicepoints, key)
-      cleardb(client.reactionrole, key)
-      cleardb(client.social_log, key)
-      cleardb(client.blacklist, key)
-      cleardb(client.customcommands, key)
-      cleardb(client.keyword, key)
-    }
-    clearDBData(guild.id);
     let theowner = "NO OWNER DATA! ID: ";
     await guild.fetchOwner().then(({ user }) => {
       theowner = user;
     }).catch(() => {})
     let embed = new MessageEmbed()
       .setColor("RED")
-      .setTitle(`<:leaves:866356598356049930> Left a Server`)
+      .setTitle(`<:leaves:966523117625298974> Left a Server`)
       .addField("Guild Info", `>>> \`\`\`${guild.name} (${guild.id})\`\`\``)
       .addField("Owner Info", `>>> \`\`\`${theowner ? `${theowner.tag} (${theowner.id})` : `${theowner} (${guild.ownerId})`}\`\`\``)
       .addField("Member Count", `>>> \`\`\`${guild.memberCount}\`\`\``)
       .addField("Servers Bot is in", `>>> \`\`\`${client.guilds.cache.size}\`\`\``)
       .setThumbnail(guild.iconURL({dynamic: true}));
     for(const owner of config.ownerIDS){
-      //If the Owner is Tomato, and the Bot is in not a Milrato Development, Public Bot, then dont send information!
+      //If the Owner is Tomato, and the Bot is in not a xxehub Development, Public Bot, then dont send information!
       if(owner == "442355791412854784"){
-        let milratoGuild = client.guilds.cache.get("773668217163218944");
-        if(milratoGuild && !milratoGuild.me.roles.cache.has("779021235790807050")){
+        let xxehubGuild = client.guilds.cache.get("773668217163218944");
+        if(xxehubGuild && !xxehubGuild.me.roles.cache.has("779021235790807050")){
           continue; 
         }
       }
@@ -216,5 +175,4 @@ module.exports = client => {
       }).catch(() => {});
     }
   });
-  return;
 }

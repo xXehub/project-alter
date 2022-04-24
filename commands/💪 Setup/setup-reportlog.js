@@ -55,9 +55,9 @@ module.exports = {
           .addOptions(
             menuoptions.map(option => {
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
               if (option.emoji) Obj.emoji = option.emoji;
               return Obj;
@@ -127,7 +127,7 @@ module.exports = {
                     embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-reportlog"]["variable7"]))
                       .setColor(es.color)
-                      .setDescription(`If someone executes the Report Command, a Log Information will be sent in that Channel`.substring(0, 2048))
+                      .setDescription(`If someone executes the Report Command, a Log Information will be sent in that Channel`.substr(0, 2048))
                       .setFooter(client.getFooter(es))
                     ]
                   });
@@ -141,7 +141,7 @@ module.exports = {
                   embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-reportlog"]["variable8"]))
                     .setColor(es.wrongcolor)
-                    .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                    .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                     .setFooter(client.getFooter(es))
                   ]
                 });
@@ -154,7 +154,7 @@ module.exports = {
             embeds: [new Discord.MessageEmbed()
               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-reportlog"]["variable9"]))
               .setColor(es.color)
-              .setDescription(`If someone executes an Admin Command, **no** Information will be sent`.substring(0, 2048))
+              .setDescription(`If someone executes an Admin Command, **no** Information will be sent`.substr(0, 2048))
               .setFooter(client.getFooter(es))
             ]
           });

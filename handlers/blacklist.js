@@ -6,7 +6,7 @@ const ms = require("ms");
 var {
     MessageEmbed, Permissions
 } = require(`discord.js`);
-const {databasing} = require(`./functions`)
+const {databasing} = require(`${process.cwd()}/handlers/functions`)
 const countermap = new Map();
 module.exports = client => {
   

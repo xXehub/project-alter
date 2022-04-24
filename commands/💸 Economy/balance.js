@@ -29,7 +29,7 @@ module.exports = {
           user = await GetUser(message, args)
         } catch (e) {
           if (!e) return message.reply(eval(client.la[ls]["cmds"]["economy"]["balance"]["variable1"]))
-          return message.reply({content: String('```' + e.message ? String(e.message).substring(0, 1900) : String(e) + '```')})
+          return message.reply({content: String('```' + e.message ? String(e.message).substr(0, 1900) : String(e) + '```')})
         }
       } else {
         user = message.author;

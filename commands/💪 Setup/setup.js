@@ -228,9 +228,9 @@ module.exports = {
             menuoptions.map((option, index) => {
               if(index < Math.ceil(menuoptions.length/3)){
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
               if(option.emoji) Obj.emoji = option.emoji;
               return Obj;
@@ -243,9 +243,9 @@ module.exports = {
             menuoptions.map((option, index) => {
               if(index >= Math.ceil(menuoptions.length/3) && index < 2*Math.ceil(menuoptions.length/3)){
                 let Obj = {
-                  label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                  value: option.value.substring(0, 50),
-                  description: option.description.substring(0, 50),
+                  label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                  value: option.value.substr(0, 50),
+                  description: option.description.substr(0, 50),
                 }
                 if(option.emoji) Obj.emoji = option.emoji;
                 return Obj;
@@ -258,9 +258,9 @@ module.exports = {
             menuoptions.map((option, index) => {
               if(index >= 2*Math.ceil(menuoptions.length/3)){
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
             if(option.emoji) Obj.emoji = option.emoji;
             return Obj;

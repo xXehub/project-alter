@@ -27,101 +27,54 @@ module.exports = {
     let es = client.settings.get(message.guild.id, "embed");
     let ls = client.settings.get(message.guild.id, "language")
     try {
-      var theDB = client.menuapply;
-      let pre;
+      var theDB = client.menuapply1;
       //setup-menuapply
       let NumberEmojiIds = getNumberEmojis().map(emoji => emoji?.replace(">", "").split(":")[2])
       let NumberEmojis = getNumberEmojis().map(emoji => emoji?.replace(">", "").split(":")[2])
       first_layer()
       async function first_layer() {
-        
-        let menuoptions = []
-        for(let i = 1; i<=100;i++) {
-          menuoptions.push({
-            value: `${i}. Menu Apply`,
-            description: `Manage/Edit the ${i}. Menu Apply Setup`,
-            emoji: NumberEmojiIds[i]
-          })
-        }
-        
-        let row1 = new MessageActionRow().addComponents(new MessageSelectMenu()
+        let menuoptions = [{
+            value: "1. Menu Apply",
+            description: `Manage the 1. Menu Apply System`,
+            emoji: "967643569936547900" // NOMER EMOJI
+          },
+          {
+            value: "2. Menu Apply",
+            description: `Manage the 2. Menu Apply System`,
+            emoji: "967643569072504864" // NOMER EMOJI
+          },
+          {
+            value: "3. Menu Apply",
+            description: `Manage the 3. Menu Apply System`,
+            emoji: "967643569282224129" // NOMER EMOJI
+          },
+        ]
+        //define the selection
+        let Selection = new MessageSelectMenu()
           .setCustomId('MenuSelection')
-          .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
-          .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-          .setPlaceholder('Click me to setup the Menu Apply System!')
+          .setMaxValues(1)
+          .setMinValues(1)
+          .setPlaceholder('Click me to setup the Menu-Apply System!')
           .addOptions(
-            menuoptions.slice(0, 25).map(option => {
+            menuoptions.map(option => {
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
               if (option.emoji) Obj.emoji = option.emoji;
               return Obj;
-            })
-          )
-        )
-        let row2 = new MessageActionRow().addComponents(new MessageSelectMenu()
-          .setCustomId('MenuSelection2')
-          .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
-          .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-          .setPlaceholder('Click me to setup the Menu Apply System!')
-          .addOptions(
-            menuoptions.slice(25, 50).map(option => {
-              let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
-              }
-              if (option.emoji) Obj.emoji = option.emoji;
-              return Obj;
-            })
-          )
-        )
-        let row3 = new MessageActionRow().addComponents(new MessageSelectMenu()
-          .setCustomId('MenuSelection3')
-          .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
-          .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-          .setPlaceholder('Click me to setup the Menu Apply System!')
-          .addOptions(
-            menuoptions.slice(50, 75).map(option => {
-              let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
-              }
-              if (option.emoji) Obj.emoji = option.emoji;
-              return Obj;
-            })
-          )
-        )
-        let row4 = new MessageActionRow().addComponents(new MessageSelectMenu()
-          .setCustomId('MenuSelection4')
-          .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
-          .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-          .setPlaceholder('Click me to setup the Menu Apply System!')
-          .addOptions(
-            menuoptions.slice(75, 100).map(option => {
-              let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
-              }
-              if (option.emoji) Obj.emoji = option.emoji;
-              return Obj;
-            })
-          )
-        )
-        
+            }))
+        //define the embed
         let MenuEmbed = new Discord.MessageEmbed()
           .setColor(es.color)
-          .setAuthor(client.getAuthor('Menu Apply Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png', 'https://discord.gg/milrato'))
+          .setAuthor('Menu Apply Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png', 'https://discord.gg/xxehub')
           .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
           
         //send the menu msg
         let menumsg = await message.reply({
           embeds: [MenuEmbed],
-          components: [row1, row2, row3, row4, new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://youtu.be/QGESDc31d4U").setLabel("Tutorial Video").setEmoji("840260133686870036"))]
+          components: [new MessageActionRow().addComponents(Selection), new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://alterraworlds.xyz/").setLabel("Alterra-Worlds").setEmoji("966681720906731530"))]
         })
         //Create the collector
         const collector = menumsg.createMessageComponentCollector({
@@ -136,11 +89,10 @@ module.exports = {
             if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
             menu?.deferUpdate();
             let SetupNumber = menu?.values[0].split(".")[0];
-            pre = `menuapply${SetupNumber}` 
-            theDB = client.menuapply; //change to the right database
+            theDB = client[`menuapply${SetupNumber}`]; //change to the right database
             second_layer()
           } else menu?.reply({
-            content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `<:no:939372664559132723> You are not allowed to do that! Only: <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -149,7 +101,7 @@ module.exports = {
           menumsg.edit({
             embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)],
             components: [],
-            content: `<a:yes:833101995723194437> **Selected: \`${collected && collected.first() && collected.first().values ? collected.first().values[0] : "Nothing"}\`**`
+            content: `<a:Check_List_Ijo:878170554815905792> **Selected: \`${collected && collected.first() && collected.first().values ? collected.first().values[0] : "Nothing"}\`**`
           })
         });
       }
@@ -167,7 +119,7 @@ module.exports = {
               }
             */
           ]
-        },pre);
+        });
         let menuoptions = [{
             value: "Send the Config	Message",
             description: `(Re) Send the Menu Apply Message`,
@@ -189,13 +141,13 @@ module.exports = {
           .setCustomId('MenuSelection')
           .setMaxValues(1)
           .setMinValues(1)
-          .setPlaceholder('Click me to setup the Menu Apply System!')
+          .setPlaceholder('Click me to setup the Menu-Apply System!')
           .addOptions(
             menuoptions.map(option => {
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
               if (option.emoji) Obj.emoji = option.emoji;
               return Obj;
@@ -203,13 +155,13 @@ module.exports = {
         //define the embed
         let MenuEmbed = new Discord.MessageEmbed()
           .setColor(es.color)
-          .setAuthor('Menu Apply Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png', 'https://discord.gg/milrato')
+          .setAuthor('Menu Apply Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png', 'https://discord.gg/xxehub')
           .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
           
         //send the menu msg
         let menumsg = await message.reply({
           embeds: [MenuEmbed],
-          components: [new MessageActionRow().addComponents(Selection), new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://youtu.be/QGESDc31d4U").setLabel("Tutorial Video").setEmoji("840260133686870036"))]
+          components: [new MessageActionRow().addComponents(Selection), new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://alterraworlds.xyz/").setLabel("Alterra-Worlds").setEmoji("966681720906731530"))]
         })
         //Create the collector
         const collector = menumsg.createMessageComponentCollector({
@@ -225,7 +177,7 @@ module.exports = {
             menu?.deferUpdate();
             handle_the_picks(menu?.values[0], menuoptiondata)
           } else menu?.reply({
-            content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `<:no:939372664559132723> You are not allowed to do that! Only: <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -234,17 +186,17 @@ module.exports = {
           menumsg.edit({
             embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)],
             components: [],
-            content: `<a:yes:833101995723194437> **Selected: \`${collected && collected.first() && collected.first().values ? collected.first().values[0] : "Nothing"}\`**`
+            content: `<a:Check_List_Ijo:878170554815905792> **Selected: \`${collected && collected.first() && collected.first().values ? collected.first().values[0] : "Nothing"}\`**`
           })
         });
       }
       async function handle_the_picks(optionhandletype, menuoptiondata) {
         switch (optionhandletype) {
           case "Send the Config	Message": {
-            let data = theDB.get(message.guild.id, pre+".data");
-            let settings = theDB.get(message.guild.id, pre);
+            let data = theDB.get(message.guild.id, "data");
+            let settings = theDB.get(message.guild.id);
             if (!data || data.length < 1) {
-              return message.reply("<:no:833101993668771842> **You need to add at least 1 Open-Apply-Option**")
+              return message.reply("<:no:939372664559132723> **You need to add at least 1 Open-Apply-Option**")
             }
             let tempmsg = await message.reply({
               embeds: [
@@ -276,7 +228,7 @@ module.exports = {
                 time: 90000, errors: ["time"]
               });
               if (collected2 && collected2.first().mentions.channels.size > 0) {
-                let data = theDB.get(message.guild.id, pre+".data");
+                let data = theDB.get(message.guild.id, "data");
                 let channel = collected2.first().mentions.channels.first();
                 let msgContent = collected.first().content;
                 let embed = new MessageEmbed()
@@ -294,9 +246,9 @@ module.exports = {
                   .addOptions(
                     data.map((option, index) => {
                       let Obj = {
-                        label: option.value.substring(0, 50),
-                        value: option.value.substring(0, 50),
-                        description: option.description.substring(0, 50),
+                        label: option.value.substr(0, 50),
+                        value: option.value.substr(0, 50),
+                        description: option.description.substr(0, 50),
                         emoji: isEmoji(option.emoji) ? option.emoji : NumberEmojiIds[index + 1]
                       }
                       return Obj;
@@ -314,9 +266,9 @@ module.exports = {
                   .addOptions(
                     data.map((option, index) => {
                       let Obj = {
-                        label: option.value.substring(0, 50),
-                        value: option.value.substring(0, 50),
-                        description: option.description.substring(0, 50),
+                        label: option.value.substr(0, 50),
+                        value: option.value.substr(0, 50),
+                        description: option.description.substr(0, 50),
                         emoji: NumberEmojiIds[index + 1]
                       }
                       return Obj;
@@ -325,27 +277,27 @@ module.exports = {
                     embeds: [embed],
                     components: [new MessageActionRow().addComponents([Selection])]
                   }).then(msg => {
-                    theDB.set(message.guild.id, msg.id, pre+".messageId");
-                    theDB.set(message.guild.id, channel.id, pre+".channelId");
+                    theDB.set(message.guild.id, msg.id, "messageId");
+                    theDB.set(message.guild.id, channel.id, "channelId");
                     message.reply(`Successfully Setupped the Menu-Apply in <#${channel.id}>`)
                   });
                 }).then(msg => {
-                  theDB.set(message.guild.id, msg.id, pre+".messageId");
-                  theDB.set(message.guild.id, channel.id, pre+".channelId");
+                  theDB.set(message.guild.id, msg.id, "messageId");
+                  theDB.set(message.guild.id, channel.id, "channelId");
                   message.reply(`Successfully Setupped the Menu-Apply in <#${channel.id}>`)
                 });
               } else {
-                return message.reply("<:no:833101993668771842> **You did not ping a valid Channel!**")
+                return message.reply("<:no:939372664559132723> **You did not ping a valid Channel!**")
               }
             } else {
-              return message.reply("<:no:833101993668771842> **You did not enter a Valid Message in Time! CANCELLED!**")
+              return message.reply("<:no:939372664559132723> **You did not enter a Valid Message in Time! CANCELLED!**")
             }
           }
           break;
           case "Add Apply Option": {
-            let data = theDB.get(message.guild.id, pre+".data");
+            let data = theDB.get(message.guild.id, "data");
             if (data.length >= 25) {
-              return message.reply("<:no:833101993668771842> **You reached the limit of 25 different Options!** Remove another Option first!")
+              return message.reply("<:no:939372664559132723> **You reached the limit of 25 different Options!** Remove another Option first!")
             }
             //ask for value and description
             let tempmsg = await message.reply({
@@ -362,201 +314,172 @@ module.exports = {
               time: 90000, errors: ["time"]
             });
             if (collected && collected.first().content) {
-              if (!collected.first().content.includes("++")) return message.reply("<:no:833101993668771842> **Invalid Usage! Please mind the Usage and check the Example**")
-              let value = collected.first().content.split("++")[0].trim().substring(0, 25);
+              if (!collected.first().content.includes("++")) return message.reply("<:no:939372664559132723> **Invalid Usage! Please mind the Usage and check the Example**")
+              let value = collected.first().content.split("++")[0].trim().substr(0, 25);
               let index = data.findIndex(v => v.value == value);
               if(index >= 0) {
-                  return message.reply("<:no:833101993668771842> **Options can't have the SAME VALUE!** There is already an Option with that Value!");
+                  return message.reply("<:no:939372664559132723> **Options can't have the SAME VALUE!** There is already an Option with that Value!");
               }
-              let description = collected.first().content.split("++")[1].trim().substring(0, 50);
+              let description = collected.first().content.split("++")[1].trim().substr(0, 50);
 
-              
-              let menuoptions = []
-              for(let i = 1; i<=100;i++) {
-                menuoptions.push({
-                  value: `${i} Apply System`,
-                  description: `Manage/Edit the ${i} Apply Setup`,
-                  emoji: NumberEmojiIds[i]
-                })
+              let menuoptions = [{
+                value: "1 Apply System",
+                description: `Link to the 1. Apply System`,
+                emoji: NumberEmojiIds[1]
+              },
+              {
+                value: "2 Apply System",
+                description: `Link to the 2. Apply System`,
+                emoji: NumberEmojiIds[2]
+              },
+              {
+                value: "3 Apply System",
+                description: `Link to the 3. Apply System`,
+                emoji: NumberEmojiIds[3]
+              },
+              {
+                value: "4 Apply System",
+                description: `Link to the 4. Apply System`,
+                emoji: NumberEmojiIds[4]
+              },
+              {
+                value: "5 Apply System",
+                description: `Link to the 5. Apply System`,
+                emoji: NumberEmojiIds[5]
               }
-              
-              let row1 = new MessageActionRow().addComponents(new MessageSelectMenu()
-                .setCustomId('MenuSelection')
-                .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
-                .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-                .setPlaceholder('Click me to setup the Menu Apply System!')
-                .addOptions(
-                  menuoptions.slice(0, 25).map(option => {
-                    let Obj = {
-                      label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                      value: option.value.substring(0, 50),
-                      description: option.description.substring(0, 50),
-                    }
-                    if (option.emoji) Obj.emoji = option.emoji;
-                    return Obj;
-                  })
-                )
-              )
-              let row2 = new MessageActionRow().addComponents(new MessageSelectMenu()
-                .setCustomId('MenuSelection2')
-                .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
-                .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-                .setPlaceholder('Click me to setup the Menu Apply System!')
-                .addOptions(
-                  menuoptions.slice(25, 50).map(option => {
-                    let Obj = {
-                      label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                      value: option.value.substring(0, 50),
-                      description: option.description.substring(0, 50),
-                    }
-                    if (option.emoji) Obj.emoji = option.emoji;
-                    return Obj;
-                  })
-                )
-              )
-              let row3 = new MessageActionRow().addComponents(new MessageSelectMenu()
-                .setCustomId('MenuSelection3')
-                .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
-                .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-                .setPlaceholder('Click me to setup the Menu Apply System!')
-                .addOptions(
-                  menuoptions.slice(50, 75).map(option => {
-                    let Obj = {
-                      label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                      value: option.value.substring(0, 50),
-                      description: option.description.substring(0, 50),
-                    }
-                    if (option.emoji) Obj.emoji = option.emoji;
-                    return Obj;
-                  })
-                )
-              )
-              let row4 = new MessageActionRow().addComponents(new MessageSelectMenu()
-                .setCustomId('MenuSelection4')
-                .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
-                .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
-                .setPlaceholder('Click me to setup the Menu Apply System!')
-                .addOptions(
-                  menuoptions.slice(75, 100).map(option => {
-                    let Obj = {
-                      label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                      value: option.value.substring(0, 50),
-                      description: option.description.substring(0, 50),
-                    }
-                    if (option.emoji) Obj.emoji = option.emoji;
-                    return Obj;
-                  })
-                )
-              )
-              //define the embed
-              let MenuEmbed = new Discord.MessageEmbed()
-                .setColor(es.color)
-                .setAuthor(client.getAuthor('Menu Apply Setup', 'https://cdn.discordapp.com/emojis/877653386747605032.png?size=96', 'https://discord.gg/milrato'))
-                .setDescription("Select which Application System should be started with this Option")
-              //send the menu msg
-              let menumsg = await message.reply({embeds: [MenuEmbed], components: [row1, row2, row3, row4]})
-              //Create the collector
-              const collector = menumsg.createMessageComponentCollector({ 
-                filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
-                time: 90000
+            ]
+            require("fs").readdirSync("./handlers/applies").forEach((file, index) => {
+              menuoptions.push({
+                value: `${index + 5 + 1} Apply System`,
+                description: `Link to the ${index + 5 + 1}. Apply System`,
+                emoji: NumberEmojiIds[index + 5 + 1]
               })
-              //Menu Collections
-              collector.on('collect', menu => {
-                if (menu?.user.id === cmduser.id) {
-                  collector.stop();
-                  if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
-                  menu?.deferUpdate();
-                  let applySystemExecution = menu?.values[0].split(" ")[0]
-                  let index = data.findIndex(v => v.applySystemExecution == applySystemExecution);
-                  if(index >= 0) {
-                      return message.reply("<:no:833101993668771842> **Options can't start the Same Apply System!** There is already an Option with that Application System!");
+            })
+            //define the selection
+            let Selection = new MessageSelectMenu()
+              .setCustomId('MenuSelection')
+              .setMaxValues(1) //OPTIONAL, this is how many values you can have at each selection
+              .setMinValues(1) //OPTIONAL , this is how many values you need to have at each selection
+              .setPlaceholder('Click me to setup the Application System(s)!')
+              .addOptions(
+                menuoptions.map(option => {
+                  let Obj = {
+                    label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                    value: option.value.substr(0, 50),
+                    description: option.description.substr(0, 50),
                   }
-                  
-                  let applypre = `apply${applySystemExecution}`
-                  var apply_for_here = client.apply
-                  if(!apply_for_here.has(message.guild.id) || !apply_for_here.has(message.guild.id, applypre) || !apply_for_here.has(message.guild.id, applypre+".QUESTIONS") || apply_for_here.get(message.guild.id, applypre+".QUESTIONS").length < 1) 
-                    return message.reply(`<:no:833101993668771842> **The ${applySystemExecution}. Apply System is not setupped / has no Questions, create it first with: \`${prefix}setup-apply\`**`)
-                  
-                  var rermbed = new MessageEmbed()
-                    .setColor(es.color)
-                    .setTitle("What should be the EMOJI to be displayed?")
-                    .setDescription(`React to __THIS MESSAGE__ with the Emoji you want!\n> Either click on the default Emoji or add a CUSTOM ONE/Standard`)
+                  if (option.emoji) Obj.emoji = option.emoji;
+                  return Obj;
+                }))
+    
+            //define the embed
+            let MenuEmbed = new Discord.MessageEmbed()
+              .setColor(es.color)
+              .setAuthor('Menu Apply Setup', 'https://cdn.discordapp.com/emojis/877653386747605032.png?size=96', 'https://discord.gg/xxehub')
+              .setDescription("Select which Application System should be started with this Option")
+            //send the menu msg
+            let menumsg = await message.reply({embeds: [MenuEmbed], components: [new MessageActionRow().addComponents(Selection)]})
+            //Create the collector
+            const collector = menumsg.createMessageComponentCollector({ 
+              filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+              time: 90000
+            })
+            //Menu Collections
+            collector.on('collect', menu => {
+              if (menu?.user.id === cmduser.id) {
+                collector.stop();
+                if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
+                menu?.deferUpdate();
+                let applySystemExecution = menu?.values[0].split(" ")[0]
+                let index = data.findIndex(v => v.applySystemExecution == applySystemExecution);
+                if(index >= 0) {
+                    return message.reply("<:no:939372664559132723> **Options can't start the Same Apply System!** There is already an Option with that Application System!");
+                }
+                
+                var apply_for_here = client[`apply${applySystemExecution == 1 ? "" : applySystemExecution }`]
+                if(!apply_for_here.has(message.guild.id) || !apply_for_here.has(message.guild.id, "QUESTIONS") || apply_for_here.get(message.guild.id, "QUESTIONS").length < 1) 
+                  return message.reply(`<:no:939372664559132723> **The ${applySystemExecution}. Apply System is not setupped / has no Questions, create it first with: \`${prefix}setup-apply\`**`)
+                
+                var rermbed = new MessageEmbed()
+                  .setColor(es.color)
+                  .setTitle("What should be the EMOJI to be displayed?")
+                  .setDescription(`React to __THIS MESSAGE__ with the Emoji you want!\n> Either click on the default Emoji or add a CUSTOM ONE/Standard`)
 
-                  var emoji;
-                  message.reply({embeds: [rermbed]}).then(async msg => {
-                    await msg.react(NumberEmojiIds[data.length]).catch(console.warn);
-                    msg.awaitReactions({ filter: (reaction, user) => user.id == cmduser.id, 
-                      max: 1,
-                      time: 180e3
-                    }).then(async collected => {
-                      await msg.reactions.removeAll().catch(console.warn);
-                      if (collected.first().emoji?.id && collected.first().emoji?.id.length > 2) {
-                        emoji = collected.first().emoji?.id;
-                        if (collected.first().emoji?.animated) emojiMsg = "<" + "a:" + collected.first().emoji?.name + ":" + collected.first().emoji?.id  + ">";
-                        else emojiMsg = "<" + ":" + collected.first().emoji?.name + ":" + collected.first().emoji?.id  + ">";
-                      } else if (collected.first().emoji?.name) {
-                        emoji = collected.first().emoji?.name;
-                        emojiMsg = collected.first().emoji?.name;
-                      } else {
-                        message.reply(":x: **No valid emoji added, using default EMOJI**");
-                        emoji = null;
-                        emojiMsg = NumberEmojis[data.length];
-                      }
-
-                      try {
-                        await msg.react(emoji);
-                        if(NumberEmojiIds.includes(collected.first().emoji?.id)){
-                          emoji = null;
-                          emojiMsg = NumberEmojis[data.length];
-                        }
-                      } catch (e){
-                        console.log(e)
-                        message.reply(":x: **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
-                        emoji = null;
-                        emojiMsg = NumberEmojis[data.length];
-                      }
-                      finished();
-                    }).catch(() => {
+                var emoji;
+                message.reply({embeds: [rermbed]}).then(async msg => {
+                  await msg.react(NumberEmojiIds[data.length]).catch(console.warn);
+                  msg.awaitReactions({ filter: (reaction, user) => user.id == cmduser.id, 
+                    max: 1,
+                    time: 180e3
+                  }).then(async collected => {
+                    await msg.reactions.removeAll().catch(console.warn);
+                    if (collected.first().emoji?.id && collected.first().emoji?.id.length > 2) {
+                      emoji = collected.first().emoji?.id;
+                      if (collected.first().emoji?.animated) emojiMsg = "<" + "a:" + collected.first().emoji?.name + ":" + collected.first().emoji?.id  + ">";
+                      else emojiMsg = "<" + ":" + collected.first().emoji?.name + ":" + collected.first().emoji?.id  + ">";
+                    } else if (collected.first().emoji?.name) {
+                      emoji = collected.first().emoji?.name;
+                      emojiMsg = collected.first().emoji?.name;
+                    } else {
                       message.reply(":x: **No valid emoji added, using default EMOJI**");
                       emoji = null;
                       emojiMsg = NumberEmojis[data.length];
-                      finished();
-                    });
-                  })
-                  function finished() {
-                    
+                    }
+
+                    try {
+                      await msg.react(emoji);
+                      if(NumberEmojiIds.includes(collected.first().emoji?.id)){
+                        emoji = null;
+                        emojiMsg = NumberEmojis[data.length];
+                      }
+                    } catch (e){
+                      console.log(e)
+                      message.reply(":x: **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
+                      emoji = null;
+                      emojiMsg = NumberEmojis[data.length];
+                    }
+                    finished();
+                  }).catch(() => {
+                    message.reply(":x: **No valid emoji added, using default EMOJI**");
+                    emoji = null;
+                    emojiMsg = NumberEmojis[data.length];
+                    finished();
+                  });
+                })
+                function finished() {
                   
-                    theDB.push(message.guild.id, {
-                      value,
-                      description,
-                      applySystemExecution,
-                      emoji
-                    }, pre+".data");
-                    message.reply({
-                      embeds: [
-                        new MessageEmbed()
-                        .setColor(es.color)
-                        .setTitle("Successfully added the New Data to the List!")
-                        .setDescription(`Make sure to re-send the Message, so that it's also updating it!\n> \`${prefix}setup-menuapply\` --> Send Config Message`)
-                      ]
-                    });
-                  }
+                
+                  theDB.push(message.guild.id, {
+                    value,
+                    description,
+                    applySystemExecution,
+                    emoji
+                  }, "data");
+                  message.reply({
+                    embeds: [
+                      new MessageEmbed()
+                      .setColor(es.color)
+                      .setTitle("Successfully added the New Data to the List!")
+                      .setDescription(`Make sure to re-send the Message, so that it's also updating it!\n> \`${prefix}setup-menuapply\` --> Send Config Message`)
+                    ]
+                  });
                 }
-                else menu?.reply({content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
-              });
-              //Once the Collections ended edit the menu message
-              collector.on('end', collected => {
-                menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:833101995723194437> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
-              });
+              }
+              else menu?.reply({content: `<:no:939372664559132723> You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+            });
+            //Once the Collections ended edit the menu message
+            collector.on('end', collected => {
+              menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:Check_List_Ijo:878170554815905792> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+            });
             } else {
-              return message.reply("<:no:833101993668771842> **You did not enter a Valid Message in Time! CANCELLED!**")
+              return message.reply("<:no:939372664559132723> **You did not enter a Valid Message in Time! CANCELLED!**")
             }
           }
           break;
           case "Remove Apply Option": {
-          let data = theDB.get(message.guild.id, pre+".data");
+          let data = theDB.get(message.guild.id, "data");
           if (!data || data.length < 1) {
-            return message.reply("<:no:833101993668771842> **There are no Open-Apply-Options to remove**")
+            return message.reply("<:no:939372664559132723> **There are no Open-Apply-Options to remove**")
           }
           let embed = new MessageEmbed()
             .setColor(es.color)
@@ -569,13 +492,13 @@ module.exports = {
             .setCustomId('MenuSelection')
             .setMaxValues(data.length)
             .setMinValues(1)
-            .setPlaceholder('Click me to setup the Menu Apply System!')
+            .setPlaceholder('Click me to setup the Menu-Apply System!')
             .addOptions(
               data.map((option, index) => {
                 let Obj = {
-                  label: option.value.substring(0, 50),
-                  value: option.value.substring(0, 50),
-                  description: option.description.substring(0, 50),
+                  label: option.value.substr(0, 50),
+                  value: option.value.substr(0, 50),
+                  description: option.description.substr(0, 50),
                   emoji: isEmoji(option.emoji) ? option.emoji : NumberEmojiIds[index + 1]
                 }
                 return Obj;
@@ -590,13 +513,13 @@ module.exports = {
             .setCustomId('MenuSelection')
             .setMaxValues(data.length)
             .setMinValues(1)
-            .setPlaceholder('Click me to setup the Menu Apply System!')
+            .setPlaceholder('Click me to setup the Menu-Apply System!')
             .addOptions(
               data.map((option, index) => {
                 let Obj = {
-                  label: option.value.substring(0, 50),
-                  value: option.value.substring(0, 50),
-                  description: option.description.substring(0, 50),
+                  label: option.value.substr(0, 50),
+                  value: option.value.substr(0, 50),
+                  description: option.description.substr(0, 50),
                   emoji: NumberEmojiIds[index + 1]
                 }
                 return Obj;
@@ -619,10 +542,10 @@ module.exports = {
                 let index = data.findIndex(v => v.value == value);
                 data.splice(index, 1)
               }
-              theDB.set(message.guild.id, data, pre+".data");
+              theDB.set(message.guild.id, data, "data");
               message.reply(`**Successfully removed:**\n>>> ${menu?.values.map(i => `\`${i}\``).join(", ")}\n\nDon't forget to resend the Apply Config-Message!`)
             } else menu?.reply({
-              content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`,
+              content: `<:no:939372664559132723> You are not allowed to do that! Only: <@${cmduser.id}>`,
               ephemeral: true
             });
           });
@@ -631,7 +554,7 @@ module.exports = {
             menumsg.edit({
               embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)],
               components: [],
-              content: `<a:yes:833101995723194437> **Selected: \`${collected.first().values[0]}\`**`
+              content: `<a:Check_List_Ijo:878170554815905792> **Selected: \`${collected.first().values[0]}\`**`
             })
           });
         }
@@ -695,10 +618,10 @@ module.exports = {
 };
 /**
  * @INFO
- * Bot Coded by Tomato#6966 | https://discord.gg/milrato
+ * Bot Coded by Tomato#6966 | https://discord.gg/xxehub
  * @INFO
- * Work for Milrato Development | https://milrato.eu
+ * Work for xxehub Development | https://xxehub.eu
  * @INFO
- * Please mention him / Milrato Development, when using this Code!
+ * Please mention him / xxehub Development, when using this Code!
  * @INFO
  */

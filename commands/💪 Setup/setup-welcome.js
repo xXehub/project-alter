@@ -77,9 +77,9 @@ module.exports = {
           .addOptions(
           menuoptions.map(option => {
             let Obj = {
-              label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-              value: option.value.substring(0, 50),
-              description: option.description.substring(0, 50),
+              label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+              value: option.value.substr(0, 50),
+              description: option.description.substr(0, 50),
             }
           if(option.emoji) Obj.emoji = option.emoji;
           return Obj;
@@ -162,9 +162,9 @@ module.exports = {
                 .addOptions(
                 menuoptions.map(option => {
                   let Obj = {
-                    label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                    value: option.value.substring(0, 50),
-                    description: option.description.substring(0, 50),
+                    label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                    value: option.value.substr(0, 50),
+                    description: option.description.substr(0, 50),
                   }
                 if(option.emoji) Obj.emoji = option.emoji;
                 return Obj;
@@ -221,7 +221,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable9"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "Not defined yet"}!\nEdit the message with: \`${prefix}setup-welcome\``.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "Not defined yet"}!\nEdit the message with: \`${prefix}setup-welcome\``.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                     } else {
@@ -233,7 +233,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable12"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                      .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   })
@@ -243,7 +243,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable13"]))
                     .setColor(es.color)
-                    .setDescription(`If Someone joins this Server, no message will be sent into a Channel!\nSet a Channel with: \`${prefix}setup-welcome\` --> Pick 1️⃣ --> Pick 1️⃣`.substring(0, 2048))
+                    .setDescription(`If Someone joins this Server, no message will be sent into a Channel!\nSet a Channel with: \`${prefix}setup-welcome\` --> Pick 1️⃣ --> Pick 1️⃣`.substr(0, 2048))
                     .setFooter(client.getFooter(es))
                   ]});
                 }break;
@@ -321,9 +321,9 @@ module.exports = {
                       .addOptions(
                       menuoptions.map(option => {
                         let Obj = {
-                          label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                          value: option.value.substring(0, 50),
-                          description: option.description.substring(0, 50),
+                          label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                          value: option.value.substr(0, 50),
+                          description: option.description.substr(0, 50),
                         }
                       if(option.emoji) Obj.emoji = option.emoji;
                       return Obj;
@@ -365,7 +365,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable18"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with__out__ an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with__out__ an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -374,7 +374,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable21"]))
                           .setColor(es.color)
-                          .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -399,7 +399,7 @@ module.exports = {
                                 return message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable26"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -417,7 +417,7 @@ module.exports = {
                                 return message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable28"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -443,7 +443,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable31"]))
                               .setColor(es.wrongcolor)
-                              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                               .setFooter(client.getFooter(es))
                             ]});
                           })
@@ -454,7 +454,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable32"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -478,7 +478,7 @@ module.exports = {
                                 return message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable36"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -495,7 +495,7 @@ module.exports = {
                                 return message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable38"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.custom") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }\n\nIf Someone joins this Server, a message **with an image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -521,7 +521,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable41"]))
                               .setColor(es.wrongcolor)
-                              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                               .setFooter(client.getFooter(es))
                             ]});
                           })
@@ -532,7 +532,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable42"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -542,7 +542,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable45"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -552,7 +552,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable48"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -562,7 +562,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable51"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -572,7 +572,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable54"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -616,7 +616,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable59"]))
                               .setColor(color)
-                              .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                              .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                               .setFooter(client.getFooter(es))
                             ]});  
                           } else {
@@ -646,7 +646,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable66"]))
                       .setColor(es.color)
-                      .setDescription(`If Someone joins this Server, this message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL YET"}!\n\n${message.content.replace("{user}", `${cmduser.user}`).replace("{username}", `${cmduser.user.username}`).replace("{usertag}", `${cmduser.user.tag}`)}`.substring(0, 2048))
+                      .setDescription(`If Someone joins this Server, this message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL YET"}!\n\n${message.content.replace("{user}", `${cmduser.user}`).replace("{username}", `${cmduser.user.username}`).replace("{usertag}", `${cmduser.user.tag}`)}`.substr(0, 2048))
                       .setFooter(client.getFooter(es))
                     ]});
                   })
@@ -655,7 +655,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable69"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                      .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   })
@@ -665,7 +665,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable70"]))
                     .setColor(es.color)
-                    .setDescription(`If Someone joins this Server, a message with Invite Information will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "Not defined yet"}!\nEdit the message with: \`${prefix}setup-welcome\``.substring(0, 2048))
+                    .setDescription(`If Someone joins this Server, a message with Invite Information will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "Not defined yet"}!\nEdit the message with: \`${prefix}setup-welcome\``.substr(0, 2048))
                     .setFooter(client.getFooter(es))
                   ]});
                 }break;
@@ -706,9 +706,9 @@ module.exports = {
                 .addOptions(
                 menuoptions.map(option => {
                   let Obj = {
-                    label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                    value: option.value.substring(0, 50),
-                    description: option.description.substring(0, 50),
+                    label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                    value: option.value.substr(0, 50),
+                    description: option.description.substr(0, 50),
                   }
                 if(option.emoji) Obj.emoji = option.emoji;
                 return Obj;
@@ -765,7 +765,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable9"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.secondchannel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.secondchannel")) : "Not defined yet"}!\nEdit the message with: \`${prefix}setup-welcome\``.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.secondchannel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.secondchannel")) : "Not defined yet"}!\nEdit the message with: \`${prefix}setup-welcome\``.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                     } else {
@@ -777,7 +777,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable12"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                      .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   })
@@ -787,7 +787,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable13"]))
                     .setColor(es.color)
-                    .setDescription(`If Someone joins this Server, no message will be sent into a Channel!\nSet a Channel with: \`${prefix}setup-welcome\` --> Pick 1️⃣ --> Pick 1️⃣`.substring(0, 2048))
+                    .setDescription(`If Someone joins this Server, no message will be sent into a Channel!\nSet a Channel with: \`${prefix}setup-welcome\` --> Pick 1️⃣ --> Pick 1️⃣`.substr(0, 2048))
                     .setFooter(client.getFooter(es))
                   ]});
                 }break;
@@ -809,7 +809,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable66"]))
                       .setColor(es.color)
-                      .setDescription(`If Someone joins this Server, this message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.secondchannel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.secondchannel")) : "NO CHANNEL YET"}!\n\n${message.content.replace("{user}", `${cmduser.user}`).replace("{username}", `${cmduser.user.username}`).replace("{usertag}", `${cmduser.user.tag}`)}`.substring(0, 2048))
+                      .setDescription(`If Someone joins this Server, this message will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.secondchannel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.secondchannel")) : "NO CHANNEL YET"}!\n\n${message.content.replace("{user}", `${cmduser.user}`).replace("{username}", `${cmduser.user.username}`).replace("{usertag}", `${cmduser.user.tag}`)}`.substr(0, 2048))
                       .setFooter(client.getFooter(es))
                     ]});
                   })
@@ -818,7 +818,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable69"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                      .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   })
@@ -866,9 +866,9 @@ module.exports = {
                 .addOptions(
                 menuoptions.map(option => {
                   let Obj = {
-                    label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                    value: option.value.substring(0, 50),
-                    description: option.description.substring(0, 50),
+                    label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                    value: option.value.substr(0, 50),
+                    description: option.description.substr(0, 50),
                   }
                 if(option.emoji) Obj.emoji = option.emoji;
                 return Obj;
@@ -995,9 +995,9 @@ module.exports = {
                       .addOptions(
                       menuoptions.map(option => {
                         let Obj = {
-                          label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                          value: option.value.substring(0, 50),
-                          description: option.description.substring(0, 50),
+                          label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                          value: option.value.substr(0, 50),
+                          description: option.description.substr(0, 50),
                         }
                       if(option.emoji) Obj.emoji = option.emoji;
                       return Obj;
@@ -1072,7 +1072,7 @@ module.exports = {
                                 return message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable92"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -1090,7 +1090,7 @@ module.exports = {
                                 return message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable94"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -1116,7 +1116,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable31"]))
                               .setColor(es.wrongcolor)
-                              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                               .setFooter(client.getFooter(es))
                             ]});
                           })
@@ -1150,7 +1150,7 @@ module.exports = {
                                 return message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable102"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -1167,7 +1167,7 @@ module.exports = {
                                 return message.reply({embeds: [new Discord.MessageEmbed()
                                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable104"]))
                                   .setColor(es.color)
-                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }`.substring(0, 2048))
+                                  .setDescription(`I will be using ${client.settings.get(message.guild.id, "welcome.customdm") === "no" ? "an Auto generated Image with User Data": "Your defined, custom Image" }`.substr(0, 2048))
                                   .setFooter(client.getFooter(es))
                                 ]});
                               } else {
@@ -1193,7 +1193,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable41"]))
                               .setColor(es.wrongcolor)
-                              .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                              .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                               .setFooter(client.getFooter(es))
                             ]});
                           })
@@ -1213,7 +1213,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable111"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -1223,7 +1223,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable114"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -1233,7 +1233,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable117"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -1243,7 +1243,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable120"]))
                           .setColor(es.color)
-                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                          .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } break;
@@ -1287,7 +1287,7 @@ module.exports = {
                             return message.reply({embeds: [new Discord.MessageEmbed()
                               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable125"]))
                               .setColor(color)
-                              .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
+                              .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) ? message.guild.channels.cache.get(client.settings.get(message.guild.id, "welcome.channel")) : "NO CHANNEL DEFINED YET"}`.substr(0, 2048))
                               .setFooter(client.getFooter(es))
                             ]});
                           } else {
@@ -1317,7 +1317,7 @@ module.exports = {
                       return message.reply({embeds: [new Discord.MessageEmbed()
                         .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable132"]))
                         .setColor(es.color)
-                        .setDescription(`${message.content.replace("{user}", `${cmduser.user}`).replace("{username}", `${cmduser.user.username}`).replace("{usertag}", `${cmduser.user.tag}`)}`.substring(0, 2048))
+                        .setDescription(`${message.content.replace("{user}", `${cmduser.user}`).replace("{username}", `${cmduser.user.username}`).replace("{usertag}", `${cmduser.user.tag}`)}`.substr(0, 2048))
                         .setFooter(client.getFooter(es))
                       ]});
                     })
@@ -1326,7 +1326,7 @@ module.exports = {
                     return message.reply({embeds: [new Discord.MessageEmbed()
                       .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable69"]))
                       .setColor(es.wrongcolor)
-                      .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                      .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                       .setFooter(client.getFooter(es))
                     ]});
                   })
@@ -1377,9 +1377,9 @@ module.exports = {
                 .addOptions(
                 menuoptions.map(option => {
                   let Obj = {
-                    label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                    value: option.value.substring(0, 50),
-                    description: option.description.substring(0, 50),
+                    label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                    value: option.value.substr(0, 50),
+                    description: option.description.substr(0, 50),
                   }
                 if(option.emoji) Obj.emoji = option.emoji;
                 return Obj;
@@ -1442,7 +1442,7 @@ module.exports = {
                       return message.reply({embeds: [new Discord.MessageEmbed()
                         .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable145"]))
                         .setColor(es.color)
-                        .setDescription(`Everyone who joins will get those Roles now:\n<@&${client.settings.get(message.guild.id, "welcome.roles").join(">\n<@&")}>`.substring(0, 2048))
+                        .setDescription(`Everyone who joins will get those Roles now:\n<@&${client.settings.get(message.guild.id, "welcome.roles").join(">\n<@&")}>`.substr(0, 2048))
                         .setFooter(client.getFooter(es))
                       ]});
                     } else {
@@ -1454,7 +1454,7 @@ module.exports = {
                       return message.reply({embeds: [new Discord.MessageEmbed()
                         .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable146"]))
                         .setColor(es.wrongcolor)
-                        .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                        .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                         .setFooter(client.getFooter(es))
                       ]});
                   })
@@ -1485,7 +1485,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable150"]))
                           .setColor(es.color)
-                          .setDescription(`Everyone who joins will get those Roles now:\n<@&${client.settings.get(message.guild.id, "welcome.roles").join(">\n<@&")}>`.substring(0, 2048))
+                          .setDescription(`Everyone who joins will get those Roles now:\n<@&${client.settings.get(message.guild.id, "welcome.roles").join(">\n<@&")}>`.substr(0, 2048))
                           .setFooter(client.getFooter(es))
                         ]});
                       } else {
@@ -1497,7 +1497,7 @@ module.exports = {
                         return message.reply({embeds: [new Discord.MessageEmbed()
                           .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable151"]))
                           .setColor(es.wrongcolor)
-                          .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                          .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                           .setFooter(client.getFooter(es))
                         ]});
                     })
@@ -1506,7 +1506,7 @@ module.exports = {
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable152"]))
                     .setColor(es.color)
-                    .setDescription(`<@&${client.settings.get(message.guild.id, "welcome.roles").join(">\n<@&")}>`.substring(0, 2048))
+                    .setDescription(`<@&${client.settings.get(message.guild.id, "welcome.roles").join(">\n<@&")}>`.substr(0, 2048))
                     .setFooter(client.getFooter(es))
                   ]});
                 }break;
@@ -1518,7 +1518,7 @@ module.exports = {
             return message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable154"]))
               .setColor(es.color)
-              .setDescription(`${client.settings.get(message.guild.id, "welcome.captcha") ? "I will ask new Members to verify themself, then send welcome messages / add them the roles if they succeed, + I will kick them if they failed!..." : "I will not ask new Members to verify themself!"}`.substring(0, 2048))
+              .setDescription(`${client.settings.get(message.guild.id, "welcome.captcha") ? "I will ask new Members to verify themself, then send welcome messages / add them the roles if they succeed, + I will kick them if they failed!..." : "I will not ask new Members to verify themself!"}`.substr(0, 2048))
               .setFooter(client.getFooter(es))
             ]});
           }break;
@@ -1531,7 +1531,7 @@ module.exports = {
               if(!themessage || themessage.length == 0) themessage = ":wave: {user} **Welcome to our Server!** :v:";
               themessage = themessage.replace("{user}", `${member.user}`).replace("{username}", `${member.user.username}`).replace("{usertag}", `${member.user.tag}`)
               if(message.channel.permissionsFor(message.channel.guild.me).has(Discord.Permissions.FLAGS.SEND_MESSAGES)){
-                message.channel.send({content: `**CHANNEL 2 MESSAGE in ${welcome.secondchannel != "nochannel" ? `<#${welcome.secondchannel}>` : ` \`NO CHANNEL - SETUPPED\``}:**\n\n${themessage}`.substring(0, 2000)}).catch(() => {});
+                message.channel.send({content: `**CHANNEL 2 MESSAGE in ${welcome.secondchannel != "nochannel" ? `<#${welcome.secondchannel}>` : ` \`NO CHANNEL - SETUPPED\``}:**\n\n${themessage}`.substr(0, 2000)}).catch(() => {});
               }
             }
       
@@ -1575,7 +1575,7 @@ module.exports = {
                     }).catch(() => {});
                   } else {
                     channel.send({
-                      content: `**CHANNEL WELCOME in ${welcome.channel!= "nochannel" ? `<#${welcome.channel}>` : ` \`NO CHANNEL - SETUPPED\``}:**\n\n<@${member.user.id}>\n${welcomeembed.description}`.substring(0, 2000),
+                      content: `**CHANNEL WELCOME in ${welcome.channel!= "nochannel" ? `<#${welcome.channel}>` : ` \`NO CHANNEL - SETUPPED\``}:**\n\n<@${member.user.id}>\n${welcomeembed.description}`.substr(0, 2000),
                     }).catch(() => {});
                   }
                 }
@@ -1643,7 +1643,7 @@ module.exports = {
                   }).catch(() => {});
                 } else {
                   channel.send({
-                    content: `**CHANNEL WELCOME in ${welcome.channel!= "nochannel" ? `<#${welcome.channel}>` : ` \`NO CHANNEL - SETUPPED\``}:**\n\n<@${member.user.id}>\n${welcomeembed.description}`.substring(0, 2000),
+                    content: `**CHANNEL WELCOME in ${welcome.channel!= "nochannel" ? `<#${welcome.channel}>` : ` \`NO CHANNEL - SETUPPED\``}:**\n\n<@${member.user.id}>\n${welcomeembed.description}`.substr(0, 2000),
                   }).catch(() => {});
                 }
               }
@@ -1886,12 +1886,12 @@ module.exports = {
                       }).catch(() => {});
                     } else if(channel.permissionsFor(channel.guild.me).has(Discord.Permissions.FLAGS.ATTACH_FILES)){
                       channel.send({
-                        content: `**CHANNEL WELCOME in ${welcome.channel!= "nochannel" ? `<#${welcome.channel}>` : ` \`NO CHANNEL - SETUPPED\``}:**\n\n<@${member.user.id}>\n${welcomeembed.description}`.substring(0, 2000),
+                        content: `**CHANNEL WELCOME in ${welcome.channel!= "nochannel" ? `<#${welcome.channel}>` : ` \`NO CHANNEL - SETUPPED\``}:**\n\n<@${member.user.id}>\n${welcomeembed.description}`.substr(0, 2000),
                         files: [attachment]
                       }).catch(() => {});
                     } else {
                       channel.send({
-                        content: `**CHANNEL WELCOME in ${welcome.channel!= "nochannel" ? `<#${welcome.channel}>` : ` \`NO CHANNEL - SETUPPED\``}:**\n\n<@${member.user.id}>\n${welcomeembed.description}`.substring(0, 2000),
+                        content: `**CHANNEL WELCOME in ${welcome.channel!= "nochannel" ? `<#${welcome.channel}>` : ` \`NO CHANNEL - SETUPPED\``}:**\n\n<@${member.user.id}>\n${welcomeembed.description}`.substr(0, 2000),
                         files: [attachment]
                       }).catch(() => {});
                     }
@@ -1914,7 +1914,7 @@ module.exports = {
       return message.reply({embeds: [new MessageEmbed()
         .setColor(es.wrongcolor).setFooter(client.getFooter(es))
         .setTitle(client.la[ls].common.erroroccur)
-        .setDescription(`\`\`\`${String(JSON.stringify(e)).substring(0, 2000)}\`\`\``)
+        .setDescription(`\`\`\`${String(JSON.stringify(e)).substr(0, 2000)}\`\`\``)
       ]});
     }
   },

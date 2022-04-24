@@ -37,7 +37,7 @@ module.exports = {
 		//update it without a response!
 		await interaction?.reply({content: `Sending the Message...`, ephemeral: true}).catch(()=>{});
 		//SEND THE EMBED!
-		await channel.send({content: String(Text).substring(0, 2000).split("+n+").join("\n")}).catch(()=>{});
+		await channel.send({content: String(Text).substr(0, 2000).split("+n+").join("\n")}).catch(()=>{});
 		//Edit the reply
 		interaction?.editReply({content: `✅ Message sent in ${channel}!`, ephemeral: true}).catch(()=>{});
     } catch (e) {

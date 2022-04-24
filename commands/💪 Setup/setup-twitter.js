@@ -71,9 +71,9 @@ module.exports = {
           .addOptions(
             menuoptions.map(option => {
               let Obj = {
-                label: option.label ? option.label.substring(0, 50) : option.value.substring(0, 50),
-                value: option.value.substring(0, 50),
-                description: option.description.substring(0, 50),
+                label: option.label ? option.label.substr(0, 50) : option.value.substr(0, 50),
+                value: option.value.substr(0, 50),
+                description: option.description.substr(0, 50),
               }
               if (option.emoji) Obj.emoji = option.emoji;
               return Obj;
@@ -157,7 +157,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variable14"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });
@@ -257,7 +257,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variable29"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });
@@ -312,7 +312,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variable37"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });
@@ -355,7 +355,7 @@ module.exports = {
                 //require("../../social_log/twitterfeed").creat_twit(client);
                 message.reply({
                   embeds: [new Discord.MessageEmbed()
-                    .setTitle(`<a:yes:833101995723194437> Set the TWITTER USER ID TO: \`${collected.first().content}\``.substring(0, 256))
+                    .setTitle(`<a:yes:833101995723194437> Set the TWITTER USER ID TO: \`${collected.first().content}\``.substr(0, 256))
                     .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variable43"]))
                     .setColor(es.color)
                     .setFooter(client.getFooter(es))
@@ -382,7 +382,7 @@ module.exports = {
                       //require("../../social_log/twitterfeed").creat_twit(client);
                       return message.reply({
                         embeds: [new Discord.MessageEmbed()
-                          .setTitle(`<a:yes:833101995723194437> Set the TWITTER USER Name TO: \`${collected.first().content}\``.substring(0, 256))
+                          .setTitle(`<a:yes:833101995723194437> Set the TWITTER USER Name TO: \`${collected.first().content}\``.substr(0, 256))
                           .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variable46"]))
                           .setColor(es.color)
                           .addField(eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variablex_47"]), eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variable47"]))
@@ -406,7 +406,7 @@ module.exports = {
                       embeds: [new Discord.MessageEmbed()
                         .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variable50"]))
                         .setColor(es.wrongcolor)
-                        .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                        .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                         .setFooter(client.getFooter(es))
                       ]
                     });
@@ -428,7 +428,7 @@ module.exports = {
                 embeds: [new Discord.MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variable53"]))
                   .setColor(es.wrongcolor)
-                  .setDescription(`Cancelled the Operation!`.substring(0, 2000))
+                  .setDescription(`Cancelled the Operation!`.substr(0, 2000))
                   .setFooter(client.getFooter(es))
                 ]
               });
@@ -445,7 +445,7 @@ module.exports = {
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))
           .setTitle(client.la[ls].common.erroroccur)
-          .setDescription(`\`\`\`${String(JSON.stringify(e)).substring(0, 2000)}\`\`\``)
+          .setDescription(`\`\`\`${String(JSON.stringify(e)).substr(0, 2000)}\`\`\``)
         ]
       });
     }
