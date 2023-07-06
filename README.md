@@ -1,1 +1,1 @@
-**altera-worlds discord bot by xxehub**
+**altera-worlds official discord bot by xxehub**
