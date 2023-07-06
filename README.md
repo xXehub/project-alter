@@ -1,1 +1,1 @@
-HIDDEN PROJECT
+**altera-worlds discord bot by xxehub**
